@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PT from 'prop-types';
-
+import FilmContainer from './filmContainer'
 
 
 
@@ -17,7 +17,7 @@ class Form extends Component {
 
             <div style ={{"display":"block"}}>
 
-            <div style={{ "width": "700px", "margin-top": "100px", "border": "solid", "float":"left","margin-left": "100px","height": "700px", }}>
+            <div style={{ "width": "700px", "margin-top": "100px", "border": "solid", "float":"left","margin-left": "100px","height": "700px","margin-bottom": "100px" }}>
                 <div class="field">
                     <label class="label">Title</label>
                     <div class="control">
@@ -60,8 +60,9 @@ class Form extends Component {
 
             </div>
 
-            <div style ={{"border":"solid", "width": "700px", "height": "700px", "float":"right","margin-top": "100px","margin-right": "100px" }} >
+            <div style ={{"border":"solid", "width": "700px", "height": "700px", "float":"right","margin-top": "100px","margin-right": "100px","margin-bottom": "100px"  }} >
             <h1 className ="title"> Recently watched</h1>
+            <FilmContainer/>
 
                 </div>
 
