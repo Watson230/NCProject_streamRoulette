@@ -10,13 +10,14 @@ state={
     film:[]
 }
 
+
 render(){
     return(
 
-        <div>
+        
             <Film/>
 
-            </div>
+            
     )
 }
 

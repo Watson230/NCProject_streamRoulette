@@ -17,6 +17,7 @@ class Form extends Component {
 
             <div style ={{"display":"block"}}>
 
+                <div style={{"max-width":"60%","max-height":"60%"}}>
             <div style={{ "width": "700px", "margin-top": "100px", "border": "solid", "float":"left","margin-left": "100px","height": "700px","margin-bottom": "100px" }}>
                 <div class="field">
                     <label class="label">Title</label>
@@ -56,6 +57,7 @@ class Form extends Component {
                     <div class="control">
                         <button class="button is-text">Cancel</button>
                     </div>
+                </div>
                 </div>
 
             </div>

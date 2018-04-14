@@ -20,7 +20,7 @@ const Film = (props) => {
                         </figure>
                     </div>
                     <div class="media-content">
-                        <p class="title is-4"> film tit;e</p>
+                        <p class="title is-4"> film title</p>
                         <p class="subtitle is-6">@johnsmith</p>
                     </div>
                 </div>
