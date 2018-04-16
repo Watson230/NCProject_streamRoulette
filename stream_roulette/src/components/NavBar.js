@@ -10,7 +10,7 @@ return (
     <li class="is-active"><NavLink to={'/'}>Home</NavLink></li>
     <li><NavLink to={'/search'}>Search</NavLink></li>
     <li><NavLink to={'/search/results'}>Results</NavLink></li>
-    <li><NavLink to={'/search/results/mostRecent'}>Recently Watched</NavLink></li>
+    <li><NavLink to={'/mostRecent'}>Recently Watched</NavLink></li>
   </ul>
 </div>
 )

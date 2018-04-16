@@ -30,9 +30,9 @@ class App extends Component {
         <BrowserRouter>
         <Switch>
           <Route path exact ="/" component={HomeFeed}/>
-          <Route path exact ="/search" component={UserForm}/>
-          <Route path="/search/results" component={SearchResults}/>
-          <Route path="/search/results/mostRecent" component={mostRecentFilms}/>
+          {/* <Route path exact ="/search" component={UserForm}/> */}
+          <Route path ="/search/results" component={SearchResults}/>
+          <Route path="/mostRecent" component={mostRecentFilms}/>
           </Switch>
         </BrowserRouter>
 
