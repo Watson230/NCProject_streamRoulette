@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import NavBar  from './NavBar'
 
 
 const UserForm = (props) => {
 
 return(
     <div>
+        <NavBar/>
         <div style={{ "width": "700px", "margin-top": "100px", "border": "solid", "float": "left", "margin-left": "100px", "height": "700px", "margin-bottom": "100px" }}>
+        <h1 class="is title">Search for a film</h1>
             <div class="field">
                 <label class="label">Title</label>
                 <div class="control">

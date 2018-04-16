@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PT from 'prop-types';
 import Film from './film'
+import NavBar  from './NavBar'
 
-const filmSearchResults = (props) => {
+const RecentlyWatchedFilms = (props) => {
 
     return (
-
+        <div>
+        <NavBar/>
         <div style={{"height":"800px","border":"solid"}}>
 
         <div class='carousel is-5 carousel-animated carousel-animate-slide'>
@@ -43,7 +45,8 @@ const filmSearchResults = (props) => {
             </div>
         </div>
         </div>
+        </div>
     )
 }
 
-export default  filmSearchResults
+export default  RecentlyWatchedFilms

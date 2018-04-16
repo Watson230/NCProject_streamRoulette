@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
 import logo from './logo.svg';
 
 import HomeFeed from './components/homeFeed'
+import UserForm from './components/userForm'
+import SearchResults from './components/searchResults'
 
-import filmSearchResults from './components/filmSearchResults'
+import mostRecentFilms from './components/mostRecentResults'
 import './App.css';
 
 class App extends Component {
@@ -28,7 +30,9 @@ class App extends Component {
         <BrowserRouter>
         <Switch>
           <Route path exact ="/" component={HomeFeed}/>
-          <Route path="/search/results" component={filmSearchResults}/>
+          <Route path exact ="/search" component={UserForm}/>
+          <Route path="/search/results" component={SearchResults}/>
+          <Route path="/search/results/mostRecent" component={mostRecentFilms}/>
           </Switch>
         </BrowserRouter>
 

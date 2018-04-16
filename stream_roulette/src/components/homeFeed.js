@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import NavBar  from './NavBar'
 import PT from 'prop-types';
 
 import MostRecent from '../components/recentlyWatched'
@@ -17,7 +18,7 @@ class HomeFeed extends Component {
 
         return (
             <div>
-
+          
                 <div style={{ "display": "block" }}>
 
                     <UserForm />
