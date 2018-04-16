@@ -5,7 +5,10 @@ import PT from 'prop-types';
 
 
 const Film = (props) => {
-   return( <div style={{"max-width":"60%","max-height":"60%"}}>
+   return( 
+       <div style={{"margin-top":"100px"}}>
+       <nav class="level is-mobile">
+   <div class="level-item has-text-centered" >
         <div class="card">
             <div class="card-image">
                 <figure class="image is-4by3">
@@ -21,7 +24,7 @@ const Film = (props) => {
                     </div>
                     <div class="media-content">
                         <p class="title is-4"> film title</p>
-                        <p class="subtitle is-6">@johnsmith</p>
+                       
                     </div>
                 </div>
 
@@ -33,6 +36,9 @@ const Film = (props) => {
                 </div>
             </div>
         </div>
+    </div>
+    </nav>
+
     </div>
    )
 }

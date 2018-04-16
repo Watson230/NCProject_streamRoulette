@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
 import logo from './logo.svg';
-import UserForm from './components/formContainer'
+
+import HomeFeed from './components/homeFeed'
+
+import filmSearchResults from './components/filmSearchResults'
 import './App.css';
 
 class App extends Component {
@@ -23,7 +26,10 @@ class App extends Component {
         </section>
 
         <BrowserRouter>
-          <Route path="/" component={UserForm} />
+        <Switch>
+          <Route path exact ="/" component={HomeFeed}/>
+          <Route path="/search/results" component={filmSearchResults}/>
+          </Switch>
         </BrowserRouter>
 
       </div>
