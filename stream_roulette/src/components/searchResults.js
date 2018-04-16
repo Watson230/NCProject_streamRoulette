@@ -43,10 +43,18 @@ class SearchResults extends Component{
 
         this.setState({
             filmNumber:this.state.filmNumber + 1,
-            searchResults:this.state.body,
+            searchResults:this.state.searchResults,
             currentFilm: this.state.searchResults[this.state.filmNumber],
         })
+    }
 
+    disLikeFilmhandler=()=>{
+
+        this.setState({
+            filmNumber:this.state.filmNumber + 1,
+            searchResults:this.state.searchResults,
+            currentFilm: this.state.searchResults[this.state.filmNumber],
+        })
 
     }
 
@@ -79,7 +87,7 @@ class SearchResults extends Component{
                             <div class="level-right">
                                 <button class="level-item" class="button is-success" aria-label="reply"
                                 onClick={()=>{
-                                    this.LikeFilmHandler
+                                    this.LikeFilmHandler()
                                 }}
                                 
                                 >Yes</button>
@@ -87,7 +95,12 @@ class SearchResults extends Component{
                             </div>
 
                               <div class="level-left">
-                                <a class="level-item" aria-label="reply" class="button is-danger">No</a>
+                                <a class="level-item" aria-label="reply" class="button is-danger"                        
+                                onClick={()=>{
+                                    this.LikeFilmHandler()
+                                }}
+                                
+                                >No</a>
                                
                             </div>
                         </nav>
