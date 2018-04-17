@@ -5,6 +5,19 @@ import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom'
 const NavBar =(props)=>{
 
 return (
+    <div>
+    <section class="hero is-danger">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Stream Roulette
+             </h1>
+        <h2 class="subtitle">
+          
+        </h2>
+      </div>
+    </div>
+  </section>
     <div class="tabs">
     <ul>
     <li class="is-active"><NavLink to={'/'}>Home</NavLink></li>
@@ -12,6 +25,7 @@ return (
     <li><NavLink to={'/search/results'}>Results</NavLink></li>
     <li><NavLink to={'/mostRecent'}>Recently Watched</NavLink></li>
   </ul>
+</div>
 </div>
 )
 

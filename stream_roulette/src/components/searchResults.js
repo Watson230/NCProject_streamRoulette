@@ -11,7 +11,8 @@ class SearchResults extends Component {
         currentFilm: [],
         filmNumber: 4,
         likedFilms: [],
-        PickFilmflag:false
+        PickFilmflag:false,
+        recentlyDisliked:[]
     }
 
     componentDidMount() {
@@ -29,7 +30,8 @@ class SearchResults extends Component {
                     currentFilm: body.results[3],
                     likedFilms: [],
                     PickFilmflag:false,
-                    selectedFilm:[]
+                    selectedFilm:[],
+                    recentlyDisliked:this.state.recentlyDisliked
 
 
                 })
@@ -53,13 +55,14 @@ class SearchResults extends Component {
             currentFilm: this.state.searchResults[0],
             likedFilms: this.state.likedFilms.concat(film),
             PickFilmflag:false,
-            selectedFilm:[]
+            selectedFilm:[],
+            recentlyDisliked:this.state.recentlyDisliked
         })
     }
 
     disLikeFilmhandler = () => {
 
-        let filmNumber = this.state.filmNumber + 1
+        let film= this.state.currentFilm
 
         this.setState({
            
@@ -67,7 +70,8 @@ class SearchResults extends Component {
             currentFilm: this.state.searchResults[0],
             likedFilms: this.state.likedFilms,
             PickFilmflag:false,
-            selectedFilm:[]
+            selectedFilm:[],
+            recentlyDisliked:film
         })
 
     }
@@ -80,10 +84,8 @@ class SearchResults extends Component {
             currentFilm: this.state.currentFilm,
             PickFilmflag:true,
             likedFilms: this.state.likedFilms,
-            selectedFilm:this.state.likedFilms[Math.floor(Math.random() * this.state.likedFilms.length) + 1  ]
-            
-
-
+            selectedFilm:this.state.likedFilms[Math.floor(Math.random() * this.state.likedFilms.length)  ],
+            recentlyDisliked:this.state.recentlyDisliked
 
         })
 
@@ -141,14 +143,20 @@ class SearchResults extends Component {
                     <div style={{ "float": "left", "margin-left": "100px", "width": "400px" }}>
                         <h1 class="title is-1">Are you sure?</h1>
                         <div class="box">
-                            <Film />
+                           
+                        <div class="content">
+                                                   <figure class="image is-4by5">
+                                                       <img src={`http://image.tmdb.org/t/p/w185//${this.state.recentlyDisliked.poster_path}`} alt="Image" />
+                                                   </figure>
+                   
+                                               </div>
                         </div>
 
                         <div>
 
-                            <h1>{`Liked Films:${this.state.likedFilms.length}`}</h1>
+                            <h1 class="title is-2">{`Liked Films:${this.state.likedFilms.length}`}</h1>
 
-                            <button onClick={()=>{
+                            <button class="button is-link" onClick={()=>{
                                 this.pickFilmhandler()
                             }}
                             

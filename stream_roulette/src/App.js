@@ -10,22 +10,15 @@ import mostRecentFilms from './components/mostRecentResults'
 import './App.css';
 
 class App extends Component {
+
+  state={
+
+
+  }
+
   render() {
     return (
       <div >
-
-        <section class="hero is-danger">
-          <div class="hero-body">
-            <div class="container">
-              <h1 class="title">
-                Stream Roulette
-                   </h1>
-              <h2 class="subtitle">
-                
-              </h2>
-            </div>
-          </div>
-        </section>
 
         <BrowserRouter>
         <Switch>
