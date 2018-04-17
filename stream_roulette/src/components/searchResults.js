@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import NavBar from './NavBar'
 import Film from "./film"
-
+import Linkify from "react-linkify"
 
 class SearchResults extends Component {
 
@@ -12,7 +12,8 @@ class SearchResults extends Component {
         filmNumber: 4,
         likedFilms: [],
         PickFilmflag: false,
-        recentlyDisliked: []
+        recentlyDisliked: [],
+        getFilmUrl: false
     }
 
     componentDidMount() {
@@ -31,7 +32,8 @@ class SearchResults extends Component {
                     likedFilms: [],
                     PickFilmflag: false,
                     selectedFilm: [],
-                    recentlyDisliked: this.state.recentlyDisliked
+                    recentlyDisliked: this.state.recentlyDisliked,
+                    getFilmUrl: false
 
 
                 })
@@ -42,7 +44,6 @@ class SearchResults extends Component {
             })
 
     }
-
 
     LikeFilmHandler = () => {
         console.log('liked film')
@@ -56,7 +57,8 @@ class SearchResults extends Component {
             likedFilms: this.state.likedFilms.concat(film),
             PickFilmflag: false,
             selectedFilm: [],
-            recentlyDisliked: this.state.recentlyDisliked
+            recentlyDisliked: this.state.recentlyDisliked,
+            getFilmUrl: false
         })
     }
 
@@ -71,7 +73,8 @@ class SearchResults extends Component {
             likedFilms: this.state.likedFilms,
             PickFilmflag: false,
             selectedFilm: [],
-            recentlyDisliked: film
+            recentlyDisliked: film,
+            getFilmUrl: false
         })
 
     }
@@ -85,7 +88,8 @@ class SearchResults extends Component {
             PickFilmflag: true,
             likedFilms: this.state.likedFilms,
             selectedFilm: this.state.likedFilms[Math.floor(Math.random() * this.state.likedFilms.length)],
-            recentlyDisliked: this.state.recentlyDisliked
+            recentlyDisliked: this.state.recentlyDisliked,
+            getFilmUrl: false
 
         })
 
@@ -105,11 +109,19 @@ class SearchResults extends Component {
 
             })
             .then(res => {
-                console.log(res)
+                
                 return res.json();
             })
             .then(body => {
                 console.log(body)
+                this.setState(Object.assign({}, this.state, {
+                    PickFilmflag: false,
+                    getFilmUrl: true,
+                    selectedUrl:body.results[0].locations
+                }
+                ))
+
+                console.log(this.state)
             })
             .catch(err => {
                 console.log(err)
@@ -194,7 +206,7 @@ class SearchResults extends Component {
                     </div>
                 </div>
                 {
-                    this.state.PickFilmflag > 0 ?
+                    this.state.PickFilmflag?
 
                         <div class="modal is-active">
                             <div class="modal-background"></div>
@@ -232,6 +244,50 @@ class SearchResults extends Component {
 
                             </div>
                         </div> : <div></div>
+                }
+
+                {
+                    
+                    this.state.getFilmUrl?
+
+                        <div class="modal is-active">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Watch it Here</p>
+                                    <button class="delete" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                   {
+                                       
+                                    <ul>
+                                    {
+                                        this.state.selectedUrl.map( result =>{
+                                            console.log(this.state)
+                                            let Link = <Linkify>{result.url}</Linkify>
+                                            console.log(Link)
+
+                                               return  <li>{`${result.name}:`}{Link}</li>
+
+                                            
+                                        })
+                                    }
+                                    
+
+                                        </ul>
+
+                                   }
+
+                                </section>
+                                <footer class="modal-card-foot">
+                                  
+                                    <button class="button">Cancel</button>
+                                </footer>
+                            </div>
+                        </div>
+
+                        :<div></div>
+
                 }
             </div>
 
