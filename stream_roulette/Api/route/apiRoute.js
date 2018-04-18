@@ -16,7 +16,7 @@ router.post('/search/:username/queries', queriesCtrl.postQueries )
 
 //getRecentQueries//
 
-router.get('/search/:username/queries', queriesCtrl.getRecentQueries)
+// router.get('/search/:username/queries', queriesCtrl.getRecentQueries)
 
 
 // user //
@@ -31,5 +31,6 @@ router.get('/search/:username/queries', queriesCtrl.getRecentQueries)
 //films//
 
 module.exports = {router}
+
 
 

@@ -12,6 +12,8 @@ class UserForm extends Component {
         genre: '',
         rating: 0,
         realaseDate: '',
+        director:'',
+        starring:'',
 
 
 
@@ -124,7 +126,7 @@ class UserForm extends Component {
                     <div class="field">
                         <label class="label">Release Date</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Text input" />
+                            <input class="input" type="text" placeholder="date - yyyy/mmm/dd" value={this.state.realaseDate}/>
                         </div>
 
 
@@ -141,14 +143,14 @@ class UserForm extends Component {
                     <div class="field">
                         <label class="label">Starring</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Text input" />
+                            <input class="input" type="text" placeholder="Text input" value={this.state.starring}/>
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Director</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Text input" />
+                            <input class="input" type="text" placeholder="Text input" value={this.state.director}/>
                         </div>
                     </div>
 

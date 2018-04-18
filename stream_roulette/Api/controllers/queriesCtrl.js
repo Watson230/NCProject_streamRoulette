@@ -33,10 +33,7 @@ function postQueries(req,res){
 
 function getRecentQueries (req,res){
 
-let userName = req.params.userName
 
-
-queriesModel.findOn
 
 
 }
