@@ -24,7 +24,7 @@ class App extends Component {
         <Switch>
           <Route path exact ="/" component={HomeFeed}/>
           {/* <Route path exact ="/search" component={UserForm}/> */}
-          <Route path ="/search/results" component={SearchResults}/>
+          <Route path ="/search/results" component={SearchResults} stuff="here"/>
           <Route path="/mostRecent" component={mostRecentFilms}/>
           </Switch>
         </BrowserRouter>

@@ -6,8 +6,10 @@ function postQueries(req,res){
     console.log(req)
     console.log("postQueries")
 
+    let userName = req.params.user
+
     const query = queriesModel({
-        user:req.body.user,
+        user:userName,
         genre:req.body.genre,
         title:req.body.title,
         keywords:req.body.keywords,
@@ -28,6 +30,16 @@ function postQueries(req,res){
 
 }
 
+
+function getRecentQueries (req,res){
+
+let userName = req.params.userName
+
+
+queriesModel.findOn
+
+
+}
 
 
 module.exports={postQueries}
