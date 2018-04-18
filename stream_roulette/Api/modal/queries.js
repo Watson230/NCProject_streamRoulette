@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 
 const queriesSchema = new Schema({
+    user:{
+      type: String,
+      required: false
+    },
     genre: {
       type: String,
       required: false
@@ -30,7 +34,7 @@ const queriesSchema = new Schema({
       required: false,
     } ,
     starring:{
-      type: Array,
+      type: [],
       default:[]
     } 
   
