@@ -264,7 +264,7 @@ class SearchResults extends Component {
                                     {
                                         this.state.selectedUrl.map( result =>{
                                             console.log(this.state)
-                                            let Link = <Linkify>{result.url}</Linkify>
+                                            let Link = <Linkify>{result.url.split("//")[1]}</Linkify>
                                             console.log(Link)
 
                                                return  <li>{`${result.name}:`}{Link}</li>
