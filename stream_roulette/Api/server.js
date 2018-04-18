@@ -13,7 +13,7 @@ mongoose.Promise = Promise;
 function mongooseConnect() {
 
 
-    return mongoose.connect(db, { useMongoClient: true })
+    return mongoose.connect(db)
         .then(() => console.log('successfully connected to', db))
         .catch(err => console.log('connection failed', err));
 

@@ -1,8 +1,10 @@
-const queriesModals = require('../modal/queries')
+const queriesModel = require('../modal/queries')
 
 
 
 function postQueries(req,res){
+    console.log(req)
+    console.log("postQueries")
 
     const query = queriesModel({
         user:req.body.user,
