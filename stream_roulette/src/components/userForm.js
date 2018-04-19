@@ -7,24 +7,18 @@ class UserForm extends Component {
     state = {
 
         genres: [],
-        title: '',
-        keywords: '',
-        genre: '',
-        rating: 0,
-        realaseDate: '',
-        director:'',
-        starring:'',
+    
 
 
 
 
     }
 
-    userInputHandler(event) {
+    userInputHandler(key ,value) {
 
 
         this.setState(Object.assign({}, this.state, {
-            [event.target.placeholder]: event.target.value
+            [key]: value
         }))
 
         console.log(this.state)
@@ -70,7 +64,7 @@ class UserForm extends Component {
                             <input class="input" type="text" placeholder="title" value={this.state.title}
                                 onChange={event => {
                                     console.log(event.target)
-                                    this.userInputHandler(event)
+                                    this.userInputHandler(event.target.placeholder, event.target.value)
 
                                 }}
                             />
@@ -83,50 +77,61 @@ class UserForm extends Component {
                             <input class="input" type="text" placeholder="keywords" value={this.state.keywords}
                                 onChange={event => {
 
-                                    this.userInputHandler(event)
+                                    this.userInputHandler(event.target.placeholder, event.target.value)
+
 
                                 }}
                             />
                         </div>
                     </div>
-                    <div class="field">
-                    <label class="label">genre</label>
-                    <div class="field has-addons">
-                        <div class="control is-expanded">
-                            <div class="select is-fullwidth">
-                                <select name="genre">
-                                    {this.state.genres.map(genre => {
+                        <div class="field">
+                            <label class="label">genre</label>
+                            <div class="field has-addons">
+                                <div class="control is-expanded">
+                                    <div class="select is-fullwidth">
+                                        <select id="genre" 
+                                            onChange={event => {
+                                                console.log(event.target)
+                                                this.userInputHandler('genre', event.target.value)
 
-                                        return <option>{genre.name}</option>
-
-                                    })}
-                                </select>
-                            </div>
+                                                
+                                            }}>
+                                            {this.state.genres.map(genre => {
+                                                
+                                                return <option>{genre.name}</option>
+                                                
+                                            })}
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
-                        <div class="control">
-                            <button type="submit" class="button is-primary"
-                            onClick={(event =>{
-                                event.preventDefault()
-                                console.log(event)
-                            })}
-                            
-                            >Choose</button>
-                        </div>
-                    </div>
                     </div>
 
 
                     <div class="field">
                         <label class="label">Rating</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Text input" />
+                            <input class="input" type="text" placeholder="rating" value={this.state.rating}
+                                onChange={event => {
+
+                                    this.userInputHandler(event.target.placeholder, event.target.value)
+
+
+                                }} />
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Release Date</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="date - yyyy/mmm/dd" value={this.state.realaseDate}/>
+                            <input class="input" type="text" placeholder="Year" value={this.state.Year}
+                                onChange={event => {
+
+                                    this.userInputHandler(event.target.placeholder, event.target.value)
+
+
+                                }}
+                            />
                         </div>
 
 
@@ -143,14 +148,25 @@ class UserForm extends Component {
                     <div class="field">
                         <label class="label">Starring</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Text input" value={this.state.starring}/>
+                            <input class="input" type="text" placeholder="starring" value={this.state.starring}
+                                onChange={event => {
+
+                                    this.userInputHandler(event.target.placeholder, event.target.value)
+
+
+                                }} />
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Director</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Text input" value={this.state.director}/>
+                            <input class="input" type="text" placeholder="director" value={this.state.director}
+                                onChange={event => {
+
+                                    this.userInputHandler(event.target.placeholder, event.target.value)
+
+                                }} />
                         </div>
                     </div>
 
