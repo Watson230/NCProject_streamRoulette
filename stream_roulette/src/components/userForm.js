@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
 
 
 class UserForm extends Component {
@@ -7,14 +8,15 @@ class UserForm extends Component {
     state = {
 
         genres: [],
-    
+
+
 
 
 
 
     }
 
-    userInputHandler(key ,value) {
+    userInputHandler(key, value) {
 
 
         this.setState(Object.assign({}, this.state, {
@@ -22,6 +24,32 @@ class UserForm extends Component {
         }))
 
         console.log(this.state)
+    }
+
+    submitQueries = () => {
+        let usedQueries = Object.keys(this.state)
+
+        let queryString = usedQueries.reduce((acc, key) => {
+            if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}`
+            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}`
+            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}`
+
+
+
+            acc = acc + '&'
+
+            return acc
+        }, '')
+
+        this.setState(Object.assign({}, this.state, {
+
+            submitFlag: 1,
+            queriesString: queryString
+        }))
+
+
+
+
     }
 
 
@@ -84,26 +112,26 @@ class UserForm extends Component {
                             />
                         </div>
                     </div>
-                        <div class="field">
-                            <label class="label">genre</label>
-                            <div class="field has-addons">
-                                <div class="control is-expanded">
-                                    <div class="select is-fullwidth">
-                                        <select id="genre" 
-                                            onChange={event => {
-                                                console.log(event.target)
-                                                this.userInputHandler('genre', event.target.value)
+                    <div class="field">
+                        <label class="label">genre</label>
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <div class="select is-fullwidth">
+                                    <select id="genre"
+                                        onChange={event => {
+                                            console.log(event.target)
+                                            this.userInputHandler('genre', event.target.value)
 
-                                                
-                                            }}>
-                                            {this.state.genres.map(genre => {
-                                                
-                                                return <option>{genre.name}</option>
-                                                
-                                            })}
-                                        </select>
-                                    </div>
+
+                                        }}>
+                                        {this.state.genres.map(genre => {
+
+                                            return <option>{`${genre.name} - id:${genre.id}`}</option>
+
+                                        })}
+                                    </select>
                                 </div>
+                            </div>
                         </div>
                     </div>
 
@@ -172,13 +200,40 @@ class UserForm extends Component {
 
                     <div class="field is-grouped">
                         <div class="control">
-                            <button class="button is-link">Submit</button>
+                            <button class="button is-link"
+                                onClick={() => {
+
+                                    this.submitQueries()
+
+                                }}
+                            >Submit</button>
                         </div>
                         <div class="control">
                             <button class="button is-text">Cancel</button>
                         </div>
                     </div>
                 </div>
+
+                {
+                    this.state.submitFlag > 0 ? <div>
+                        <div class="modal is-active">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Modal title</p>
+                                    <button class="delete" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <p>Search complelete!</p>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <Link to={`/search/${this.state.queriesString}/results`}><button class="button is-success">See Results</button></Link>
+                                    <button class="button">Cancel</button>
+                                </footer>
+                            </div>
+                        </div >
+                    </div> : null
+                }
 
             </div>
         )
