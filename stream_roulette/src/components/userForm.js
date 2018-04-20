@@ -8,7 +8,8 @@ class UserForm extends Component {
     state = {
 
         genres: [],
-        searchFlag: 0
+        searchFlag: 0,
+        searchTabClass: 'is-active'
 
     }
 
@@ -48,16 +49,34 @@ class UserForm extends Component {
 
     }
 
-    searchTabHandler = (num) => {
+    searchTabHandler = (num, tab) => {
 
+        if(tab === 'search')
+{
         this.setState(Object.assign({}, this.state, {
-            searchFlag: num
+            searchFlag: num,
+            searchTabClass:'is-active',
+            discoverTabClass:null
 
 
         }))
+    }
 
+
+else {
+
+    this.setState(Object.assign({}, this.state, {
+        searchFlag: num,
+        searchTabClass:null,
+        discoverTabClass:'is-active'
+
+
+    }))
+
+}
 
     }
+    
 
 
 
@@ -94,16 +113,16 @@ class UserForm extends Component {
                 <div style={{ "width": "700px", "margin-top": "100px", "border": "solid", "float": "left", "margin-left": "100px", "height": "760px", "margin-bottom": "100px" }}>
                     <div class="tabs">
                         <ul>
-                            <li class="is-active"
+                            <li class={`${this.state.searchTabClass}`}
                                 onClick={() => {
 
-                                    this.searchTabHandler(0)
+                                    this.searchTabHandler(0, 'search')
                                 }}
                             ><a>Search</a></li>
-                            <li
+                            <li class={`${this.state.discoverTabClass}`}
                                 onClick={() => {
 
-                                    this.searchTabHandler(1)
+                                  this.searchTabHandler(1,'discover')
                                 }}
                             ><a>discover</a></li>
                         </ul>
@@ -112,27 +131,25 @@ class UserForm extends Component {
                     {this.state.searchFlag > 0 ?
                         <div class="discover">
                             <h1 class="is title">Search for a film</h1>
+                            <div style={{"margin-bottom":"20px"}}>
                             <div class="field">
-                                <label class="label">Title</label>
+                                <label class="label">User</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="title" value={this.state.title}
+                                    <input class="input" type="text" placeholder="keywords" value={this.state.user}
                                         onChange={event => {
-                                            console.log(event.target)
                                             this.userInputHandler(event.target.placeholder, event.target.value)
 
                                         }}
                                     />
                                 </div>
-                            </div>
-
+                                </div>
+                                </div>
                             <div class="field">
                                 <label class="label">Keywords</label>
                                 <div class="control">
                                     <input class="input" type="text" placeholder="keywords" value={this.state.keywords}
                                         onChange={event => {
-
                                             this.userInputHandler(event.target.placeholder, event.target.value)
-
 
                                         }}
                                     />
