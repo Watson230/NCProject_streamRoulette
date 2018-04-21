@@ -10,6 +10,7 @@ class UserForm extends Component {
         genres: [],
         searchFlag: 0,
         user: 'daveWats',
+        userInfo: [],
         searchTabClass: 'is-active'
 
     }
@@ -83,6 +84,42 @@ class UserForm extends Component {
     }
 
 
+    CreateUser = () => {
+
+        fetch(`http://localhost:4000/api/user`, {
+
+            method: 'POST',
+            body: JSON.stringify({
+                userName: this.state.user
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+                console.log(res)
+                return res.json();
+            })
+            .then(body => {
+
+                this.setState({
+
+                    userInfo: body
+
+                })
+                console.log(this.state)
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+
+            })
+
+
+    }
+
 
 
 
@@ -113,11 +150,11 @@ class UserForm extends Component {
         return (
             <div>
                 <NavBar />
-                <div style={{ "margin-top": "30px", "float": "left" ,"margin-left":"20px"}}>
+                <div style={{ "margin-top": "30px", "float": "left", "margin-left": "20px" }}>
                     <div class="field">
-                    <label class="label">User</label>
+                        <label class="label">User</label>
                         <p class="control has-icons-left has-icons-right">
-                            <input class="input" type="email" placeholder="User" value={this.state.user}/>
+                            <input class="input" type="email" placeholder="User" value={this.state.user} />
                             <span class="icon is-small is-left">
                                 <i class="fas fa-envelope"></i>
                             </span>
@@ -126,10 +163,15 @@ class UserForm extends Component {
                             </span>
                         </p>
                     </div>
-             
+
                     <div class="field">
                         <p class="control">
-                            <button class="button is-success">
+                            <button class="button is-success"
+                            onClick={()=>{
+                                this.CreateUser()
+
+                            }}
+                            >
                                 Login
                             </button>
                         </p>
@@ -156,7 +198,7 @@ class UserForm extends Component {
                     {this.state.searchFlag > 0 ?
                         <div class="discover">
                             <h1 class="is title">Search for a film</h1>
-                    
+
                             <div class="field">
                                 <label class="label">Keywords</label>
                                 <div class="control">
@@ -174,7 +216,7 @@ class UserForm extends Component {
                                     <div class="control is-expanded">
                                         <div class="select is-fullwidth">
                                             <select id="genre"
-                                        
+
                                                 onChange={event => {
                                                     console.log(event.target)
                                                     this.userInputHandler('genre', event.target.value)

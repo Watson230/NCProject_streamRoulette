@@ -19,7 +19,7 @@ class SearchResults extends Component {
 
     componentDidMount() {
         let searchQuery;
-        let user = this.props.match.params.user
+        // let user = this.props.match.params.user
 
         if (this.props.match.params.searchQueries) {
             searchQuery = this.props.match.params.searchQueries
