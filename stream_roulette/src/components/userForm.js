@@ -51,32 +51,31 @@ class UserForm extends Component {
 
     searchTabHandler = (num, tab) => {
 
-        if(tab === 'search')
-{
-        this.setState(Object.assign({}, this.state, {
-            searchFlag: num,
-            searchTabClass:'is-active',
-            discoverTabClass:null
+        if (tab === 'search') {
+            this.setState(Object.assign({}, this.state, {
+                searchFlag: num,
+                searchTabClass: 'is-active',
+                discoverTabClass: null
 
 
-        }))
+            }))
+        }
+
+
+        else {
+
+            this.setState(Object.assign({}, this.state, {
+                searchFlag: num,
+                searchTabClass: null,
+                discoverTabClass: 'is-active'
+
+
+            }))
+
+        }
+
     }
 
-
-else {
-
-    this.setState(Object.assign({}, this.state, {
-        searchFlag: num,
-        searchTabClass:null,
-        discoverTabClass:'is-active'
-
-
-    }))
-
-}
-
-    }
-    
 
 
 
@@ -94,8 +93,6 @@ else {
                 this.setState({
 
                     genres: body.genres
-
-
 
                 })
             })
@@ -122,7 +119,7 @@ else {
                             <li class={`${this.state.discoverTabClass}`}
                                 onClick={() => {
 
-                                  this.searchTabHandler(1,'discover')
+                                    this.searchTabHandler(1, 'discover')
                                 }}
                             ><a>discover</a></li>
                         </ul>
@@ -131,19 +128,19 @@ else {
                     {this.state.searchFlag > 0 ?
                         <div class="discover">
                             <h1 class="is title">Search for a film</h1>
-                            <div style={{"margin-bottom":"20px"}}>
-                            <div class="field">
-                                <label class="label">User</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="keywords" value={this.state.user}
-                                        onChange={event => {
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
+                            <div style={{ "margin-bottom": "20px" }}>
+                                <div class="field">
+                                    <label class="label">User</label>
+                                    <div class="control">
+                                        <input class="input" type="text" placeholder="keywords" value={this.state.user}
+                                            onChange={event => {
+                                                this.userInputHandler(event.target.placeholder, event.target.value)
 
-                                        }}
-                                    />
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                </div>
-                                </div>
+                            </div>
                             <div class="field">
                                 <label class="label">Keywords</label>
                                 <div class="control">
@@ -269,6 +266,22 @@ else {
 
                                         }}
                                     />
+                                </div>
+                            </div>
+
+
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-link"
+                                        onClick={() => {
+
+                                            this.submitQueries()
+
+                                        }}
+                                    >Submit</button>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-text">Cancel</button>
                                 </div>
                             </div>
                         </div>
