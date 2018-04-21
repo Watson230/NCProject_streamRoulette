@@ -174,12 +174,14 @@ class UserForm extends Component {
                                     <div class="control is-expanded">
                                         <div class="select is-fullwidth">
                                             <select id="genre"
+                                        
                                                 onChange={event => {
                                                     console.log(event.target)
                                                     this.userInputHandler('genre', event.target.value)
 
 
                                                 }}>
+                                                <option>Choose one</option>
                                                 {this.state.genres.map(genre => {
 
                                                     return <option>{`${genre.name} - id:${genre.id}`}</option>

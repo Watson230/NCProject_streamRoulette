@@ -17,9 +17,9 @@ class HomeFeed extends Component {
 
 
         return (
-            <div>
+            <div >
           
-                <div style={{ "display": "block" }}>
+                <div style={{ "display": "block" ,"margin-top":"50px"}}>
 
                     <UserForm />
 

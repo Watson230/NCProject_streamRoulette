@@ -12,7 +12,7 @@ class MostRecent extends Component {
 
         return (
             <div style={{ "border": "solid", "width":"500px", "height": "700px", "float": "right", "margin-top": "100px", "margin-right": "100px", "margin-bottom": "100px" }} >
-                <h1 className="title"> Watch Again?</h1>
+                <h1 className="title"> Recently Watched</h1>
                 
 
             </div>

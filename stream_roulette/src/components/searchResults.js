@@ -14,19 +14,19 @@ class SearchResults extends Component {
         PickFilmflag: false,
         recentlyDisliked: [],
         getFilmUrl: false,
-        user:'daveWats'
+        endOfSearchResults: false,
+        user: 'daveWats'
     }
 
     componentDidMount() {
-        let searchQuery ;
+        let searchQuery;
 
-        if(this.props.match.params.searchQueries)
-        {
-        searchQuery = this.props.match.params.searchQueries
+        if (this.props.match.params.searchQueries) {
+            searchQuery = this.props.match.params.searchQueries
         }
 
         console.log('search queries', searchQuery)
-        if(searchQuery.split('=')[0]==='term'){
+        if (searchQuery.split('=')[0] === 'term') {
             let title = searchQuery.split('=')[1]
             this.getPickedFilmURLS(title)
         }
@@ -57,6 +57,22 @@ class SearchResults extends Component {
         console.log('liked film')
         let film = [this.state.currentFilm]
         console.log(film)
+
+        if (!this.state.searchResults.slice(1, this.state.searchResults.length)) {
+            this.setState({
+
+                searchResults: [],
+                currentFilm: this.state.searchResults[0],
+                likedFilms: this.state.likedFilms.concat(film),
+                PickFilmflag: false,
+                selectedFilm: [],
+                recentlyDisliked: this.state.recentlyDisliked,
+                getFilmUrl: false,
+                endOfSearchResults: true,
+
+            })
+
+        }
 
         this.setState({
 
@@ -104,8 +120,9 @@ class SearchResults extends Component {
     }
 
     getPickedFilmURLS = (title) => {
-        if(!title) title = this.state.selectedFilm.title
+        if (!title) title = this.state.selectedFilm.title
         console.log('title', title)
+
 
         fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
             {
@@ -116,7 +133,7 @@ class SearchResults extends Component {
                 type: 'cors'
 
             })
-            .then(res => {        
+            .then(res => {
                 return res.json();
             })
             .then(body => {
@@ -124,7 +141,7 @@ class SearchResults extends Component {
                 this.setState(Object.assign({}, this.state, {
                     PickFilmflag: false,
                     getFilmUrl: true,
-                    selectedUrl:body.results[0].locations
+                    selectedUrl: body.results[0].locations
                 }
                 ))
 
@@ -135,36 +152,36 @@ class SearchResults extends Component {
 
             })
 
-            // fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
-            // {
-            //     headers: new Headers({
-            //         'Accept': 'application/json',
-            //         'X-Mashape-Key': "lbLD5PKDXhmshZXMNJgHsm1ahtF2p1fYk5Sjsn8XmYhTzIKQYn"
-            //     }),
-            //     type: 'cors',
-            //     method:"PUT"
+        // fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
+        // {
+        //     headers: new Headers({
+        //         'Accept': 'application/json',
+        //         'X-Mashape-Key': "lbLD5PKDXhmshZXMNJgHsm1ahtF2p1fYk5Sjsn8XmYhTzIKQYn"
+        //     }),
+        //     type: 'cors',
+        //     method:"PUT"
 
-            // })
-            // .then(res => {        
-            //     return res.json();
-            // })
-            // .then(body => {
-            //     console.log(body)
-            //     this.setState(Object.assign({}, this.state, {
-            //         PickFilmflag: false,
-            //         getFilmUrl: true,
-            //         selectedUrl:body.results[0].locations
-            //     }
-            //     ))
+        // })
+        // .then(res => {        
+        //     return res.json();
+        // })
+        // .then(body => {
+        //     console.log(body)
+        //     this.setState(Object.assign({}, this.state, {
+        //         PickFilmflag: false,
+        //         getFilmUrl: true,
+        //         selectedUrl:body.results[0].locations
+        //     }
+        //     ))
 
-            //     console.log(this.state)
-            // })
-            // .catch(err => {
-            //     console.log(err)
+        //     console.log(this.state)
+        // })
+        // .catch(err => {
+        //     console.log(err)
 
-            // })
-    
-        }
+        // })
+
+    }
 
     render() {
 
@@ -241,7 +258,7 @@ class SearchResults extends Component {
                     </div>
                 </div>
                 {
-                    this.state.PickFilmflag?
+                    this.state.PickFilmflag ?
 
                         <div class="modal is-active">
                             <div class="modal-background"></div>
@@ -272,7 +289,14 @@ class SearchResults extends Component {
 
                                     >Watch</button>
                                     <button class="button"
+                                        onClick={() => {
+                                            this.setState(Object.assign({}, this.state, {
+                                                PickFilmflag: false,
+                                                getFilmUrl: false,
 
+                                            }
+                                            ))
+                                        }}
 
                                     >Cancel</button>
                                 </footer>
@@ -282,8 +306,8 @@ class SearchResults extends Component {
                 }
 
                 {
-                    
-                    this.state.getFilmUrl?
+
+                    this.state.getFilmUrl ?
 
                         <div class="modal is-active">
                             <div class="modal-background"></div>
@@ -293,36 +317,82 @@ class SearchResults extends Component {
                                     <button class="delete" aria-label="close"></button>
                                 </header>
                                 <section class="modal-card-body">
-                                   {
-                                       
-                                    <ul>
                                     {
-                                        this.state.selectedUrl.map( result =>{
-                                            console.log(this.state)
-                                            let Link = <Linkify>{result.url.split("//")[1]}</Linkify>
-                                            console.log(Link)
 
-                                               return  <li>{`${result.name}:`}{Link}</li>
+                                        <ul>
+                                            {
+                                                this.state.selectedUrl.map(result => {
+                                                    console.log(this.state)
+                                                    let Link;
+                                                    if (result.url) {
+                                                        Link = <Linkify>{result.url.split("//")[1]}</Linkify>
 
-                                            
-                                        })
-                                    }
-                                    
+                                                        return <li>{`${result.name}:`}{Link}</li>
+                                                    }
+
+                                                    
+
+
+                                                })
+                                            }
+
 
                                         </ul>
 
-                                   }
+                                    }
 
                                 </section>
                                 <footer class="modal-card-foot">
-                                  
-                                    <button class="button">Cancel</button>
+
+                                    <button class="button"
+                                        onClick={() => {
+                                            this.setState(Object.assign({}, this.state, {
+                                                PickFilmflag: false,
+                                                getFilmUrl: false,
+
+                                            }
+                                            ))
+                                        }}
+                                    >Cancel</button>
                                 </footer>
                             </div>
                         </div>
 
-                        :<div></div>
+                        : <div></div>
 
+                }
+
+                {
+                    this.state.endOfSearchResults ?
+                        <div>
+                            <div class="modal is-active">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">Watch it Here</p>
+                                        <button class="delete" aria-label="close"></button>
+                                    </header>
+                                    <section class="modal-card-body">
+                                        {
+
+                                            <p>End of Search results.....</p>
+
+                                        }
+
+                                    </section>
+                                    <footer class="modal-card-foot">
+
+                                        <button class="button"
+
+                                        >Pick Liked Film</button>
+                                    </footer>
+                                </div>
+                            </div>
+
+
+
+
+                        </div> : null
                 }
             </div>
 
