@@ -24,19 +24,19 @@ class SearchResults extends Component {
         searchQuery = this.props.match.params.searchQueries
         }
 
-        
-
-
-        
         console.log('search queries', searchQuery)
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1${searchQuery}`)
+        if(searchQuery.split('=')[0]==='term'){
+            let title = searchQuery.split('=')[1]
+            this.getPickedFilmURLS(title)
+        }
+        else fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1${searchQuery}`)
             .then(res => {
                 console.log(res)
                 return res.json();
             })
             .then(body => {
 
-                
+
 
                 this.setState({
 
@@ -108,9 +108,11 @@ class SearchResults extends Component {
 
     }
 
-    getPickedFilmURLS = () => {
-        console.log(this.state.selectedFilm.title)
-        fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${this.state.selectedFilm.title}`,
+    getPickedFilmURLS = (title) => {
+        if(!title) title = this.state.selectedFilm.title
+        console.log('title', title)
+
+        fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
             {
 
 

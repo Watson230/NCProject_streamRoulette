@@ -26,14 +26,17 @@ class UserForm extends Component {
     submitQueries = () => {
         let usedQueries = Object.keys(this.state)
 
+        
         let queryString = usedQueries.reduce((acc, key) => {
-            if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}`
-            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}`
-            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}`
+            if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}` + '&';
+            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}`+ '&';
+            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}`+ '&';
+
+            if (key === 'search') acc = acc + `term=${this.state.search}`;
 
 
 
-            acc = acc + '&'
+         
 
             return acc
         }, '')
@@ -43,6 +46,8 @@ class UserForm extends Component {
             submitFlag: 1,
             queriesString: queryString
         }))
+
+        console.log(queryString)
 
 
 
@@ -259,7 +264,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="title" value={this.state.title}
+                                    <input class="input" type="text" placeholder="search" value={this.state.search}
                                         onChange={event => {
                                             console.log(event.target)
                                             this.userInputHandler(event.target.placeholder, event.target.value)
