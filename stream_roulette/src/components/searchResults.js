@@ -13,7 +13,8 @@ class SearchResults extends Component {
         likedFilms: [],
         PickFilmflag: false,
         recentlyDisliked: [],
-        getFilmUrl: false
+        getFilmUrl: false,
+        user:'daveWats'
     }
 
     componentDidMount() {
@@ -35,9 +36,6 @@ class SearchResults extends Component {
                 return res.json();
             })
             .then(body => {
-
-
-
                 this.setState({
 
                     searchResults: body.results.slice(0, 30),
@@ -48,14 +46,11 @@ class SearchResults extends Component {
                     recentlyDisliked: this.state.recentlyDisliked,
                     getFilmUrl: false
 
-
                 })
             })
             .catch(err => {
                 console.log(err)
-
             })
-
     }
 
     LikeFilmHandler = () => {
@@ -114,8 +109,6 @@ class SearchResults extends Component {
 
         fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
             {
-
-
                 headers: new Headers({
                     'Accept': 'application/json',
                     'X-Mashape-Key': "lbLD5PKDXhmshZXMNJgHsm1ahtF2p1fYk5Sjsn8XmYhTzIKQYn"
@@ -123,8 +116,7 @@ class SearchResults extends Component {
                 type: 'cors'
 
             })
-            .then(res => {
-                
+            .then(res => {        
                 return res.json();
             })
             .then(body => {
@@ -143,8 +135,36 @@ class SearchResults extends Component {
 
             })
 
+            // fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
+            // {
+            //     headers: new Headers({
+            //         'Accept': 'application/json',
+            //         'X-Mashape-Key': "lbLD5PKDXhmshZXMNJgHsm1ahtF2p1fYk5Sjsn8XmYhTzIKQYn"
+            //     }),
+            //     type: 'cors',
+            //     method:"PUT"
 
-    }
+            // })
+            // .then(res => {        
+            //     return res.json();
+            // })
+            // .then(body => {
+            //     console.log(body)
+            //     this.setState(Object.assign({}, this.state, {
+            //         PickFilmflag: false,
+            //         getFilmUrl: true,
+            //         selectedUrl:body.results[0].locations
+            //     }
+            //     ))
+
+            //     console.log(this.state)
+            // })
+            // .catch(err => {
+            //     console.log(err)
+
+            // })
+    
+        }
 
     render() {
 

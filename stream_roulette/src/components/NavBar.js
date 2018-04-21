@@ -18,7 +18,7 @@ return (
       </div>
     </div>
   </section>
-    <div class="tabs">
+    <div class="tabs is-centered is-boxed">
     <ul>
     <li class="is-active"><NavLink to={'/'}>Home</NavLink></li>
     <li><NavLink to={'/search'}>Search</NavLink></li>

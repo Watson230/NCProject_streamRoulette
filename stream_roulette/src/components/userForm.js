@@ -9,6 +9,7 @@ class UserForm extends Component {
 
         genres: [],
         searchFlag: 0,
+        user: 'daveWats',
         searchTabClass: 'is-active'
 
     }
@@ -26,17 +27,17 @@ class UserForm extends Component {
     submitQueries = () => {
         let usedQueries = Object.keys(this.state)
 
-        
+
         let queryString = usedQueries.reduce((acc, key) => {
             if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}` + '&';
-            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}`+ '&';
-            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}`+ '&';
+            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}` + '&';
+            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}` + '&';
 
             if (key === 'search') acc = acc + `term=${this.state.search}`;
 
 
 
-         
+
 
             return acc
         }, '')
@@ -112,8 +113,30 @@ class UserForm extends Component {
         return (
             <div>
                 <NavBar />
-                <div style={{ "width": "700px", "margin-top": "100px", "border": "solid", "float": "left", "margin-left": "100px", "height": "760px", "margin-bottom": "100px" }}>
-                    <div class="tabs">
+                <div style={{ "margin-top": "30px", "float": "left" ,"margin-left":"20px"}}>
+                    <div class="field">
+                    <label class="label">User</label>
+                        <p class="control has-icons-left has-icons-right">
+                            <input class="input" type="email" placeholder="User" value={this.state.user}/>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </p>
+                    </div>
+             
+                    <div class="field">
+                        <p class="control">
+                            <button class="button is-success">
+                                Login
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <div style={{ "width": "500px", "margin-top": "110px", "float": "left", "margin-left": "100px", "height": "760px", "margin-bottom": "100px" }}>
+                    <div class="tabs is-centered is-boxed">
                         <ul>
                             <li class={`${this.state.searchTabClass}`}
                                 onClick={() => {
@@ -126,26 +149,14 @@ class UserForm extends Component {
 
                                     this.searchTabHandler(1, 'discover')
                                 }}
-                            ><a>discover</a></li>
+                            ><a>Discover</a></li>
                         </ul>
                     </div>
 
                     {this.state.searchFlag > 0 ?
                         <div class="discover">
                             <h1 class="is title">Search for a film</h1>
-                            <div style={{ "margin-bottom": "20px" }}>
-                                <div class="field">
-                                    <label class="label">User</label>
-                                    <div class="control">
-                                        <input class="input" type="text" placeholder="keywords" value={this.state.user}
-                                            onChange={event => {
-                                                this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                    
                             <div class="field">
                                 <label class="label">Keywords</label>
                                 <div class="control">
@@ -273,8 +284,6 @@ class UserForm extends Component {
                                     />
                                 </div>
                             </div>
-
-
                             <div class="field is-grouped">
                                 <div class="control">
                                     <button class="button is-link"
@@ -306,7 +315,7 @@ class UserForm extends Component {
                                     <p>Search complelete!</p>
                                 </section>
                                 <footer class="modal-card-foot">
-                                    <Link to={`/search/${this.state.queriesString}/results`}><button class="button is-success">See Results</button></Link>
+                                    <Link to={`/${this.state.user}/search/${this.state.queriesString}/results`}><button class="button is-success">See Results</button></Link>
                                     <button class="button">Cancel</button>
                                 </footer>
                             </div>
