@@ -9,10 +9,9 @@ class SearchResults extends Component {
     state = {
         searchResults: [],
         currentFilm: [],
-        filmNumber: 4,
         likedFilms: [],
-        PickFilmflag: false,
         recentlyDisliked: [],
+        PickFilmflag: false,
         getFilmUrl: false,
         endOfSearchResults: false,
         user: 'daveWats'
@@ -20,6 +19,7 @@ class SearchResults extends Component {
 
     componentDidMount() {
         let searchQuery;
+        let user = this.props.match.params.user
 
         if (this.props.match.params.searchQueries) {
             searchQuery = this.props.match.params.searchQueries
@@ -30,7 +30,7 @@ class SearchResults extends Component {
             let title = searchQuery.split('=')[1]
             this.getPickedFilmURLS(title)
         }
-        else fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1${searchQuery}`)
+        else fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&primary_release_date.lte=2017&include_video=false&page=1${searchQuery}`)
             .then(res => {
                 console.log(res)
                 return res.json();
@@ -38,7 +38,7 @@ class SearchResults extends Component {
             .then(body => {
                 this.setState({
 
-                    searchResults: body.results.slice(0, 30),
+                    searchResults: body.results,
                     currentFilm: body.results[0],
                     likedFilms: [],
                     PickFilmflag: false,
@@ -56,25 +56,26 @@ class SearchResults extends Component {
     LikeFilmHandler = () => {
         console.log('liked film')
         let film = [this.state.currentFilm]
-        console.log(film)
+        console.log(this.state.searchResults.slice(1, this.state.searchResults.length))
 
-        if (!this.state.searchResults.slice(1, this.state.searchResults.length)) {
+        if (this.state.searchResults.slice(1, this.state.searchResults.length).length < 1) {
+            console.log('hello')
             this.setState({
 
                 searchResults: [],
-                currentFilm: this.state.searchResults[0],
+                currentFilm: this.state.currentFilm,
                 likedFilms: this.state.likedFilms.concat(film),
                 PickFilmflag: false,
                 selectedFilm: [],
                 recentlyDisliked: this.state.recentlyDisliked,
                 getFilmUrl: false,
-                endOfSearchResults: true,
+                endOfSearchResults: true
 
             })
-
+            console.log(this.state)
         }
 
-        this.setState({
+        else this.setState({
 
             searchResults: this.state.searchResults.slice(1, this.state.searchResults.length),
             currentFilm: this.state.searchResults[0],
@@ -82,7 +83,8 @@ class SearchResults extends Component {
             PickFilmflag: false,
             selectedFilm: [],
             recentlyDisliked: this.state.recentlyDisliked,
-            getFilmUrl: false
+            getFilmUrl: false,
+            endOfSearchResults: false,
         })
     }
 
@@ -113,7 +115,8 @@ class SearchResults extends Component {
             likedFilms: this.state.likedFilms,
             selectedFilm: this.state.likedFilms[Math.floor(Math.random() * this.state.likedFilms.length)],
             recentlyDisliked: this.state.recentlyDisliked,
-            getFilmUrl: false
+            getFilmUrl: false,
+            endOfSearchResults:false
 
         })
 
@@ -141,6 +144,7 @@ class SearchResults extends Component {
                 this.setState(Object.assign({}, this.state, {
                     PickFilmflag: false,
                     getFilmUrl: true,
+                    endOfSearchResults:false,
                     selectedUrl: body.results[0].locations
                 }
                 ))
@@ -330,7 +334,7 @@ class SearchResults extends Component {
                                                         return <li>{`${result.name}:`}{Link}</li>
                                                     }
 
-                                                    
+
 
 
                                                 })
@@ -369,7 +373,7 @@ class SearchResults extends Component {
                                 <div class="modal-background"></div>
                                 <div class="modal-card">
                                     <header class="modal-card-head">
-                                        <p class="modal-card-title">Watch it Here</p>
+                                        <p class="modal-card-title">Seen nothing you like?</p>
                                         <button class="delete" aria-label="close"></button>
                                     </header>
                                     <section class="modal-card-body">
@@ -383,9 +387,17 @@ class SearchResults extends Component {
                                     <footer class="modal-card-foot">
 
                                         <button class="button"
+                                            onClick={() => {
+                                                this.pickFilmhandler()
+                                            }}
 
                                         >Pick Liked Film</button>
+
+                                        <Link to="/"><button class="button"
+
+                                        >Search Again</button></Link>
                                     </footer>
+
                                 </div>
                             </div>
 
