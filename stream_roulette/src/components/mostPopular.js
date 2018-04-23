@@ -1,0 +1,129 @@
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import PT from 'prop-types'
+import Film from './film'
+import NavBar  from './NavBar'
+
+class MostRecent extends Component {
+
+    state={
+        mostPopularFilms:[]
+    }
+
+    userInputHandler(key, value) {
+
+
+        this.setState(Object.assign({}, this.state, {
+            [key]: value
+        }))
+
+        console.log(this.state)
+    }
+
+    submitQueries = () => {
+        let usedQueries = Object.keys(this.state)
+
+
+        let queryString = usedQueries.reduce((acc, key) => {
+            if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}` + '&';
+            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}` + '&';
+            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}` + '&';
+
+            if (key === 'search') acc = acc + `term=${this.state.search}`;
+
+
+
+
+
+            return acc
+        }, '')
+
+        this.setState(Object.assign({}, this.state, {
+
+            submitFlag: 1,
+            queriesString: queryString
+        }))
+
+        console.log(queryString)
+
+
+
+
+    }
+
+    componentWillMount(){
+
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&primary_release_date.lte=2016&include_video=false&$`)
+        .then(res => {
+            console.log(res)
+            return res.json();
+        })
+        .then(body => {
+            this.setState({
+
+                mostPopularFilms: body.results,  
+                currentFilm:body.results[Math.floor(Math.random() * (this.state.mostPopularFilms.length - 1))]
+
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+
+    }
+
+    // componentDidMount(){
+        
+    //     setTimeout(this.mostPopularFilms(),5000)
+        
+    // }
+
+    componentDidUpdate(){
+        setTimeout(()=>{
+        this.mostPopularFilms()},5000)
+    }
+    
+    
+    
+    
+    
+    mostPopularFilms =()=>{
+        console.log('called func')
+        let filmNum=Math.floor(Math.random() * (this.state.mostPopularFilms.length - 1))
+        this.setState({
+            
+            mostPopularFilms: this.state.mostPopularFilms,  
+            currentFilm:this.state.mostPopularFilms[filmNum]
+            
+        })
+        
+        
+        
+        
+    }
+    
+    
+    render() {
+        
+
+
+        return (
+            <div style={{ "width":"500px", "height": "700px", "float": "right", "margin-top": "100px", "margin-right": "100px", "margin-bottom": "100px" }} >
+                <h1 className="title"> Most Popular</h1>
+
+                 {this.state.currentFilm?<div class="content">
+                                <figure class="image is-4by5">
+                                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
+                                </figure>
+
+                            </div>:null
+                 }
+                
+
+            </div>
+        )
+    }
+}
+
+export default MostRecent

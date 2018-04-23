@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import NavBar  from './NavBar'
 import PT from 'prop-types';
 
-import MostRecent from '../components/recentlyWatched'
+import MostPopular from '../components/mostPopular'
 import UserForm from './userForm'
 
 
@@ -26,7 +26,7 @@ class HomeFeed extends Component {
                 </div>
 
                 <div>
-                    <MostRecent />
+                    <MostPopular/>
 
                 </div>
             </div>

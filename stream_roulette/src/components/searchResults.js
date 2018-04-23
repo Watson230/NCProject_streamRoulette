@@ -22,7 +22,7 @@ class SearchResults extends Component {
         // let user = this.props.match.params.user
 
         if (this.props.match.params.searchQueries) {
-            searchQuery = this.props.match.params.searchQueries
+            searchQuery = this.props.match.params.searchQueries.slice(0, this.props.match.params.searchQueries.length - 1)
         }
 
         console.log('search queries', searchQuery)
@@ -30,7 +30,7 @@ class SearchResults extends Component {
             let title = searchQuery.split('=')[1]
             this.getPickedFilmURLS(title)
         }
-        else fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&primary_release_date.lte=2017&include_video=false&page=1${searchQuery}`)
+        else fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&primary_release_date.lte=2017&include_video=false&${searchQuery}`)
             .then(res => {
                 console.log(res)
                 return res.json();
@@ -54,7 +54,7 @@ class SearchResults extends Component {
     }
 
     LikeFilmHandler = () => {
-        console.log('liked film')
+        this.likedFilmUserUpdate()
         let film = [this.state.currentFilm]
         console.log(this.state.searchResults.slice(1, this.state.searchResults.length))
 
@@ -88,8 +88,44 @@ class SearchResults extends Component {
         })
     }
 
-    disLikeFilmhandler = () => {
+    likedFilmUserUpdate = () => {
 
+        fetch(`http://localhost:4000/api/search/results/${this.state.user}/liked`, {
+
+            method: 'PUT',
+            body: JSON.stringify({
+                film: this.state.currentFilm
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+                console.log(res)
+                return res.json();
+            })
+            .then(body => {
+
+                this.setState({
+
+                    likedFilms: this.state.likedFilms.concat(body)
+
+                })
+                console.log(this.state)
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
+
+
+    }
+
+    disLikeFilmhandler = () => {
+        this.dislikedFilmUserUpdate();
         let film = this.state.currentFilm
 
         this.setState({
@@ -97,11 +133,44 @@ class SearchResults extends Component {
             searchResults: this.state.searchResults.slice(1, this.state.searchResults.length),
             currentFilm: this.state.searchResults[0],
             likedFilms: this.state.likedFilms,
+
             PickFilmflag: false,
             selectedFilm: [],
             recentlyDisliked: film,
             getFilmUrl: false
         })
+
+    }
+
+    dislikedFilmUserUpdate = () => {
+
+        fetch(`http://localhost:4000/api/search/results/${this.state.user}/disliked`, {
+
+            method: 'PUT',
+            body: JSON.stringify({
+                film: this.state.currentFilm
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+                console.log(res)
+                return res.json();
+            })
+            .then(body => {
+
+
+                console.log(body)
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
+
 
     }
 
@@ -113,10 +182,10 @@ class SearchResults extends Component {
             currentFilm: this.state.currentFilm,
             PickFilmflag: true,
             likedFilms: this.state.likedFilms,
-            selectedFilm: this.state.likedFilms[Math.floor(Math.random() * this.state.likedFilms.length)],
+            selectedFilm: this.state.likedFilms[Math.floor(Math.random() * (this.state.likedFilms.length - 1))],
             recentlyDisliked: this.state.recentlyDisliked,
             getFilmUrl: false,
-            endOfSearchResults:false
+            endOfSearchResults: false
 
         })
 
@@ -126,6 +195,7 @@ class SearchResults extends Component {
         if (!title) title = this.state.selectedFilm.title
         console.log('title', title)
 
+        this.watchedFilmsUserUpdate()
 
         fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
             {
@@ -144,7 +214,7 @@ class SearchResults extends Component {
                 this.setState(Object.assign({}, this.state, {
                     PickFilmflag: false,
                     getFilmUrl: true,
-                    endOfSearchResults:false,
+                    endOfSearchResults: false,
                     selectedUrl: body.results[0].locations
                 }
                 ))
@@ -184,6 +254,39 @@ class SearchResults extends Component {
         //     console.log(err)
 
         // })
+
+    }
+
+    watchedFilmsUserUpdate = () => {
+
+        fetch(`http://localhost:4000/api/search/results/${this.state.user}/watched`, {
+
+            method: 'PUT',
+            body: JSON.stringify({
+                film: this.state.selectedFilm
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+                console.log(res)
+                return res.json();
+            })
+            .then(body => {
+
+
+                console.log(body)
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
+
+
 
     }
 
@@ -252,6 +355,7 @@ class SearchResults extends Component {
                             <h1 class="title is-2">{`Liked Films:${this.state.likedFilms.length}`}</h1>
 
                             <button class="button is-link" onClick={() => {
+
                                 this.pickFilmhandler()
                             }}
 
