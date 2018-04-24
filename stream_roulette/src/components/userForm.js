@@ -34,6 +34,8 @@ class UserForm extends Component {
 
         console.log(this.state)
 
+        this.saveQueries()
+
         let usedQueries = Object.keys(this.state.queries)
         let queryString = usedQueries.reduce((acc, key) => {
             if (key === 'keywords') acc = acc + `with_keywords=${this.state.queries.keywords}` + '&';
@@ -56,6 +58,7 @@ class UserForm extends Component {
         }))
 
         console.log(queryString)
+        
 
     }
 
@@ -88,11 +91,11 @@ class UserForm extends Component {
 
     saveQueries =()=>{
 
-        fetch(`http://localhost:4000/api/search/results/${this.state.user}/queries`, {
+        fetch(`http://localhost:4000/api/search/${this.state.user}/queries`, {
 
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify({
-                queires: this.state.queries,
+                queries: this.state.queries,
                 userName:this.state.user
             }),
             headers: new Headers({
