@@ -10,7 +10,7 @@ class UserForm extends Component {
 
         genres: [],
         searchFlag: 0,
-        user: '',
+        
         userInfo: [],
         searchTabClass: 'is-active',
         queries: {}
@@ -33,14 +33,28 @@ class UserForm extends Component {
 
     submitQueries = () => {
 
-        console.log(this.state)
+       
 
-        this.saveQueries()
+        if(!this.state.user){
+
+            this.setState(Object.assign({}, this.state, {
+
+               user:'default'
+            }), () => {
+                console.log(this.state)
+                this.saveQueries()
+            } )
+        }
+
+        else this.saveQueries()
+
+        
 
         let usedQueries = Object.keys(this.state.queries)
         let queryString = usedQueries.reduce((acc, key) => {
+
             if (key === 'keywords') acc = acc + `with_keywords=${this.state.queries.keywords}` + '&';
-            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.queries.Year)}` + '&';
+            if (key === 'year') acc = acc + `primary_release_year=${parseInt(this.state.queries.year)}` + '&';
             if (key === 'genre') acc = acc + `with_genres=${this.state.queries.genre.split(':')[1]}` + '&';
 
             if (key === 'search') acc = acc + `term=${this.state.search}`;

@@ -12,7 +12,7 @@ import UserInfo from './userInfo'
 class HomeFeed extends Component {
 
     state = {
-        userName: ''
+        userName: 'random'
     }
 
 
@@ -25,19 +25,13 @@ class HomeFeed extends Component {
             <div>
                <NavBar/>
                 <div class="columns"  >
-
-                  
-
-
+                    
                     <div class="column is-two-thirds" style={{ "display": "block", "margin-top": "50px" , "margin-left": "20px" }}>
-
                         <UserForm user={this.state.userName} />
-
                     </div>
 
                     <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px" }}>
                         <MostPopular />
-
                     </div>
                 </div>
             </div>
