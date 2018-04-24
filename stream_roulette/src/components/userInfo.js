@@ -144,21 +144,21 @@ class UserInfo extends Component {
                                         <div >
 
 
-                                            <p class="title">Recently Watched</p>
-                                            <p class="subtitle">{this.state.user}</p>
+                                            <p class="subtitle">{`${this.state.user}'s film history`}</p>
+                                            <p class="subtitle"> Recently Watched</p> 
                                             <div class="content">
 
                                                 <ul>
                                                     {
-                                                        this.state.userInfo[0].watchedFilms.map(film => {
+                                                        this.state.userInfo[0].watchedFilms.slice(this.state.userInfo[0].watchedFilms.length - 5).reverse().map(film => {
 
                                                             if (film) return <li><a
                                                                 onClick={() => {
-                                                                    
+
                                                                     this.setState(Object.assign({}, this.state, {
                                                                         watchAgain: true,
-                                                                        userNotExists :false,
-                                                                        
+                                                                        userNotExists: false,
+
 
                                                                     }))
 
@@ -172,7 +172,35 @@ class UserInfo extends Component {
                                                         )
                                                     }
                                                 </ul>
+                                                <div>
+                                                    <p class="subtitle">Recently liked </p>
+                                                    <ul>
+                                                        {
+                                                            this.state.userInfo[0].likedFilms.slice(this.state.userInfo[0].likedFilms.length - 5).reverse().map(film => {
 
+                                                                return <li>{film.title}</li>
+
+                                                            })
+
+                                                        }
+
+                                                    </ul>
+                                                </div>
+
+                                                <div>
+                                                    <p class="subtitle"> Recently disliked </p>
+                                                    <ul>
+                                                        {
+                                                            this.state.userInfo[0].dislikedFilms.slice(this.state.userInfo[0].dislikedFilms.length - 5).reverse().map(film => {
+
+                                                                return <li>{film.title}</li>
+
+                                                            })
+
+                                                        }
+
+                                                    </ul>
+                                                </div>
                                             </div>
 
 
@@ -191,24 +219,24 @@ class UserInfo extends Component {
                                                         <button class="delete" aria-label="close"></button>
                                                     </header>
                                                     <section class="modal-card-body">
-                                                    { this.state.watchedFilmUrl?
-                                                        <ul style={{"color":'black'}}>
-                                                            {
-                                                                this.state.watchedFilmUrl.map(result => {
-                                                                    console.log('res',result)
-                                                                    let Link;
-                                                                    if (result.url) {
-                                                                        
-                                                                        Link = <Linkify>{result.url.split("//")[1]}</Linkify>
+                                                        {this.state.watchedFilmUrl ?
+                                                            <ul style={{ "color": 'black' }}>
+                                                                {
+                                                                    this.state.watchedFilmUrl.map(result => {
+                                                                        console.log('res', result)
+                                                                        let Link;
+                                                                        if (result.url) {
 
-                                                                        return <li>{`${result.name}:`}{Link}</li>
-                                                                    }
+                                                                            Link = <Linkify>{result.url.split("//")[1]}</Linkify>
 
-                                                                })
+                                                                            return <li>{`${result.name}:`}{Link}</li>
+                                                                        }
 
-                                                            }
-                                                        </ul>:
-                                                        null
+                                                                    })
+
+                                                                }
+                                                            </ul> :
+                                                            null
 
                                                         }
 
@@ -218,7 +246,7 @@ class UserInfo extends Component {
                                                         <Link to={"/"}
                                                             onClick={() => {
                                                                 this.setState({
-                                                                    watchAgain:false,
+                                                                    watchAgain: false,
                                                                     user: this.state.user
                                                                 })
 
