@@ -10,25 +10,25 @@ class UserForm extends Component {
 
         genres: [],
         searchFlag: 0,
-        user: 'daveWats',
+        user: '',
         userInfo: [],
         searchTabClass: 'is-active',
-        queries:{}
+        queries: {}
 
     }
 
-    userInputHandler(key,value) {
+    userInputHandler(key, value) {
 
         const newState = Object.assign({}, this.state)
 
-        const newQueries= Object.assign({}, newState.queries)
+        const newQueries = Object.assign({}, newState.queries)
         console.log('newQueries', newQueries);
         newQueries[key] = value;
         newState.queries = newQueries;
-          console.log('updated queries',newQueries)
+        console.log('updated queries', newQueries)
         this.setState(newState, () => console.log('state', this.state));
 
-        
+
     }
 
     submitQueries = () => {
@@ -59,7 +59,7 @@ class UserForm extends Component {
         }))
 
         console.log(queryString)
-        
+
 
     }
 
@@ -90,14 +90,14 @@ class UserForm extends Component {
 
     }
 
-    saveQueries =()=>{
+    saveQueries = () => {
 
         fetch(`http://localhost:4000/api/search/${this.state.user}/queries`, {
 
             method: 'POST',
             body: JSON.stringify({
                 queries: this.state.queries,
-                userName:this.state.user
+                userName: this.state.user
             }),
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -122,13 +122,13 @@ class UserForm extends Component {
     }
 
 
-    CreateUser = () => {
-            console.log(this.state.user)
+    CreateUser = (user) => {
+
         fetch(`http://localhost:4000/api/user`, {
 
             method: 'POST',
             body: JSON.stringify({
-                userName: this.state.user
+                userName: user
             }),
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -143,7 +143,8 @@ class UserForm extends Component {
 
                 this.setState({
 
-                    userInfo: body
+                    userInfo: body,
+                    user: user
 
                 })
                 console.log(this.state)
@@ -184,42 +185,17 @@ class UserForm extends Component {
     render() {
         return (
             <div class="columns">
-                
-                {/* <div class="column" style={{ "margin-left": "20px" }}>
-                    <div class="field">
-                        <label class="label">User</label>
-                        <p class="control has-icons-left has-icons-right">
-                            <input class="input" type="email" placeholder="User" value={this.state.user} />
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-envelope"></i>
-                            </span>
-                            <span class="icon is-small is-right">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </p>
-                    </div>
 
-                    <div class="field">
-                        <p class="control">
-                            <button class="button is-success"
-                            onClick={()=>{
-                                this.CreateUser()
 
-                            }}
-                            >
-                                Login
-                            </button>
-                        </p>
-                    </div>
-                </div> */}
                 <div class="column is-one-third">
-                <UserInfo createUser ={this.CreateUser}/>
+                    <UserInfo createUser={this.CreateUser} />
                 </div>
-                                 
 
-                <div class="column" style={{ "width": "500px",  "height": "760px", "margin":"0,auto"}}>
 
-                
+                <div class="column" style={{ "width": "500px", "height": "760px", "margin": "0,auto" }}>
+
+                    <h1 class="is title">Search for a film</h1>
+
                     <div class="tabs is-centered is-boxed">
                         <ul>
                             <li class={`${this.state.searchTabClass}`}
@@ -239,7 +215,6 @@ class UserForm extends Component {
 
                     {this.state.searchFlag > 0 ?
                         <div class="discover">
-                            <h1 class="is title">Search for a film</h1>
 
                             <div class="field">
                                 <label class="label">Keywords</label>
@@ -357,7 +332,7 @@ class UserForm extends Component {
                         </div>
                         :
                         <div class="search">
-                            <h1 class="is title">Search for a film</h1>
+                           
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
