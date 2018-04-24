@@ -9,10 +9,10 @@ class UserForm extends Component {
     state = {
 
         genres: [],
-        searchFlag: 0,
+        searchFlag: 1,
         
         userInfo: [],
-        searchTabClass: 'is-active',
+        discoverTabClass: 'is-active',
         queries: {}
 
     }
@@ -222,18 +222,18 @@ class UserForm extends Component {
 
                     <div class="tabs is-centered is-boxed">
                         <ul>
-                            <li class={`${this.state.searchTabClass}`}
-                                onClick={() => {
-
-                                    this.searchTabHandler(0, 'search')
-                                }}
-                            ><a>Search</a></li>
                             <li class={`${this.state.discoverTabClass}`}
                                 onClick={() => {
 
                                     this.searchTabHandler(1, 'discover')
                                 }}
                             ><a>Discover</a></li>
+                            <li class={`${this.state.searchTabClass}`}
+                                onClick={() => {
+
+                                    this.searchTabHandler(0, 'search')
+                                }}
+                            ><a>Search</a></li>
                         </ul>
                     </div>
 
