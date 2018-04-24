@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
+import UserInfo from './userInfo'
 
 
 class UserForm extends Component {
@@ -122,7 +123,7 @@ class UserForm extends Component {
 
 
     CreateUser = () => {
-
+            console.log(this.state.user)
         fetch(`http://localhost:4000/api/user`, {
 
             method: 'POST',
@@ -182,9 +183,9 @@ class UserForm extends Component {
 
     render() {
         return (
-            <div>
-                <NavBar />
-                <div style={{ "margin-top": "30px", "float": "left", "margin-left": "20px" }}>
+            <div class="columns">
+                
+                {/* <div class="column" style={{ "margin-left": "20px" }}>
                     <div class="field">
                         <label class="label">User</label>
                         <p class="control has-icons-left has-icons-right">
@@ -210,12 +211,13 @@ class UserForm extends Component {
                             </button>
                         </p>
                     </div>
+                </div> */}
+                <div class="column is-one-third">
+                <UserInfo createUser ={this.CreateUser}/>
                 </div>
-
-
                                  
 
-                <div style={{ "width": "500px", "margin-top": "110px", "float": "left", "margin-left": "100px", "height": "760px", "margin-bottom": "100px" }}>
+                <div class="column" style={{ "width": "500px",  "height": "760px", "margin":"0,auto"}}>
 
                 
                     <div class="tabs is-centered is-boxed">

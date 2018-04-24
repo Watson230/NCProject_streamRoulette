@@ -109,7 +109,7 @@ class MostRecent extends Component {
 
 
         return (
-            <div style={{ "width":"500px", "height": "700px", "float": "right", "margin-top": "100px", "margin-right": "100px", "margin-bottom": "100px" }} >
+            <div style={{ "width":"500px", "height": "700px", }} >
                
 
                  {this.state.currentFilm?

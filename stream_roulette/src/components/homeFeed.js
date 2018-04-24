@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
-import NavBar  from './NavBar'
+import NavBar from './NavBar'
 import PT from 'prop-types';
 
-import MostPopular from '../components/mostPopular'
+import MostPopular from './mostPopular'
 import UserForm from './userForm'
+import UserInfo from './userInfo'
 
 
 
 class HomeFeed extends Component {
+
+    state = {
+        userName: ''
+    }
 
 
 
@@ -17,17 +22,23 @@ class HomeFeed extends Component {
 
 
         return (
-            <div >
-          
-                <div style={{ "display": "block" ,"margin-top":"50px"}}>
-                    
-                    <UserForm />
+            <div>
+                <NavBar />
+                <div class="columns"  >
 
-                </div>
+                  
 
-                <div>
-                    <MostPopular/>
 
+                    <div class="column is-two-thirds" style={{ "display": "block", "margin-top": "50px" }}>
+
+                        <UserForm user={this.state.userName} />
+
+                    </div>
+
+                    <div class="column">
+                        <MostPopular />
+
+                    </div>
                 </div>
             </div>
 
