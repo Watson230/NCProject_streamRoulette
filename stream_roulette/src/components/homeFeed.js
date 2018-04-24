@@ -23,19 +23,19 @@ class HomeFeed extends Component {
 
         return (
             <div>
-                <NavBar />
+               <NavBar/>
                 <div class="columns"  >
 
                   
 
 
-                    <div class="column is-two-thirds" style={{ "display": "block", "margin-top": "50px" }}>
+                    <div class="column is-two-thirds" style={{ "display": "block", "margin-top": "50px" , "margin-left": "20px" }}>
 
                         <UserForm user={this.state.userName} />
 
                     </div>
 
-                    <div class="column">
+                    <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px" }}>
                         <MostPopular />
 
                     </div>

@@ -17,7 +17,6 @@ class MostRecent extends Component {
             [key]: value
         }))
 
-        console.log(this.state)
     }
 
     submitQueries = () => {
@@ -31,10 +30,6 @@ class MostRecent extends Component {
 
             if (key === 'search') acc = acc + `term=${this.state.search}`;
 
-
-
-
-
             return acc
         }, '')
 
@@ -44,16 +39,11 @@ class MostRecent extends Component {
             queriesString: queryString
         }))
 
-        console.log(queryString)
-
-
-
-
     }
 
     componentWillMount(){
 
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2016&include_video=false`)
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2017&include_video=false`)
         .then(res => {
             console.log(res)
             return res.json();
@@ -73,11 +63,6 @@ class MostRecent extends Component {
 
     }
 
-    // componentDidMount(){
-        
-    //     setTimeout(this.mostPopularFilms(),5000)
-        
-    // }
 
     componentDidUpdate(){
         setTimeout(()=>{
@@ -85,10 +70,7 @@ class MostRecent extends Component {
     }
     
     
-    
-    
-    
-    mostPopularFilms =()=>{
+    mostPopularFilms =()=> {
         
         let filmNum=Math.floor(Math.random() * (this.state.mostPopularFilms.length - 1))
         this.setState({
@@ -128,13 +110,20 @@ class MostRecent extends Component {
                             
                             
                             
-                            : 'loading.....'
+                            :                 <div class="tile is-parent">
+                            <article class="tile is-child notification is-info">
+                              <p class="title">loading.....</p>
+                            
+                              
+                            </article>
+                          </div>
                  }
                 
 
             </div>
         )
     }
+
 }
 
 export default MostRecent

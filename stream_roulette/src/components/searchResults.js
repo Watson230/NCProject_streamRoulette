@@ -14,7 +14,7 @@ class SearchResults extends Component {
         PickFilmflag: false,
         getFilmUrl: false,
         endOfSearchResults: false,
-        user: 'daveWats'
+        user: this.props.match.params.user
     }
 
     componentDidMount() {
@@ -56,10 +56,10 @@ class SearchResults extends Component {
     LikeFilmHandler = () => {
         this.likedFilmUserUpdate()
         let film = [this.state.currentFilm]
-        console.log(this.state.searchResults.slice(1, this.state.searchResults.length))
+        console.log('liked film', film)
 
         if (this.state.searchResults.slice(1, this.state.searchResults.length).length < 1) {
-            console.log('hello')
+            
             this.setState({
 
                 searchResults: [],
@@ -72,7 +72,7 @@ class SearchResults extends Component {
                 endOfSearchResults: true
 
             })
-            console.log(this.state)
+            
         }
 
         else this.setState({
@@ -90,7 +90,7 @@ class SearchResults extends Component {
 
     likedFilmUserUpdate = () => {
 
-        fetch(`http://localhost:4000/api/search/results/${this.state.user}/liked`, {
+        fetch(`http://localhost:4000/api/search/results/liked/${this.state.user}`, {
 
             method: 'PUT',
             body: JSON.stringify({
@@ -102,17 +102,17 @@ class SearchResults extends Component {
             type: 'cors'
         })
             .then(res => {
-                console.log(res)
+              
                 return res.json();
             })
             .then(body => {
 
-                this.setState({
+                // this.setState({
 
-                    likedFilms: this.state.likedFilms.concat(body)
+                //     likedFilms: this.state.likedFilms.concat(body)
 
-                })
-                console.log(this.state)
+                // })
+                
             }
 
             )
@@ -156,7 +156,7 @@ class SearchResults extends Component {
             type: 'cors'
         })
             .then(res => {
-                console.log(res)
+                
                 return res.json();
             })
             .then(body => {
@@ -188,6 +188,8 @@ class SearchResults extends Component {
             endOfSearchResults: false
 
         })
+        console.log(this.state.selectedFilm)
+        console.log(this.state.likedFilms)
 
     }
 
@@ -258,7 +260,7 @@ class SearchResults extends Component {
     }
 
     watchedFilmsUserUpdate = () => {
-
+            console.log(this.state.selectedFilm)
         fetch(`http://localhost:4000/api/search/results/${this.state.user}/watched`, {
 
             method: 'PUT',
@@ -367,7 +369,7 @@ class SearchResults extends Component {
                 </div>
                 {
                     this.state.PickFilmflag ?
-
+                    
                         <div class="modal is-active">
                             <div class="modal-background"></div>
                             <div class="modal-card">
@@ -393,6 +395,7 @@ class SearchResults extends Component {
                                     <button class="button is-success"
                                         onClick={() => {
                                             this.getPickedFilmURLS()
+                                            
                                         }}
 
                                     >Watch</button>
@@ -452,7 +455,7 @@ class SearchResults extends Component {
                                 </section>
                                 <footer class="modal-card-foot">
 
-                                    <button class="button"
+                                   <Link to={"/"}> <button class="button"
                                         onClick={() => {
                                             this.setState(Object.assign({}, this.state, {
                                                 PickFilmflag: false,
@@ -461,7 +464,7 @@ class SearchResults extends Component {
                                             }
                                             ))
                                         }}
-                                    >Cancel</button>
+                                    >Cancel</button></Link>
                                 </footer>
                             </div>
                         </div>

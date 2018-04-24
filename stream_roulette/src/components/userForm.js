@@ -22,10 +22,10 @@ class UserForm extends Component {
         const newState = Object.assign({}, this.state)
 
         const newQueries = Object.assign({}, newState.queries)
-        console.log('newQueries', newQueries);
+        
         newQueries[key] = value;
         newState.queries = newQueries;
-        console.log('updated queries', newQueries)
+        
         this.setState(newState, () => console.log('state', this.state));
 
 
@@ -59,6 +59,7 @@ class UserForm extends Component {
         }))
 
         console.log(queryString)
+        console.log(this.state)
 
 
     }
@@ -159,6 +160,15 @@ class UserForm extends Component {
 
     }
 
+    UpdateStateUser =(user, userInfo)=>{
+
+        this.setState(Object.assign({}, this.state,{
+            user:user,
+            userInfo:userInfo
+        }))
+
+    }
+
 
     componentDidMount() {
 
@@ -188,7 +198,7 @@ class UserForm extends Component {
 
 
                 <div class="column is-one-third">
-                    <UserInfo createUser={this.CreateUser} />
+                    <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser} />
                 </div>
 
 
