@@ -53,7 +53,7 @@ class MostRecent extends Component {
 
     componentWillMount(){
 
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&primary_release_date.lte=2016&include_video=false&$`)
+        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2016&include_video=false`)
         .then(res => {
             console.log(res)
             return res.json();
@@ -89,7 +89,7 @@ class MostRecent extends Component {
     
     
     mostPopularFilms =()=>{
-        console.log('called func')
+        
         let filmNum=Math.floor(Math.random() * (this.state.mostPopularFilms.length - 1))
         this.setState({
             
@@ -110,14 +110,25 @@ class MostRecent extends Component {
 
         return (
             <div style={{ "width":"500px", "height": "700px", "float": "right", "margin-top": "100px", "margin-right": "100px", "margin-bottom": "100px" }} >
-                <h1 className="title"> Most Popular</h1>
+               
 
-                 {this.state.currentFilm?<div class="content">
-                                <figure class="image is-4by5">
+                 {this.state.currentFilm?
+                 
+                           
+                            <div class="tile is-parent">
+                            <article class="tile is-child notification is-info">
+                              <p class="title">Most Popular </p>
+                              <p class="subtitle">{`${this.state.currentFilm.title}`}</p>
+                              <figure class="image is-4by5">
                                     <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
                                 </figure>
-
-                            </div>:null
+                            </article>
+                          </div>
+                        
+                            
+                            
+                            
+                            : 'loading.....'
                  }
                 
 

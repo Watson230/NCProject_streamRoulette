@@ -11,28 +11,34 @@ class UserForm extends Component {
         searchFlag: 0,
         user: 'daveWats',
         userInfo: [],
-        searchTabClass: 'is-active'
+        searchTabClass: 'is-active',
+        queries:{}
 
     }
 
-    userInputHandler(key, value) {
+    userInputHandler(key,value) {
 
+        const newState = Object.assign({}, this.state)
 
-        this.setState(Object.assign({}, this.state, {
-            [key]: value
-        }))
+        const newQueries= Object.assign({}, newState.queries)
+        console.log('newQueries', newQueries);
+        newQueries[key] = value;
+        newState.queries = newQueries;
+          console.log('updated queries',newQueries)
+        this.setState(newState, () => console.log('state', this.state));
 
-        console.log(this.state)
+        
     }
 
     submitQueries = () => {
-        let usedQueries = Object.keys(this.state)
 
+        console.log(this.state)
 
+        let usedQueries = Object.keys(this.state.queries)
         let queryString = usedQueries.reduce((acc, key) => {
-            if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}` + '&';
-            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}` + '&';
-            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}` + '&';
+            if (key === 'keywords') acc = acc + `with_keywords=${this.state.queries.keywords}` + '&';
+            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.queries.Year)}` + '&';
+            if (key === 'genre') acc = acc + `with_genres=${this.state.queries.genre.split(':')[1]}` + '&';
 
             if (key === 'search') acc = acc + `term=${this.state.search}`;
 
@@ -50,9 +56,6 @@ class UserForm extends Component {
         }))
 
         console.log(queryString)
-
-
-
 
     }
 
@@ -80,6 +83,37 @@ class UserForm extends Component {
             }))
 
         }
+
+    }
+
+    saveQueries =()=>{
+
+        fetch(`http://localhost:4000/api/search/results/${this.state.user}/queries`, {
+
+            method: 'PUT',
+            body: JSON.stringify({
+                queires: this.state.queries,
+                userName:this.state.user
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+                console.log(res)
+                return res.json();
+            })
+            .then(body => {
+
+                console.log(body)
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
 
     }
 
@@ -119,9 +153,6 @@ class UserForm extends Component {
 
 
     }
-
-
-
 
 
     componentDidMount() {
@@ -177,7 +208,13 @@ class UserForm extends Component {
                         </p>
                     </div>
                 </div>
+
+
+                                 
+
                 <div style={{ "width": "500px", "margin-top": "110px", "float": "left", "margin-left": "100px", "height": "760px", "margin-bottom": "100px" }}>
+
+                
                     <div class="tabs is-centered is-boxed">
                         <ul>
                             <li class={`${this.state.searchTabClass}`}
@@ -202,7 +239,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Keywords</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="keywords" value={this.state.keywords}
+                                    <input class="input" type="text" placeholder="keywords" value={this.state.queries.keywords}
                                         onChange={event => {
                                             this.userInputHandler(event.target.placeholder, event.target.value)
 
@@ -239,7 +276,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Rating</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="rating" value={this.state.rating}
+                                    <input class="input" type="text" placeholder="rating" value={this.state.queries.rating}
                                         onChange={event => {
 
                                             this.userInputHandler(event.target.placeholder, event.target.value)
@@ -252,7 +289,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Release Date</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Year" value={this.state.Year}
+                                    <input class="input" type="text" placeholder="year" value={this.state.queries.year}
                                         onChange={event => {
 
                                             this.userInputHandler(event.target.placeholder, event.target.value)
@@ -276,7 +313,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Starring</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="starring" value={this.state.starring}
+                                    <input class="input" type="text" placeholder="starring" value={this.state.queries.starring}
                                         onChange={event => {
 
                                             this.userInputHandler(event.target.placeholder, event.target.value)
@@ -289,7 +326,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Director</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="director" value={this.state.director}
+                                    <input class="input" type="text" placeholder="director" value={this.state.queries.director}
                                         onChange={event => {
 
                                             this.userInputHandler(event.target.placeholder, event.target.value)
@@ -319,7 +356,7 @@ class UserForm extends Component {
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="search" value={this.state.search}
+                                    <input class="input" type="text" placeholder="search" value={this.state.queries.search}
                                         onChange={event => {
                                             console.log(event.target)
                                             this.userInputHandler(event.target.placeholder, event.target.value)
@@ -352,7 +389,7 @@ class UserForm extends Component {
                             <div class="modal-background"></div>
                             <div class="modal-card">
                                 <header class="modal-card-head">
-                                    <p class="modal-card-title">Modal title</p>
+                                    <p class="modal-card-title">Search</p>
                                     <button class="delete" aria-label="close"></button>
                                 </header>
                                 <section class="modal-card-body">
