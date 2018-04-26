@@ -10,9 +10,10 @@ class UserForm extends Component {
 
         genres: [],
         searchFlag: 1,
-        
+
         userInfo: [],
         discoverTabClass: 'is-active',
+        selectSearchFlag:true,
         queries: {}
 
     }
@@ -22,10 +23,10 @@ class UserForm extends Component {
         const newState = Object.assign({}, this.state)
 
         const newQueries = Object.assign({}, newState.queries)
-        
+
         newQueries[key] = value;
         newState.queries = newQueries;
-        
+
         this.setState(newState, () => console.log('state', this.state));
 
 
@@ -33,22 +34,22 @@ class UserForm extends Component {
 
     submitQueries = () => {
 
-       
 
-        if(!this.state.user){
+
+        if (!this.state.user) {
 
             this.setState(Object.assign({}, this.state, {
 
-               user:'default'
+                user: 'default'
             }), () => {
                 console.log(this.state)
                 this.saveQueries()
-            } )
+            })
         }
 
         else this.saveQueries()
 
-        
+
 
         let usedQueries = Object.keys(this.state.queries)
         let queryString = usedQueries.reduce((acc, key) => {
@@ -174,11 +175,11 @@ class UserForm extends Component {
 
     }
 
-    UpdateStateUser =(user, userInfo)=>{
+    UpdateStateUser = (user, userInfo) => {
 
-        this.setState(Object.assign({}, this.state,{
-            user:user,
-            userInfo:userInfo
+        this.setState(Object.assign({}, this.state, {
+            user: user,
+            userInfo: userInfo
         }))
 
     }
@@ -212,180 +213,207 @@ class UserForm extends Component {
 
 
                 <div class="column is-one-third">
+
+                    <button class="button is-info"
+                    onClick={()=>{
+
+
+
+                    }}
+                    
+                    >Search Here</button>
                     <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser} />
                 </div>
 
+                {this.state.selectSearchFlag ?
+                    <div class="modal is-active">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title">Search</p>
+                                <button class="delete" aria-label="close"></button>
+                            </header>
+                            <section class="modal-card-body">
+                                <div class="column" style={{ "width": "500px", "height": "760px", "margin": "0,auto" }}>
 
-                <div class="column" style={{ "width": "500px", "height": "760px", "margin": "0,auto" }}>
+                                    <h1 class="is title">Search for a film</h1>
 
-                    <h1 class="is title">Search for a film</h1>
+                                    <div class="tabs is-centered is-boxed">
+                                        <ul>
+                                            <li class={`${this.state.discoverTabClass}`}
+                                                onClick={() => {
 
-                    <div class="tabs is-centered is-boxed">
-                        <ul>
-                            <li class={`${this.state.discoverTabClass}`}
-                                onClick={() => {
+                                                    this.searchTabHandler(1, 'discover')
+                                                }}
+                                            ><a>Discover</a></li>
+                                            <li class={`${this.state.searchTabClass}`}
+                                                onClick={() => {
 
-                                    this.searchTabHandler(1, 'discover')
-                                }}
-                            ><a>Discover</a></li>
-                            <li class={`${this.state.searchTabClass}`}
-                                onClick={() => {
-
-                                    this.searchTabHandler(0, 'search')
-                                }}
-                            ><a>Search</a></li>
-                        </ul>
-                    </div>
-
-                    {this.state.searchFlag > 0 ?
-                        <div class="discover">
-
-                            <div class="field">
-                                <label class="label">Keywords</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="keywords" value={this.state.queries.keywords}
-                                        onChange={event => {
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">genre</label>
-                                <div class="field has-addons">
-                                    <div class="control is-expanded">
-                                        <div class="select is-fullwidth">
-                                            <select id="genre"
-
-                                                onChange={event => {
-                                                    console.log(event.target)
-                                                    this.userInputHandler('genre', event.target.value)
-
-
-                                                }}>
-                                                <option>Choose one</option>
-                                                {this.state.genres.map(genre => {
-
-                                                    return <option>{`${genre.name} - id:${genre.id}`}</option>
-
-                                                })}
-                                            </select>
-                                        </div>
+                                                    this.searchTabHandler(0, 'search')
+                                                }}
+                                            ><a>Search</a></li>
+                                        </ul>
                                     </div>
+
+                                    {this.state.searchFlag > 0 ?
+                                        <div class="discover">
+
+                                            <div class="field">
+                                                <label class="label">Keywords</label>
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="keywords" value={this.state.queries.keywords}
+                                                        onChange={event => {
+                                                            this.userInputHandler(event.target.placeholder, event.target.value)
+
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <label class="label">genre</label>
+                                                <div class="field has-addons">
+                                                    <div class="control is-expanded">
+                                                        <div class="select is-fullwidth">
+                                                            <select id="genre"
+
+                                                                onChange={event => {
+                                                                    console.log(event.target)
+                                                                    this.userInputHandler('genre', event.target.value)
+
+
+                                                                }}>
+                                                                <option>Choose one</option>
+                                                                {this.state.genres.map(genre => {
+
+                                                                    return <option>{`${genre.name} - id:${genre.id}`}</option>
+
+                                                                })}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="field">
+                                                <label class="label">Rating</label>
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="rating" value={this.state.queries.rating}
+                                                        onChange={event => {
+
+                                                            this.userInputHandler(event.target.placeholder, event.target.value)
+
+
+                                                        }} />
+                                                </div>
+                                            </div>
+
+                                            <div class="field">
+                                                <label class="label">Release Date</label>
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="year" value={this.state.queries.year}
+                                                        onChange={event => {
+
+                                                            this.userInputHandler(event.target.placeholder, event.target.value)
+
+
+                                                        }}
+                                                    />
+                                                </div>
+
+
+                                                <div class="field">
+                                                    <input class="is-checkradio" id="exampleRadioInline1" type="radio" name="exampleRadioInline" checked="checked" />
+                                                    <label for="exampleRadioInline1">Before</label>
+                                                    <input class="is-checkradio" id="exampleRadioInline2" type="radio" name="exampleRadioInline" />
+                                                    <label for="exampleRadioInline2">After</label>
+                                                    <input class="is-checkradio" id="exampleRadioInline3" type="radio" name="exampleRadioInline" />
+                                                    <label for="exampleRadioInline2">Only</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="field">
+                                                <label class="label">Starring</label>
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="starring" value={this.state.queries.starring}
+                                                        onChange={event => {
+
+                                                            this.userInputHandler(event.target.placeholder, event.target.value)
+
+
+                                                        }} />
+                                                </div>
+                                            </div>
+
+                                            <div class="field">
+                                                <label class="label">Director</label>
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="director" value={this.state.queries.director}
+                                                        onChange={event => {
+
+                                                            this.userInputHandler(event.target.placeholder, event.target.value)
+
+                                                        }} />
+                                                </div>
+                                            </div>
+
+                                            <div class="field is-grouped">
+                                                <div class="control">
+                                                    <button class="button is-link"
+                                                        onClick={() => {
+
+                                                            this.submitQueries()
+
+                                                        }}
+                                                    >Submit</button>
+                                                </div>
+                                                <div class="control">
+                                                    <button class="button is-text">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        :
+                                        <div class="search">
+
+                                            <div class="field">
+                                                <label class="label">Title</label>
+                                                <div class="control">
+                                                    <input class="input" type="text" placeholder="search" value={this.state.queries.search}
+                                                        onChange={event => {
+                                                            console.log(event.target)
+                                                            this.userInputHandler(event.target.placeholder, event.target.value)
+
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="field is-grouped">
+                                                <div class="control">
+                                                    <button class="button is-link"
+                                                        onClick={() => {
+
+                                                            this.submitQueries()
+
+                                                        }}
+                                                    >Submit</button>
+                                                </div>
+                                                <div class="control">
+                                                    <button class="button is-text">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
-                            </div>
 
-
-                            <div class="field">
-                                <label class="label">Rating</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="rating" value={this.state.queries.rating}
-                                        onChange={event => {
-
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-
-                                        }} />
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Release Date</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="year" value={this.state.queries.year}
-                                        onChange={event => {
-
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-
-                                        }}
-                                    />
-                                </div>
-
-
-                                <div class="field">
-                                    <input class="is-checkradio" id="exampleRadioInline1" type="radio" name="exampleRadioInline" checked="checked" />
-                                    <label for="exampleRadioInline1">Before</label>
-                                    <input class="is-checkradio" id="exampleRadioInline2" type="radio" name="exampleRadioInline" />
-                                    <label for="exampleRadioInline2">After</label>
-                                    <input class="is-checkradio" id="exampleRadioInline3" type="radio" name="exampleRadioInline" />
-                                    <label for="exampleRadioInline2">Only</label>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Starring</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="starring" value={this.state.queries.starring}
-                                        onChange={event => {
-
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-
-                                        }} />
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Director</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="director" value={this.state.queries.director}
-                                        onChange={event => {
-
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                        }} />
-                                </div>
-                            </div>
-
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button class="button is-link"
-                                        onClick={() => {
-
-                                            this.submitQueries()
-
-                                        }}
-                                    >Submit</button>
-                                </div>
-                                <div class="control">
-                                    <button class="button is-text">Cancel</button>
-                                </div>
-                            </div>
+                            </section>
+                            <footer class="modal-card-foot">
+                                <button class="button is-success">Save changes</button>
+                                <button class="button">Cancel</button>
+                            </footer>
                         </div>
-                        :
-                        <div class="search">
-                           
-                            <div class="field">
-                                <label class="label">Title</label>
-                                <div class="control">
-                                    <input class="input" type="text" placeholder="search" value={this.state.queries.search}
-                                        onChange={event => {
-                                            console.log(event.target)
-                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button class="button is-link"
-                                        onClick={() => {
-
-                                            this.submitQueries()
-
-                                        }}
-                                    >Submit</button>
-                                </div>
-                                <div class="control">
-                                    <button class="button is-text">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
+                    </div>
+                    : <div></div>
+                }
 
                 {
                     this.state.submitFlag > 0 ? <div>
