@@ -58,7 +58,7 @@ class SearchResults extends Component {
         this.findFilm(film[0])
 
         this.likedFilmUserUpdate()
-       
+
 
         if (this.state.searchResults.slice(1, this.state.searchResults.length).length < 1) {
 
@@ -105,7 +105,7 @@ class SearchResults extends Component {
             type: 'cors'
         })
             .then(res => {
-             
+
                 return res.json();
             })
             .then(body => {
@@ -144,7 +144,7 @@ class SearchResults extends Component {
                 console.log(body)
                 if (body.length > 0) {
                     console.log('film exists')
-                    
+
                 }
                 else this.postNewFilm(film)
 
@@ -157,6 +157,8 @@ class SearchResults extends Component {
 
 
     }
+
+
 
     updateFilmLikes = (film) => {
 
@@ -178,7 +180,7 @@ class SearchResults extends Component {
                 return res.json();
             })
             .then(body => {
-                    console.log('liked film', body)
+                console.log('liked film', body)
                 // this.setState({
 
                 //     likedFilms: this.state.likedFilms.concat(body)
@@ -194,6 +196,44 @@ class SearchResults extends Component {
 
 
     }
+
+    updateFilmDislikes = (film) => {
+
+        console.log('likedfilm', film)
+
+        fetch(`http://localhost:4000/api/films/${film.id}/dislikes`, {
+
+            method: 'PUT',
+            body: JSON.stringify({
+                film: film
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+
+                return res.json();
+            })
+            .then(body => {
+                console.log('liked film', body)
+                // this.setState({
+
+                //     likedFilms: this.state.likedFilms.concat(body)
+
+                // })
+
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
+
+    }
+
 
     likedFilmUserUpdate = () => {
 
@@ -233,9 +273,16 @@ class SearchResults extends Component {
 
     }
 
+
+
+
+
+
     disLikeFilmhandler = () => {
         this.dislikedFilmUserUpdate();
         let film = this.state.currentFilm
+       
+        this.findFilm(film)
 
         this.setState({
 
@@ -269,7 +316,7 @@ class SearchResults extends Component {
                 return res.json();
             })
             .then(body => {
-
+                this.updateFilmDislikes(this.state.currentFilm)
 
                 console.log(body)
             }
@@ -282,6 +329,13 @@ class SearchResults extends Component {
 
 
     }
+
+
+
+
+
+
+
 
     pickFilmhandler = () => {
 
