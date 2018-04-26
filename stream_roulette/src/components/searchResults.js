@@ -54,12 +54,14 @@ class SearchResults extends Component {
     }
 
     LikeFilmHandler = () => {
-        this.likedFilmUserUpdate()
         let film = [this.state.currentFilm]
-        console.log('liked film', film)
+        this.findFilm(film[0])
+
+        this.likedFilmUserUpdate()
+       
 
         if (this.state.searchResults.slice(1, this.state.searchResults.length).length < 1) {
-            
+
             this.setState({
 
                 searchResults: [],
@@ -72,7 +74,7 @@ class SearchResults extends Component {
                 endOfSearchResults: true
 
             })
-            
+
         }
 
         else this.setState({
@@ -86,6 +88,111 @@ class SearchResults extends Component {
             getFilmUrl: false,
             endOfSearchResults: false,
         })
+    }
+
+    postNewFilm = (film) => {
+
+        console.log('new film created')
+        fetch(`http://localhost:4000/api/film`, {
+
+            method: 'POST',
+            body: JSON.stringify({
+                film
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+             
+                return res.json();
+            })
+            .then(body => {
+
+                // this.setState({
+
+                //     userInfo: body,
+                //     user: user
+
+                // })
+                console.log(body)
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+
+            })
+
+
+
+    }
+
+    findFilm = (film) => {
+        console.log('findfilmID', film.id)
+
+        fetch(`http://localhost:4000/api/film/find/${film.id}`, {
+
+            type: 'cors'
+        })
+            .then(res => {
+
+                return res.json();
+            })
+            .then(body => {
+                console.log(body)
+                if (body.length > 0) {
+                    console.log('film exists')
+                    
+                }
+                else this.postNewFilm(film)
+
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
+
+    }
+
+    updateFilmLikes = (film) => {
+
+        console.log('likedfilm', film)
+
+        fetch(`http://localhost:4000/api/films/${film.id}/likes`, {
+
+            method: 'PUT',
+            body: JSON.stringify({
+                film: film
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            type: 'cors'
+        })
+            .then(res => {
+
+                return res.json();
+            })
+            .then(body => {
+                    console.log('liked film', body)
+                // this.setState({
+
+                //     likedFilms: this.state.likedFilms.concat(body)
+
+                // })
+
+            }
+
+            )
+            .catch(err => {
+                console.log(err)
+            })
+
+
     }
 
     likedFilmUserUpdate = () => {
@@ -102,17 +209,19 @@ class SearchResults extends Component {
             type: 'cors'
         })
             .then(res => {
-              
+
                 return res.json();
             })
             .then(body => {
+
+                this.updateFilmLikes(this.state.currentFilm)
 
                 // this.setState({
 
                 //     likedFilms: this.state.likedFilms.concat(body)
 
                 // })
-                
+
             }
 
             )
@@ -156,7 +265,7 @@ class SearchResults extends Component {
             type: 'cors'
         })
             .then(res => {
-                
+
                 return res.json();
             })
             .then(body => {
@@ -260,7 +369,7 @@ class SearchResults extends Component {
     }
 
     watchedFilmsUserUpdate = () => {
-            console.log(this.state.selectedFilm)
+        console.log(this.state.selectedFilm)
         fetch(`http://localhost:4000/api/search/results/${this.state.user}/watched`, {
 
             method: 'PUT',
@@ -369,7 +478,7 @@ class SearchResults extends Component {
                 </div>
                 {
                     this.state.PickFilmflag ?
-                    
+
                         <div class="modal is-active">
                             <div class="modal-background"></div>
                             <div class="modal-card">
@@ -395,7 +504,7 @@ class SearchResults extends Component {
                                     <button class="button is-success"
                                         onClick={() => {
                                             this.getPickedFilmURLS()
-                                            
+
                                         }}
 
                                     >Watch</button>
@@ -455,7 +564,7 @@ class SearchResults extends Component {
                                 </section>
                                 <footer class="modal-card-foot">
 
-                                   <Link to={"/"}> <button class="button"
+                                    <Link to={"/"}> <button class="button"
                                         onClick={() => {
                                             this.setState(Object.assign({}, this.state, {
                                                 PickFilmflag: false,
