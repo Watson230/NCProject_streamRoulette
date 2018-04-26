@@ -13,7 +13,7 @@ class UserForm extends Component {
 
         userInfo: [],
         discoverTabClass: 'is-active',
-        selectSearchFlag:true,
+        selectSearchFlag: false,
         queries: {}
 
     }
@@ -137,6 +137,20 @@ class UserForm extends Component {
 
     }
 
+    userSelectSearchHandler = (arg) => {
+        this.setState({
+            genres: this.state.genres,
+            searchFlag: this.state.searchFlag,
+
+            userInfo: this.state.userInfo,
+            discoverTabClass: 'is-active',
+            selectSearchFlag: arg,
+            queries: this.state.queries
+        })
+
+
+    }
+
 
     CreateUser = (user) => {
 
@@ -215,12 +229,10 @@ class UserForm extends Component {
                 <div class="column is-one-third">
 
                     <button class="button is-info"
-                    onClick={()=>{
+                        onClick={() => {
+                            this.userSelectSearchHandler(true)
+                        }}
 
-
-
-                    }}
-                    
                     >Search Here</button>
                     <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser} />
                 </div>
@@ -407,8 +419,12 @@ class UserForm extends Component {
 
                             </section>
                             <footer class="modal-card-foot">
-                                <button class="button is-success">Save changes</button>
-                                <button class="button">Cancel</button>
+
+                                <button class="button"
+                                    onClick={() => {
+                                        this.userSelectSearchHandler(false)
+                                    }}
+                                >Cancel</button>
                             </footer>
                         </div>
                     </div>
