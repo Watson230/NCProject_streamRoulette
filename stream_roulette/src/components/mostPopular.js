@@ -4,55 +4,31 @@ import PT from 'prop-types'
 import Film from './film'
 import NavBar  from './NavBar'
 
-class MostRecent extends Component {
+class MostLiked extends Component {
 
     state={
         mostPopularFilms:[]
     }
 
-    userInputHandler(key, value) {
-
-
-        this.setState(Object.assign({}, this.state, {
-            [key]: value
-        }))
-
-    }
-
-    submitQueries = () => {
-        let usedQueries = Object.keys(this.state)
-
-
-        let queryString = usedQueries.reduce((acc, key) => {
-            if (key === 'keywords') acc = acc + `with_keywords=${this.state.keywords}` + '&';
-            if (key === 'Year') acc = acc + `primary_release_year=${parseInt(this.state.Year)}` + '&';
-            if (key === 'genre') acc = acc + `with_genres=${this.state.genre.split(':')[1]}` + '&';
-
-            if (key === 'search') acc = acc + `term=${this.state.search}`;
-
-            return acc
-        }, '')
-
-        this.setState(Object.assign({}, this.state, {
-
-            submitFlag: 1,
-            queriesString: queryString
-        }))
-
-    }
 
     componentWillMount(){
 
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2017&include_video=false`)
+        
+    // fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2017&include_video=false`)
+
+   fetch(`http://localhost:4000/api/film/liked`)
         .then(res => {
             console.log(res)
             return res.json();
         })
         .then(body => {
+            console.log(body)
+            let films = body.map(film => film.film)
+            console.log(films)
             this.setState({
 
-                mostPopularFilms: body.results,  
-                currentFilm:body.results[Math.floor(Math.random() * (this.state.mostPopularFilms.length - 1))]
+                mostPopularFilms: films ,
+                currentFilm:films[Math.floor(Math.random() * (this.state.mostPopularFilms.length - 1))]
 
             })
         })
@@ -99,7 +75,7 @@ class MostRecent extends Component {
                            
                             <div class="tile is-parent">
                             <article class="tile is-child notification is-info">
-                              <p class="title">Most Popular </p>
+                              <p class="title">Most Liked films </p>
                               <p class="subtitle">{`${this.state.currentFilm.title}`}</p>
                               <figure class="image is-4by5">
                                     <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
@@ -126,4 +102,4 @@ class MostRecent extends Component {
 
 }
 
-export default MostRecent
+export default MostLiked
