@@ -92,10 +92,6 @@ class UserInfo extends Component {
                 console.log(err)
 
             })
-
-
-
-
     }
 
     render() {
@@ -103,7 +99,7 @@ class UserInfo extends Component {
         return (
             <div>
                 <div class="tile is-parent" className="userInfo">
-                    <article class="tile is-child notification is-success">
+                    <article class="tile is-child notification is-white">
                         <div class="content">
 
                             <div class="content">
@@ -115,11 +111,9 @@ class UserInfo extends Component {
                                     <input class="input" type="text" placeholder="user" value={this.state.user}
 
                                         onChange={event => {
-
                                             this.userInfoInputHandler(event.target.value)
                                             console.log(this.state)
                                         }}
-
                                     />
 
 
@@ -127,15 +121,11 @@ class UserInfo extends Component {
 
                                 <div class="field">
                                     <p class="control">
-                                        <button class="button is-white"
+                                        <button class="button is-info"
                                             onClick={() => {
                                                 // this.props.createUser(this.state.user)
                                                 this.SearchUser()
-
-                                            }}
-                                        >
-                                            Search
-                            </button>
+                                            }}>Search for User</button>
                                     </p>
                                 </div>
 

@@ -221,19 +221,22 @@ class UserForm extends Component {
 
     }
 
+  
+
     render() {
         return (
-            <div class="columns">
+            <div >
 
 
-                <div class="column is-one-third">
-
-                    <button class="button is-info"
+                <div >
+                    <div class="box" style={{"text-align":"center"}}>
+                    <button class="button is-info is-large is-rounded"
                         onClick={() => {
                             this.userSelectSearchHandler(true)
                         }}
 
                     >Search Here</button>
+                    </div>
                     <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser} />
                 </div>
 
@@ -246,7 +249,7 @@ class UserForm extends Component {
                                 <button class="delete" aria-label="close"></button>
                             </header>
                             <section class="modal-card-body">
-                                <div class="column" style={{ "width": "500px", "height": "760px", "margin": "0,auto" }}>
+                                <div  style={{ "width": "500px", "height": "760px", "margin": "0,auto" }}>
 
                                     <h1 class="is title">Search for a film</h1>
 
