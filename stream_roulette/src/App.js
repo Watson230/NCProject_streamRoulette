@@ -8,6 +8,7 @@ import SearchResults from './components/searchResults'
 
 import mostRecentFilms from './components/mostRecentResults'
 import './App.css';
+import './mystyles.scss';
 
 class App extends Component {
 
