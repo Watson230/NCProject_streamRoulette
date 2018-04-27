@@ -3,13 +3,12 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PT from 'prop-types'
 import Film from './film'
 import NavBar from './NavBar'
-
 import Linkify from "react-linkify"
 
-class MostDisliked extends Component {
+class MostWatched extends Component {
 
     state = {
-        mostDislikedFilms: []
+        mostWatchedFilms: []
     }
 
 
@@ -18,19 +17,19 @@ class MostDisliked extends Component {
 
         // fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2017&include_video=false`)
 
-        fetch(`http://localhost:4000/api/film/disliked`)
+        fetch(`http://localhost:4000/api/film/watched`)
             .then(res => {
-                console.log(res)
+
                 return res.json();
             })
             .then(body => {
 
                 let films = body.map(film => film.film)
-
+                console.log('mostwatched', films)
                 this.setState({
 
-                    mostDislikedFilms: films,
-                    currentFilm: films[Math.floor(Math.random() * (this.state.mostDislikedFilms.length - 1))]
+                    mostWatchedFilms: films,
+                    currentFilm: films[Math.floor(Math.random() * (this.state.mostWatchedFilms.length - 1))]
 
                 })
 
@@ -43,10 +42,11 @@ class MostDisliked extends Component {
     }
 
 
+
     componentDidUpdate() {
         setTimeout(() => {
-            this.mostDislikedFilms()
-        }, 7000)
+            this.mostPopularFilms()
+        }, 5000)
     }
 
     getFilmURL = (filmName) => {
@@ -76,18 +76,17 @@ class MostDisliked extends Component {
             })
     }
 
+    mostPopularFilms = () => {
 
-    mostDislikedFilms = () => {
-
-        let filmNum = Math.floor(Math.random() * (this.state.mostDislikedFilms.length - 1))
+        let filmNum = Math.floor(Math.random() * (this.state.mostWatchedFilms.length - 1))
         this.setState({
 
-            mostDislikedFilms: this.state.mostDislikedFilms,
-            currentFilm: this.state.mostDislikedFilms[filmNum]
+            mostWatchedFilms: this.state.mostWatchedFilms,
+            currentFilm: this.state.mostWatchedFilms[filmNum]
 
         })
-
     }
+
 
     watchNowButtonHandler = (arg) => {
 
@@ -116,7 +115,7 @@ class MostDisliked extends Component {
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-info">
                                 <div style={{ "text-align": "center", "margin-bottom": "10px" }}>
-                                    <p class="title">Most Disliked</p>
+                                    <p class="title">Most Watched</p>
                                     <p class="subtitle">{`${this.state.currentFilm.title}`}</p>
                                 </div>
                                 <figure class="image is-4by5">
@@ -124,16 +123,20 @@ class MostDisliked extends Component {
                                 </figure>
                             </article>
                         </div>
-                        <p>Show some Love: </p>
+
                         <button
-                            onClick={() => {
-                                this.watchNowButtonHandler(true)
-                                console.log(this.state.currentFilm)
-                                this.getFilmURL(this.state.currentFilm.title)
-                            }}
-                        >Watch Here</button>
+                        
+                        onClick={()=>{
+                            this.watchNowButtonHandler(true)
+                            console.log(this.state.currentFilm)
+                            this.getFilmURL(this.state.currentFilm.title)
+                        }}
+                        
+                        > Watch Here </button>
 
                     </div>
+
+
 
 
                     : <div class="tile is-parent">
@@ -142,12 +145,10 @@ class MostDisliked extends Component {
 
 
                         </article>
-
-
                     </div>
                 }
 
-                {
+                                {
                     this.state.watchFilm ?
                         <div>
                             <div class="modal is-active">
@@ -182,10 +183,10 @@ class MostDisliked extends Component {
                                     <footer class="modal-card-foot">
 
                                         <button class="button"
-                                            onClick={() => {
-                                                this.watchNowButtonHandler(false)
-
-                                            }}
+                                        onClick={()=>{
+                                            this.watchNowButtonHandler(false)
+                                            
+                                        }}
                                         >Cancel</button>
                                     </footer>
                                 </div>
@@ -197,11 +198,9 @@ class MostDisliked extends Component {
 
 
             </div>
-
-
         )
     }
 
 }
 
-export default MostDisliked
+export default MostWatched
