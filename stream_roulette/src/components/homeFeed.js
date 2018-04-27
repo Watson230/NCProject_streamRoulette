@@ -5,8 +5,10 @@ import PT from 'prop-types';
 
 import MostPopular from './mostPopular'
 import MostDisliked from './mostDisliked'
+import MostWatched from './mostWatched'
 import UserForm from './userForm'
 import UserInfo from './userInfo'
+
 
 
 
@@ -15,6 +17,8 @@ class HomeFeed extends Component {
     state = {
         userName: 'random'
     }
+
+ 
 
 
 
@@ -27,17 +31,20 @@ class HomeFeed extends Component {
                <NavBar/>
                 <div class="columns"  >
                     
-                    <div class="column" style={{ "display": "block", "margin-top": "50px" , "margin-left": "20px" }}>
+                    <div  class="column" style={{ "display": "block", "margin-top": "50px" , "margin-left": "20px" }}>
                         <UserForm user={this.state.userName} />
                     </div>
-
                     <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px" }}>
-                        <MostDisliked />
+                        <MostWatched />
                     </div>
-
                     <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px" }}>
                         <MostPopular />
                     </div>
+
+                    <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px", "margin-right": "20px"  }}>
+                        <MostDisliked />
+                    </div>
+
                 </div>
             </div>
 

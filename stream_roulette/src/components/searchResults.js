@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import NavBar from './NavBar'
 import Film from "./film"
-import Linkify from "react-linkify"
+import Linkify from 'react-linkify'
 
 class SearchResults extends Component {
 
@@ -158,8 +158,6 @@ class SearchResults extends Component {
 
     }
 
-
-
     updateFilmLikes = (film) => {
 
         console.log('likedfilm', film)
@@ -199,7 +197,7 @@ class SearchResults extends Component {
 
     updateFilmDislikes = (film) => {
 
-        console.log('likedfilm', film)
+        console.log('dislikedfilm', film)
 
         fetch(`http://localhost:4000/api/films/${film.id}/dislikes`, {
 
@@ -233,7 +231,6 @@ class SearchResults extends Component {
 
 
     }
-
 
     likedFilmUserUpdate = () => {
 
@@ -273,16 +270,14 @@ class SearchResults extends Component {
 
     }
 
-
-
-
-
-
     disLikeFilmhandler = () => {
-        this.dislikedFilmUserUpdate();
+
         let film = this.state.currentFilm
-       
+
         this.findFilm(film)
+
+
+        this.dislikedFilmUserUpdate();
 
         this.setState({
 
@@ -299,8 +294,9 @@ class SearchResults extends Component {
     }
 
     dislikedFilmUserUpdate = () => {
-
-        fetch(`http://localhost:4000/api/search/results/${this.state.user}/disliked`, {
+        console.log(this.state.currentFilm)
+        let film = this.state.currentFilm
+        fetch(`http://localhost:4000/api/search/results/disliked/${this.state.user}`, {
 
             method: 'PUT',
             body: JSON.stringify({
@@ -312,10 +308,11 @@ class SearchResults extends Component {
             type: 'cors'
         })
             .then(res => {
-
+                console.log(res)
                 return res.json();
             })
             .then(body => {
+                console.log(body)
                 this.updateFilmDislikes(this.state.currentFilm)
 
                 console.log(body)
@@ -329,13 +326,6 @@ class SearchResults extends Component {
 
 
     }
-
-
-
-
-
-
-
 
     pickFilmhandler = () => {
 
@@ -459,223 +449,239 @@ class SearchResults extends Component {
 
         return (
             <div>
-                <NavBar />
-                <div style={{ "text-align": "left" }}>
-                    <div style={{ "width": "400px", "float": "left", "margin-right": "100px", "margin-left": "20px" }}>
-                        <h1 class="title is-1" >Film Info</h1>
-                        <h2 class="title is-2">{this.state.currentFilm.title}</h2>
-                        <p>{this.state.currentFilm.overview}</p>
-                    </div>
-                    <div style={{ "width": "600px", "height": "800px", "margin": "0 auto", "float": "left", }}>
-                        <h1 class="title is-1">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
-                        <div class="box">
+                <div>
+                    <NavBar />
+                    <div class="columns">>
 
-
-
-                            <div class="content">
-                                <figure class="image is-4by5">
-                                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
-                                </figure>
-
+                    <div style={{ "width": "30%", "height": "100%", "margin-right": "100px", "margin-left": "20px", "margin-top": "20px" }} class="column">
+                            <div class="box">
+                                <h1 class="title is-1" >Film Info</h1>
+                            </div>
+                            <div class="box">
+                                <h2 class="title is-2">{this.state.currentFilm.title}</h2>
+                                <p>{this.state.currentFilm.overview}</p>
                             </div>
 
-
-                            <nav class="level is-mobile">
-                                <div class="level-right">
-                                    <button class="level-item" class="button is-success" aria-label="reply"
-                                        onClick={() => {
-                                            this.LikeFilmHandler()
-                                        }}
-
-                                    >Yes</button>
-
+                            <div class="box" style={{ "text-align": "right" }}>
+                                <div style={{ "text-align": "left" }}>
+                                    <h1 class="title is-2">{`Liked Films:${this.state.likedFilms.length}`}</h1>
                                 </div>
+                                <div style={{ "text-align": "right" }}>
+                                    <button class="button is-link" onClick={() => {
+                                        this.pickFilmhandler()
+                                    }}
 
-                                <div class="level-left">
-                                    <a class="level-item" aria-label="reply" class="button is-danger"
-                                        onClick={() => {
-                                            this.disLikeFilmhandler()
-                                        }}
-
-                                    >No</a>
-
+                                    > Pick a Film!</button>
                                 </div>
-                            </nav>
-                        </div>
-                    </div>
-                    <div style={{ "float": "left", "margin-left": "100px", "width": "400px" }}>
-                        <h1 class="title is-1">Are you sure?</h1>
-                        <div class="box">
-
-                            <div class="content">
-                                <figure class="image is-4by5">
-                                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.recentlyDisliked.poster_path}`} alt="Image" />
-                                </figure>
 
                             </div>
                         </div>
 
-                        <div>
 
-                            <h1 class="title is-2">{`Liked Films:${this.state.likedFilms.length}`}</h1>
+                        <div style={{ "width": "600px", "height": "800px", "margin": "0 auto", "margin-top": "20px" }} class="column">
+                            <div>
+                                <div class="box">
 
-                            <button class="button is-link" onClick={() => {
+                                    <h1 class="title is-1">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
+                                </div>
+                                <div class="box">
 
-                                this.pickFilmhandler()
-                            }}
+                                    <div class="content">
+                                        <figure class="image is-4by5">
+                                            <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
+                                        </figure>
 
-                            > Pick a Film!</button>
-
-                        </div>
-
-                    </div>
-                </div>
-                {
-                    this.state.PickFilmflag ?
-
-                        <div class="modal is-active">
-                            <div class="modal-background"></div>
-                            <div class="modal-card">
-
-                                <header class="modal-card-head">
-                                    <p class="modal-card-title">Selected Film</p>
-                                    <button class="delete" aria-label="close"></button>
-                                </header>
-
-                                <section class="modal-card-body">
-                                    {
-                                        <div class="content">
-                                            <figure class="image is-4by5">
-                                                <img src={`http://image.tmdb.org/t/p/w185//${this.state.selectedFilm.poster_path}`} alt="Image" />
-                                            </figure>
-
+                                    </div>
+                                    <nav class="level is-mobile">
+                                        <div class="level-right">
+                                            <button class="level-item" class="button is-success" aria-label="reply"
+                                                onClick={() => { this.LikeFilmHandler() }} >Yes</button>
                                         </div>
 
-                                    }
-                                </section>
+                                        <div class="level-center">
+                                            <p class="level-item"> Watch? </p>
+                                        </div>
 
-                                <footer class="modal-card-foot">
-                                    <button class="button is-success"
-                                        onClick={() => {
-                                            this.getPickedFilmURLS()
-
-                                        }}
-
-                                    >Watch</button>
-                                    <button class="button"
-                                        onClick={() => {
-                                            this.setState(Object.assign({}, this.state, {
-                                                PickFilmflag: false,
-                                                getFilmUrl: false,
-
-                                            }
-                                            ))
-                                        }}
-
-                                    >Cancel</button>
-                                </footer>
-
-                            </div>
-                        </div> : <div></div>
-                }
-
-                {
-
-                    this.state.getFilmUrl ?
-
-                        <div class="modal is-active">
-                            <div class="modal-background"></div>
-                            <div class="modal-card">
-                                <header class="modal-card-head">
-                                    <p class="modal-card-title">Watch it Here</p>
-                                    <button class="delete" aria-label="close"></button>
-                                </header>
-                                <section class="modal-card-body">
-                                    {
-
-                                        <ul>
-                                            {
-                                                this.state.selectedUrl.map(result => {
-                                                    console.log(this.state)
-                                                    let Link;
-                                                    if (result.url) {
-                                                        Link = <Linkify>{result.url.split("//")[1]}</Linkify>
-
-                                                        return <li>{`${result.name}:`}{Link}</li>
-                                                    }
-
-
-
-
-                                                })
-                                            }
-
-
-                                        </ul>
-
-                                    }
-
-                                </section>
-                                <footer class="modal-card-foot">
-
-                                    <Link to={"/"}> <button class="button"
-                                        onClick={() => {
-                                            this.setState(Object.assign({}, this.state, {
-                                                PickFilmflag: false,
-                                                getFilmUrl: false,
-
-                                            }
-                                            ))
-                                        }}
-                                    >Cancel</button></Link>
-                                </footer>
+                                        <div class="level-left">
+                                            <a class="level-item" aria-label="reply" class="button is-danger"
+                                                onClick={() => {
+                                                    this.disLikeFilmhandler()
+                                                }}
+                                            >No</a>
+                                        </div>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
 
-                        : <div></div>
 
-                }
 
-                {
-                    this.state.endOfSearchResults ?
-                        <div>
+
+                        <div style={{ "margin-left": "100px", "width": "400px", "margin-right": "100px", "margin-top": "20px" }} class="column">
+                            <div class="box">
+                                <h1 class="title is-1">Are you sure?</h1>
+                            </div>
+                            <div class="box">
+
+                                <div class="content">
+                                    <figure class="image is-4by5">
+                                        <img src={`http://image.tmdb.org/t/p/w185//${this.state.recentlyDisliked.poster_path}`} alt="Image" />
+                                    </figure>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    {
+                        this.state.PickFilmflag ?
+
+                            <div class="modal is-active">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">Selected Film</p>
+                                        <button class="delete" aria-label="close"></button>
+                                    </header>
+
+                                    <section class="modal-card-body">
+                                        {
+                                            <div class="content">
+                                                <figure class="image is-4by5">
+                                                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.selectedFilm.poster_path}`} alt="Image" />
+                                                </figure>
+
+                                            </div>
+
+                                        }
+                                    </section>
+
+                                    <footer class="modal-card-foot">
+                                        <button class="button is-success"
+                                            onClick={() => {
+                                                this.getPickedFilmURLS()
+
+                                            }}
+
+                                        >Watch</button>
+                                        <button class="button"
+                                            onClick={() => {
+                                                this.setState(Object.assign({}, this.state, {
+                                                    PickFilmflag: false,
+                                                    getFilmUrl: false,
+
+                                                }
+                                                ))
+                                            }}
+
+                                        >Cancel</button>
+                                    </footer>
+
+                                </div>
+                            </div> : <div></div>
+                    }
+
+                    {
+
+                        this.state.getFilmUrl ?
+
                             <div class="modal is-active">
                                 <div class="modal-background"></div>
                                 <div class="modal-card">
                                     <header class="modal-card-head">
-                                        <p class="modal-card-title">Seen nothing you like?</p>
+                                        <p class="modal-card-title">Watch it Here</p>
                                         <button class="delete" aria-label="close"></button>
                                     </header>
                                     <section class="modal-card-body">
                                         {
 
-                                            <p>End of Search results.....</p>
+                                            <ul>
+                                                {
+                                                    this.state.selectedUrl.map(result => {
+                                                        console.log(this.state)
+                                                        let Link;
+                                                        if (result.url) {
+                                                            Link = <Linkify>{result.url.split("//")[1]}</Linkify>
+
+                                                            return <li>{`${result.name}:`}{Link}</li>
+                                                        }
+
+
+
+
+                                                    })
+                                                }
+
+
+                                            </ul>
 
                                         }
 
                                     </section>
                                     <footer class="modal-card-foot">
 
-                                        <button class="button"
+                                        <Link to={"/"}> <button class="button"
                                             onClick={() => {
-                                                this.pickFilmhandler()
+                                                this.setState(Object.assign({}, this.state, {
+                                                    PickFilmflag: false,
+                                                    getFilmUrl: false,
+
+                                                }
+                                                ))
                                             }}
-
-                                        >Pick Liked Film</button>
-
-                                        <Link to="/"><button class="button"
-
-                                        >Search Again</button></Link>
+                                        >Cancel</button></Link>
                                     </footer>
-
                                 </div>
                             </div>
 
+                            : <div></div>
+
+                    }
+
+                    {
+                        this.state.endOfSearchResults ?
+                            <div>
+                                <div class="modal is-active">
+                                    <div class="modal-background"></div>
+                                    <div class="modal-card">
+                                        <header class="modal-card-head">
+                                            <p class="modal-card-title">Seen nothing you like?</p>
+                                            <button class="delete" aria-label="close"></button>
+                                        </header>
+                                        <section class="modal-card-body">
+                                            {
+
+                                                <p>End of Search results.....</p>
+
+                                            }
+
+                                        </section>
+                                        <footer class="modal-card-foot">
+
+                                            <button class="button"
+                                                onClick={() => {
+                                                    this.pickFilmhandler()
+                                                }}
+
+                                            >Pick Liked Film</button>
+
+                                            <Link to="/"><button class="button"
+
+                                            >Search Again</button></Link>
+                                        </footer>
+
+                                    </div>
+                                </div>
 
 
 
-                        </div> : null
-                }
+
+                            </div> : null
+                    }
+                </div>
             </div>
 
 
