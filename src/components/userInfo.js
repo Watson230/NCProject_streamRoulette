@@ -121,7 +121,7 @@ class UserInfo extends Component {
 
                                 <div class="field">
                                     <p class="control">
-                                        <button class="button is-info"
+                                        <button class="button is-black"
                                             onClick={() => {
                                                 // this.props.createUser(this.state.user)
                                                 this.SearchUser()
@@ -162,35 +162,7 @@ class UserInfo extends Component {
                                                         )
                                                     }
                                                 </ul>
-                                                <div>
-                                                    <p class="subtitle">Recently liked </p>
-                                                    <ul>
-                                                        {
-                                                            this.state.userInfo[0].likedFilms.slice(this.state.userInfo[0].likedFilms.length - 5).reverse().map(film => {
-
-                                                                return <li>{film.title}</li>
-
-                                                            })
-
-                                                        }
-
-                                                    </ul>
-                                                </div>
-
-                                                <div>
-                                                    <p class="subtitle"> Recently disliked </p>
-                                                    <ul>
-                                                        {
-                                                            this.state.userInfo[0].dislikedFilms.slice(this.state.userInfo[0].dislikedFilms.length - 5).reverse().map(film => {
-
-                                                                return <li>{film.title}</li>
-
-                                                            })
-
-                                                        }
-
-                                                    </ul>
-                                                </div>
+                                      
                                             </div>
 
 

@@ -10,6 +10,8 @@ import SearchResults from './components/searchResults'
 import './App.css';
 import './mystyles.scss';
 
+// const backgroundStyle = 
+
 class App extends Component {
 
   state={
@@ -19,17 +21,15 @@ class App extends Component {
 
   render() {
     return (
-      <div >
-
+      <div className="main">
         <BrowserRouter>
-        <Switch>
-          <Route path exact ="/" component={HomeFeed}/>
-          {/* <Route path exact ="/:user/search" component={UserForm}/> */}
-          <Route path  ="/:user/search/:searchQueries/results" component={SearchResults}/>
-          {/* <Route path="/mostRecent" component={mostRecentFilms}/> */}
+          <Switch>
+            <Route path exact ="/" component={HomeFeed}/>
+            {/* <Route path exact ="/:user/search" component={UserForm}/> */}
+            <Route path  ="/:user/search/:searchQueries/results" component={SearchResults}/>
+            {/* <Route path="/mostRecent" component={mostRecentFilms}/> */}
           </Switch>
         </BrowserRouter>
-
       </div>
     );
   }

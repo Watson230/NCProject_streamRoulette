@@ -104,16 +104,18 @@ class MostDisliked extends Component {
 
 
         return (
-            <div class="box" style={{ "width": "100%", "height": "100%", }} >
+            <div style={{ "width": "120%", "height": "100%", }} >
 
 
                 {this.state.currentFilm ?
 
                     <div>
                         <div class="tile is-parent">
-                            <article class="tile is-child notification is-info">
-                                <div style={{ "text-align": "center", "margin-bottom": "10px" }}>
-                                    <p class="title">Most Disliked</p>
+                            <article class="tile is-child notification is-black">
+                                <div  style={{ "text-align": "center", "margin-bottom": "10px" }}>
+                                    <p class="title" style={{"fomt-size":"1.5rem"}}>Most Disliked</p>
+                                    </div>
+                                       <div style={{"margin-bottom":"10px"}}>
                                     <p class="subtitle">{`${this.state.currentFilm.title}`}</p>
                                 </div>
                                 <figure class="image is-4by5">
@@ -121,20 +123,24 @@ class MostDisliked extends Component {
                                 </figure>
                             </article>
                         </div>
-                        <p>Show some Love: </p>
+                        
+                        <div style={{"text-align": "center"}}>
                         <button
-                            onClick={() => {
-                                this.watchNowButtonHandler(true)
-                                console.log(this.state.currentFilm)
-                                this.getFilmURL(this.state.currentFilm.title)
-                            }}
-                        >Watch Here</button>
+                        
+                        onClick={()=>{
+                            this.watchNowButtonHandler(true)
+                            console.log(this.state.currentFilm)
+                            this.getFilmURL(this.state.currentFilm.title)
+                        }}
+                        class = "button is-rounded"
+                        > Show Some Love </button>
+                        </div>
 
                     </div>
 
 
                     : <div class="tile is-parent">
-                        <article class="tile is-child notification is-info">
+                        <article class="tile is-child notification is-black">
                             <p class="title">loading.....</p>
 
 

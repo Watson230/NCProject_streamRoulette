@@ -229,8 +229,8 @@ class UserForm extends Component {
 
 
                 <div >
-                    <div class="box" style={{"text-align":"center"}}>
-                    <button class="button is-info is-large is-rounded"
+                    <div class="box " style={{"text-align":"center"}}>
+                    <button class="button is-black is-large is-rounded"
                         onClick={() => {
                             this.userSelectSearchHandler(true)
                         }}

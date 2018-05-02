@@ -106,16 +106,19 @@ class MostWatched extends Component {
 
 
         return (
-            <div class="box" style={{ "width": "100%", "height": "100%", }} >
+            <div  style={{ "width": "120%", "height": "100%", }} >
 
 
                 {this.state.currentFilm ?
 
-                    <div>
+                    <div >
                         <div class="tile is-parent">
-                            <article class="tile is-child notification is-info">
-                                <div style={{ "text-align": "center", "margin-bottom": "10px" }}>
+                            <article class="tile is-child notification is-black">
+
+                                <div style={{ "text-align": "center", "margin-bottom": "10px" }} >
                                     <p class="title">Most Watched</p>
+                                    </div>
+                                    <div style={{"margin-bottom":"10px"}}>
                                     <p class="subtitle">{`${this.state.currentFilm.title}`}</p>
                                 </div>
                                 <figure class="image is-4by5">
@@ -123,7 +126,7 @@ class MostWatched extends Component {
                                 </figure>
                             </article>
                         </div>
-
+                        <div style={{"text-align": "center"}}>
                         <button
                         
                         onClick={()=>{
@@ -131,8 +134,9 @@ class MostWatched extends Component {
                             console.log(this.state.currentFilm)
                             this.getFilmURL(this.state.currentFilm.title)
                         }}
-                        
+                        class = "button is-rounded"
                         > Watch Here </button>
+                        </div>
 
                     </div>
 
@@ -140,7 +144,7 @@ class MostWatched extends Component {
 
 
                     : <div class="tile is-parent">
-                        <article class="tile is-child notification is-info">
+                        <article class="tile is-child notification is-black">
                             <p class="title">loading.....</p>
 
 

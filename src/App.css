@@ -26,6 +26,25 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-body{
-  background-color: #209CEE
+
+html { 
+  background: grey;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+.main{
+  
+     background-image: url('images/curtain.jpg');
+       width: 100vw;
+       height: 100vh;
+       background-repeat: repeat;
+    
+}
+/* 
+body {
+ 
+  background-image: url('https://wallpapersin4k.net/wp-content/uploads/2017/02/The-Clapper-Movie-Wallpapers.jpg');
+  background-size: cover
+} */
