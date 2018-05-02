@@ -99,14 +99,14 @@ class UserInfo extends Component {
         return (
             <div>
                 <div class="tile is-parent" className="userInfo">
-                    <article class="tile is-child notification is-white">
+                    <article class="tile is-child notification is-black">
                         <div class="content">
 
                             <div class="content">
-                                <h1 class="is title">User Info</h1>
+                                <h1 class="title">User Info</h1>
 
                                 <div class="field">
-                                    <label class="label">User</label>
+                                    <label class="label" class="subtitle">User</label>
 
                                     <input class="input" type="text" placeholder="user" value={this.state.user}
 
@@ -121,7 +121,7 @@ class UserInfo extends Component {
 
                                 <div class="field">
                                     <p class="control">
-                                        <button class="button is-black"
+                                        <button class="button is-white"
                                             onClick={() => {
                                                 // this.props.createUser(this.state.user)
                                                 this.SearchUser()
