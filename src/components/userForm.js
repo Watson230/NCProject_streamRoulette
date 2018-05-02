@@ -241,7 +241,8 @@ class UserForm extends Component {
                 </div>
 
                 {this.state.selectSearchFlag ?
-                    <div class="modal is-active">
+                <div class="box">
+                    <div class="modal is-active"> 
                         <div class="modal-background"></div>
                         <div class="modal-card">
                             <header class="modal-card-head">
@@ -249,7 +250,7 @@ class UserForm extends Component {
                                 <button class="delete" aria-label="close"></button>
                             </header>
                             <section class="modal-card-body">
-                                <div  style={{ "width": "500px", "height": "760px", "margin": "0,auto" }}>
+                                <div  style={{ "width": "100%", "height": "100%", "margin": "0,auto" }}>
 
                                     <h1 class="is title">Search for a film</h1>
 
@@ -310,7 +311,7 @@ class UserForm extends Component {
                                             </div>
 
 
-                                            <div class="field">
+                                            {/* <div class="field">
                                                 <label class="label">Rating</label>
                                                 <div class="control">
                                                     <input class="input" type="text" placeholder="rating" value={this.state.queries.rating}
@@ -321,7 +322,7 @@ class UserForm extends Component {
 
                                                         }} />
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <div class="field">
                                                 <label class="label">Release Date</label>
@@ -347,7 +348,7 @@ class UserForm extends Component {
                                                 </div>
                                             </div>
 
-                                            <div class="field">
+                                            {/* <div class="field">
                                                 <label class="label">Starring</label>
                                                 <div class="control">
                                                     <input class="input" type="text" placeholder="starring" value={this.state.queries.starring}
@@ -370,7 +371,7 @@ class UserForm extends Component {
 
                                                         }} />
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <div class="field is-grouped">
                                                 <div class="control">
@@ -430,6 +431,7 @@ class UserForm extends Component {
                                 >Cancel</button>
                             </footer>
                         </div>
+                    </div>
                     </div>
                     : <div></div>
                 }
