@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PT from 'prop-types'
-
 import NavBar from './NavBar'
 import Linkify from "react-linkify"
+
+const API_URL = 'https://safe-brook-17817.herokuapp.com/api'
 
 class MostWatched extends Component {
 
@@ -17,7 +18,7 @@ class MostWatched extends Component {
 
         // fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2017&include_video=false`)
 
-        fetch(`http://localhost:4000/api/film/watched`)
+        fetch(`${API_URL}/film/watched`)
             .then(res => {
 
                 return res.json();

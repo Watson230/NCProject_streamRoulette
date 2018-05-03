@@ -4,6 +4,8 @@ import NavBar from './NavBar'
 
 import Linkify from 'react-linkify'
 
+const API_URL = 'https://safe-brook-17817.herokuapp.com/api'
+
 class SearchResults extends Component {
 
     state = {
@@ -114,7 +116,7 @@ class SearchResults extends Component {
     postNewFilm = (film) => {
 
         console.log('new film created')
-        fetch(`http://localhost:4000/api/film`, {
+        fetch(`${API_URL}/film`, {
 
             method: 'POST',
             body: JSON.stringify({
@@ -153,7 +155,7 @@ class SearchResults extends Component {
     findFilm = (film) => {
         console.log('findfilmID', film.id)
 
-        fetch(`http://localhost:4000/api/film/find/${film.id}`, {
+        fetch(`${API_URL}/film/find/${film.id}`, {
 
             type: 'cors'
         })
@@ -183,7 +185,7 @@ class SearchResults extends Component {
 
         console.log('likedfilm', film)
 
-        fetch(`http://localhost:4000/api/films/${film.id}/likes`, {
+        fetch(`${API_URL}/films/${film.id}/likes`, {
 
             method: 'PUT',
             body: JSON.stringify({
@@ -220,7 +222,7 @@ class SearchResults extends Component {
 
         console.log('dislikedfilm', film)
 
-        fetch(`http://localhost:4000/api/films/${film.id}/dislikes`, {
+        fetch(`${API_URL}/films/${film.id}/dislikes`, {
 
             method: 'PUT',
             body: JSON.stringify({
@@ -255,7 +257,7 @@ class SearchResults extends Component {
 
     likedFilmUserUpdate = () => {
 
-        fetch(`http://localhost:4000/api/search/results/liked/${this.state.user}`, {
+        fetch(`${API_URL}/search/results/liked/${this.state.user}`, {
 
             method: 'PUT',
             body: JSON.stringify({
@@ -335,7 +337,7 @@ class SearchResults extends Component {
         dislikedFilmUserUpdate = () => {
           
             let film = this.state.currentFilm
-            fetch(`http://localhost:4000/api/search/results/disliked/${this.state.user}`, {
+            fetch(`${API_URL}/search/results/disliked/${this.state.user}`, {
 
                 method: 'PUT',
                 body: JSON.stringify({
@@ -425,7 +427,7 @@ class SearchResults extends Component {
 
         watchedFilmsUserUpdate = () => {
             console.log(this.state.selectedFilm)
-            fetch(`http://localhost:4000/api/search/results/${this.state.user}/watched`, {
+            fetch(`${API_URL}/search/results/${this.state.user}/watched`, {
 
                 method: 'PUT',
                 body: JSON.stringify({
@@ -632,19 +634,20 @@ class SearchResults extends Component {
 
                                                 <ul>
                                                     {
-                                                        this.state.selectedUrl.map(result => {
+                                                        // this.state.selectedUrl.map(result => {
                                                             
-                                                            let Link;
-                                                            if (result.url) {
-                                                                Link = <Linkify>{result.url.split("//")[1]}</Linkify>
+                                                        //     let Link;
+                                                        //     if (result.url) {
+                                                        //         Link = <Linkify>{result.url.split("//")[1]}</Linkify>
 
-                                                                return <li>{`${result.name}:`}{Link}</li>
-                                                            }
-
-
+                                                        //         return <li>{`${result.name}:`}{Link}</li>
+                                                        //     }
 
 
-                                                        }).length<1? this.state.selectedUrl.map(result => {
+
+
+                                                        // }).length<1? 
+                                                        this.state.selectedUrl.map(result => {
                                                            
                                                             let Link;
                                                             if (result.url) {
@@ -653,14 +656,14 @@ class SearchResults extends Component {
                                                                 return <li>{`${result.name}:`}{Link}</li>
                                                             }
 
+                                                            else return <li>Sorry this link is not available</li>
 
+                                                        })
+                                                        // :<div>
 
-
-                                                        }):<div>
-
-                                                            <h1 class="title is-3">Please search for another film </h1>
-                                                            <h2 class ="subtitle">sorry no links are available for this film at this time</h2>
-                                                        </div>
+                                                        //     <h1 class="title is-3">Please search for another film </h1>
+                                                        //     <h2 class ="subtitle">sorry no links are available for this film at this time</h2>
+                                                        // </div>
                                                     }
 
 

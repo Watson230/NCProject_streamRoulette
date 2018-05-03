@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
 import Linkify from "react-linkify"
 
 
-
+const API_URL = 'https://safe-brook-17817.herokuapp.com/api'
 
 class UserInfo extends Component {
 
@@ -27,7 +27,7 @@ class UserInfo extends Component {
 
     SearchUser = () => {
         console.log(this.state.user)
-        fetch(`http://localhost:4000/api/user/${this.state.user}`)
+        fetch(`${API_URL}/user/${this.state.user}`)
             .then(res => {
                 console.log(res)
                 return res.json();

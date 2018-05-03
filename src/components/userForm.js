@@ -3,7 +3,7 @@ import NavBar from './NavBar'
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
 import UserInfo from './userInfo'
 
-
+const API_URL = 'https://safe-brook-17817.herokuapp.com/api'
 class UserForm extends Component {
 
     state = {
@@ -109,7 +109,7 @@ class UserForm extends Component {
 
     saveQueries = () => {
 
-        fetch(`http://localhost:4000/api/search/${this.state.user}/queries`, {
+        fetch(`${API_URL}/search/${this.state.user}/queries`, {
 
             method: 'POST',
             body: JSON.stringify({
@@ -155,7 +155,7 @@ class UserForm extends Component {
 
     CreateUser = (user) => {
 
-        fetch(`http://localhost:4000/api/user`, {
+        fetch(`${API_URL}/user`, {
 
             method: 'POST',
             body: JSON.stringify({

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PT from 'prop-types'
-
 import NavBar from './NavBar'
 import Linkify from "react-linkify"
+
+const API_URL = 'https://safe-brook-17817.herokuapp.com/api'
 
 
 class MostLiked extends Component {
@@ -18,7 +19,7 @@ class MostLiked extends Component {
 
     componentWillMount() {
 
-        fetch(`http://localhost:4000/api/film/liked`)
+        fetch(`${API_URL}/film/liked`)
             .then(res => {
 
                 return res.json();
