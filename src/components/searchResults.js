@@ -10,7 +10,7 @@ class SearchResults extends Component {
         searchResults: [],
         currentFilm: [],
         likedFilms: [],
-        recentlyDisliked: [],
+      
         PickFilmflag: false,
         getFilmUrl: false,
         endOfSearchResults: false,
@@ -38,7 +38,7 @@ class SearchResults extends Component {
             .then(body => {
                 this.setState({
 
-                    searchResults: body.results,
+                    searchResults: body.results.slice(1),
                     currentFilm: body.results[0],
                     likedFilms: [],
                     PickFilmflag: false,
@@ -60,7 +60,7 @@ class SearchResults extends Component {
         this.likedFilmUserUpdate()
 
 
-        if (this.state.searchResults.slice(1, this.state.searchResults.length).length < 1) {
+        if (!this.state.searchResults.slice(1, this.state.searchResults.length).length) {
 
             this.setState({
 
@@ -88,6 +88,27 @@ class SearchResults extends Component {
             getFilmUrl: false,
             endOfSearchResults: false,
         })
+    }
+
+    secondChanceLikeFilmHandler =()=>{
+        let film = [this.state.recentlyDisliked]
+       
+        
+        this.setState({
+
+            searchResults: this.state.searchResults,
+            currentFilm: this.state.currentFilm,
+            likedFilms: this.state.likedFilms.concat(film),
+            PickFilmflag: false,
+            recentlyDisliked:false,
+            selectedFilm: [],
+            getFilmUrl: false,
+            endOfSearchResults: false,
+
+
+
+        })
+
     }
 
     postNewFilm = (film) => {
@@ -270,7 +291,7 @@ class SearchResults extends Component {
 
     }
 
-    disLikeFilmhandler = () => {
+ disLikeFilmhandler = () => {
 
         let film = this.state.currentFilm
 
@@ -278,11 +299,11 @@ class SearchResults extends Component {
 
         this.dislikedFilmUserUpdate();
 
-        if (this.state.searchResults.slice(1, this.state.searchResults.length).length < 1) {
+        if (!this.state.searchResults.slice(1, this.state.searchResults.length).length) {
 
             this.setState({
 
-                searchResults: this.state.searchResults.slice(1, this.state.searchResults.length),
+                searchResults: [],
                 currentFilm: this.state.searchResults[0],
                 likedFilms: this.state.likedFilms,
 
@@ -312,7 +333,7 @@ class SearchResults extends Component {
     }
 
         dislikedFilmUserUpdate = () => {
-            console.log(this.state.currentFilm)
+          
             let film = this.state.currentFilm
             fetch(`http://localhost:4000/api/search/results/disliked/${this.state.user}`, {
 
@@ -359,8 +380,7 @@ class SearchResults extends Component {
                 endOfSearchResults: false
 
             })
-            console.log(this.state.selectedFilm)
-            console.log(this.state.likedFilms)
+           
 
         }
 
@@ -399,34 +419,7 @@ class SearchResults extends Component {
 
                 })
 
-            // fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.mashape.com/lookup?term=${title}`,
-            // {
-            //     headers: new Headers({
-            //         'Accept': 'application/json',
-            //         'X-Mashape-Key': "lbLD5PKDXhmshZXMNJgHsm1ahtF2p1fYk5Sjsn8XmYhTzIKQYn"
-            //     }),
-            //     type: 'cors',
-            //     method:"PUT"
-
-            // })
-            // .then(res => {        
-            //     return res.json();
-            // })
-            // .then(body => {
-            //     console.log(body)
-            //     this.setState(Object.assign({}, this.state, {
-            //         PickFilmflag: false,
-            //         getFilmUrl: true,
-            //         selectedUrl:body.results[0].locations
-            //     }
-            //     ))
-
-            //     console.log(this.state)
-            // })
-            // .catch(err => {
-            //     console.log(err)
-
-            // })
+           
 
         }
 
@@ -473,11 +466,13 @@ class SearchResults extends Component {
     
                     <div style={{ "width": "30%", "height": "100%", "margin-right": "100px", "margin-left": "20px", "margin-top": "20px" }} class="column">
                                 <div class="box">
-                                    <h1 class="title is-1" >Film Info</h1>
+                                    <h1 class="title is-2" >Film Info</h1>
                                 </div>
-                                <div class="box">
+                                <div class="box" style={{"overflow-y": "scroll", "height":"400px",}}>
                                     <h2 class="title is-2">{this.state.currentFilm.title}</h2>
+                                  
                                     <p>{this.state.currentFilm.overview}</p>
+                                    
                                 </div>
 
                                 <div class="box" style={{ "text-align": "right" }}>
@@ -500,7 +495,7 @@ class SearchResults extends Component {
                                 <div>
                                     <div class="box">
 
-                                        <h1 class="title is-1">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
+                                        <h1 class="title is-2">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
                                     </div>
                                     <div class="box">
 
@@ -534,10 +529,10 @@ class SearchResults extends Component {
 
 
 
-
-                            <div style={{ "margin-left": "100px", "width": "400px", "margin-right": "100px", "margin-top": "20px" }} class="column">
+                            {this.state.recentlyDisliked?
+                            <div style={{ "margin-left": "100px", "width": "400px", "margin-right": "100px", "margin-top": "20px", }} class="column" >
                                 <div class="box">
-                                    <h1 class="title is-1">Are you sure?</h1>
+                                    <h1 class="title is-2">2nd Chance</h1>
                                 </div>
                                 <div class="box">
 
@@ -547,11 +542,30 @@ class SearchResults extends Component {
                                         </figure>
 
                                     </div>
-                                </div>
-
-
-
+                                <button class="button is-success"
+                                onClick={() => { this.secondChanceLikeFilmHandler() }}
+                                >Like</button>
+                                </div> 
                             </div>
+                            :
+                            <div style={{ "margin-left": "100px", "width": "400px", "margin-right": "100px", "margin-top": "20px", }} class="column" >
+                            <div class="box">
+                                <h1 class="title is-2">Recently Disliked</h1>
+                            </div>
+                            <div class="box">
+
+                                <div class="content">
+                                    <div style={{"text-align":"center", "margin-top":"30px","margin-bottom":"30px"}}>>
+                                <figure class="image is-480x480">
+                                            <img src='https://vignette.wikia.nocookie.net/creation/images/7/7e/Red_x.png/revision/latest/scale-to-width-down/480?cb=20160323201834' alt="Image" />
+                                        </figure>
+                                    </div>
+
+                                </div>
+                           
+                            </div> 
+                        </div>
+                            }
                         </div>
                         {
                             this.state.PickFilmflag ?
@@ -619,7 +633,7 @@ class SearchResults extends Component {
                                                 <ul>
                                                     {
                                                         this.state.selectedUrl.map(result => {
-                                                            console.log(this.state)
+                                                            
                                                             let Link;
                                                             if (result.url) {
                                                                 Link = <Linkify>{result.url.split("//")[1]}</Linkify>
@@ -630,7 +644,23 @@ class SearchResults extends Component {
 
 
 
-                                                        })
+                                                        }).length<1? this.state.selectedUrl.map(result => {
+                                                           
+                                                            let Link;
+                                                            if (result.url) {
+                                                                Link = <Linkify>{result.url.split("//")[1]}</Linkify>
+
+                                                                return <li>{`${result.name}:`}{Link}</li>
+                                                            }
+
+
+
+
+                                                        }):<div>
+
+                                                            <h1 class="title is-3">Please search for another film </h1>
+                                                            <h2 class ="subtitle">sorry no links are available for this film at this time</h2>
+                                                        </div>
                                                     }
 
 

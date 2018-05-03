@@ -34,8 +34,6 @@ class UserForm extends Component {
 
     submitQueries = () => {
 
-
-
         if (!this.state.user) {
 
             this.setState(Object.assign({}, this.state, {
@@ -55,7 +53,10 @@ class UserForm extends Component {
         let queryString = usedQueries.reduce((acc, key) => {
 
             if (key === 'keywords') acc = acc + `with_keywords=${this.state.queries.keywords}` + '&';
-            if (key === 'year') acc = acc + `primary_release_year=${parseInt(this.state.queries.year)}` + '&';
+            if (key === 'year') {
+                if(parseInt(this.state.queries.year)< 2018) acc = acc + `primary_release_year=${parseInt(this.state.queries.year)}` + '&';
+                return acc
+            }
             if (key === 'genre') acc = acc + `with_genres=${this.state.queries.genre.split(':')[1]}` + '&';
 
             if (key === 'search') acc = acc + `term=${this.state.search}`;
