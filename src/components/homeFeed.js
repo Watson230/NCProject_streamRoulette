@@ -19,48 +19,41 @@ class HomeFeed extends Component {
         userName: 'random'
     }
 
- 
-
-
-
     render() {
 
-
-
         return (
-            <div class = "" style={{"width": "100%", "height": "100%"}}>
+            <div className = "" style={{"width": "100%", "height": "100%"}}>
             <div  style={{"width": "100%"}} >
                <NavBar/>
                </div>
-               <div class="container">
-                <div class="columns"style={{ "margin-bottom":"100px","margin-top":"80px"}}>
+               <div className="container">
+                <div className="columns"style={{ "margin-bottom":"100px","margin-top":"80px"}}>
                     
-                    <div class="column">
+                    <div className="column">
                     <div  style={{  "margin-top": "50px" , "width": "100%", "height": "100%" }}>
-                        <UserForm user={this.state.userName} />
+                        <UserForm user={this.state.userName}/>
                         </div>
                     </div>
 
-                    <div class="column is-four-fifths" style={{ "margin-bottom":"100px",}}>
+                    <div className="column is-four-fifths" style={{ "margin-bottom":"100px",}}>
                     
-                    <div class="columns">
+                    <div className="columns">
 
-                    <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px" ,"margin-right": "20px"  }}>
-                        <MostWatched />
+                    <div className="column" style={{  "margin-top": "50px" , "margin-left": "20px" ,"margin-right": "20px"  }}>
+                        <MostWatched/>
                     </div>
-                    <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px","margin-right": "20px"   }}>
-                        <MostPopular />
+                    <div className="column" style={{  "margin-top": "50px" , "margin-left": "20px","margin-right": "20px"   }}>
+                        <MostPopular/>
                     </div>
 
-                    <div class="column" style={{  "margin-top": "50px" , "margin-left": "20px", "margin-right": "20px"  }}>
-                        <MostDisliked />
+                    <div className="column" style={{  "margin-top": "50px" , "margin-left": "20px", "margin-right": "20px"  }}>
+                        <MostDisliked/>
                     </div>
                     </div>
                         </div>
                 </div>
                 </div>
             </div>
-
         )
     }
 }

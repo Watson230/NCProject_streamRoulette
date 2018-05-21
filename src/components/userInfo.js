@@ -18,50 +18,32 @@ class UserInfo extends Component {
     }
 
     userInfoInputHandler = (name) => {
-
         this.setState({
             user: name
         })
-
     }
 
     SearchUser = () => {
-        console.log(this.state.user)
         fetch(`${API_URL}/user/${this.state.user}`)
             .then(res => {
-                console.log(res)
                 return res.json();
             })
             .then(body => {
-                console.log(body)
                 if (body.length < 1) {
                     this.setState({
                         userNotExists: true,
                         userInfo: []
-
                     })
-                }
-                else {
+                } else {
                     this.props.UpdateStateUser(this.state.user, body)
                     this.setState({
                         userNotExists: false,
                         userInfo: body
-
-                    })
-
-                }
-
-
-                console.log(this.state)
-            }
-
-            )
+                    })}
+            })
             .catch(err => {
                 console.log(err)
-
             })
-
-
     }
 
 
@@ -73,24 +55,17 @@ class UserInfo extends Component {
                     'X-Mashape-Key': "lbLD5PKDXhmshZXMNJgHsm1ahtF2p1fYk5Sjsn8XmYhTzIKQYn"
                 }),
                 type: 'cors'
-
             })
             .then(res => {
                 return res.json();
             })
             .then(body => {
-                console.log(body)
                 this.setState(Object.assign({}, this.state, {
-
                     watchedFilmUrl: body.results[0].locations
-                }
-                ))
-
-                console.log(this.state)
+                }))
             })
             .catch(err => {
                 console.log(err)
-
             })
     }
 
@@ -98,74 +73,44 @@ class UserInfo extends Component {
 
         return (
             <div>
-                <div class="tile is-parent" className="userInfo">
-                    <article class="tile is-child notification is-black">
-                        <div class="content">
+                <div className="tile is-parent" className="userInfo">
+                    <article className="tile is-child notification is-black">
+                        <div className="content">
 
-                            <div class="content">
-                                <h1 class="title">User Info</h1>
-
-                                <div class="field">
-                                    <label class="label" class="subtitle">User</label>
-
-                                    <input class="input" type="text" placeholder="user" value={this.state.user}
-
-                                        onChange={event => {
-                                            this.userInfoInputHandler(event.target.value)
-                                            console.log(this.state)
-                                        }}
-                                    />
-
-
+                            <div className="content">
+                                <h1 className="title">User Info</h1>
+                                <div className="field">
+                                    <label className="label" className="subtitle">User</label>
+                                    <input className="input" type="text" placeholder="user" value={this.state.user}
+                                        onChange={event => { this.userInfoInputHandler(event.target.value)
+                                        }}/>
                                 </div>
 
-                                <div class="field">
-                                    <p class="control">
-                                        <button class="button is-white"
-                                            onClick={() => {
-                                                // this.props.createUser(this.state.user)
-                                                this.SearchUser()
-                                            }}>Search for User</button>
+                                <div className="field">
+                                    <p className="control">
+                                        <button className="button is-white" onClick={() => {this.SearchUser()}}>Search for User</button>
                                     </p>
                                 </div>
 
                                 <div>
                                     {this.state.userInfo.length > 0 ?
                                         <div >
-
-
-                                            <p class="subtitle">{`${this.state.user}'s film history`}</p>
-                                            <p class="subtitle"> Recently Watched</p> 
-                                            <div class="content">
+                                            <p className="subtitle">{`${this.state.user}'s film history`}</p>
+                                            <p className="subtitle"> Recently Watched</p> 
+                                            <div className="content">
 
                                                 <ul>
                                                     {
                                                         this.state.userInfo[0].watchedFilms.slice(this.state.userInfo[0].watchedFilms.length - 5).reverse().map(film => {
 
                                                             if (film) return <li><a
-                                                                onClick={() => {
-
-                                                                    this.setState(Object.assign({}, this.state, {
+                                                                onClick={() => {this.setState(Object.assign({}, this.state, {
                                                                         watchAgain: true,
-                                                                        userNotExists: false,
-
-
-                                                                    }))
-
-                                                                    this.prevWatchedURL(film.title)
-
-                                                                }}
-
-                                                            >{film.title}</a></li>
-
-                                                        }
-                                                        )
+                                                                        userNotExists: false,}))
+                                                                    this.prevWatchedURL(film.title)}}>{film.title}</a></li>})
                                                     }
-                                                </ul>
-                                      
+                                                </ul>                                   
                                             </div>
-
-
                                         </div>
                                         : null}
                                 </div>
@@ -173,93 +118,63 @@ class UserInfo extends Component {
                                 <div>
                                     {this.state.watchAgain ?
                                         <div>
-                                            <div class="modal is-active">
-                                                <div class="modal-background"></div>
-                                                <div class="modal-card">
-                                                    <header class="modal-card-head">
-                                                        <p class="modal-card-title">You can watch it again here</p>
-                                                        <button class="delete" aria-label="close"></button>
+                                            <div className="modal is-active">
+                                                <div className="modal-background"></div>
+                                                <div className="modal-card">
+                                                    <header className="modal-card-head">
+                                                        <p className="modal-card-title">You can watch it again here</p>
+                                                        <button className="delete" aria-label="close"></button>
                                                     </header>
-                                                    <section class="modal-card-body">
+                                                    <section className="modal-card-body">
                                                         {this.state.watchedFilmUrl ?
                                                             <ul style={{ "color": 'black' }}>
                                                                 {
                                                                     this.state.watchedFilmUrl.map(result => {
-                                                                        console.log('res', result)
                                                                         let Link;
                                                                         if (result.url) {
-
                                                                             Link = <Linkify>{result.url.split("//")[1]}</Linkify>
-
                                                                             return <li>{`${result.name}:`}{Link}</li>
                                                                         }
-
                                                                     })
-
                                                                 }
-                                                            </ul> :
-                                                            null
-
+                                                            </ul> : null
                                                         }
-
                                                     </section>
-                                                    <footer class="modal-card-foot">
-
+                                                    <footer className="modal-card-foot">
                                                         <Link to={"/"}
                                                             onClick={() => {
                                                                 this.setState({
                                                                     watchAgain: false,
                                                                     user: this.state.user
-                                                                })
-
-
-                                                            }}
-                                                        ><button class="button">Cancel</button></Link>
+                                                                })}}><button className="button">Cancel</button></Link>
                                                     </footer>
                                                 </div>
                                             </div >
-
                                         </div> :
                                         null
                                     }
                                 </div>
-
-
                                 {
                                     this.state.userNotExists ? <div>
-                                        <div class="modal is-active">
-                                            <div class="modal-background"></div>
-                                            <div class="modal-card">
-                                                <header class="modal-card-head">
-                                                    <p class="modal-card-title">User Not Found</p>
-                                                    <button class="delete" aria-label="close"></button>
+                                        <div className="modal is-active">
+                                            <div className="modal-background"></div>
+                                            <div className="modal-card">
+                                                <header className="modal-card-head">
+                                                    <p className="modal-card-title">User Not Found</p>
+                                                    <button className="delete" aria-label="close"></button>
                                                 </header>
-                                                <section class="modal-card-body">
+                                                <section className="modal-card-body">
                                                     <p>Please search for another user or create a new one below!</p>
                                                 </section>
-                                                <footer class="modal-card-foot">
-                                                    <button class="button is-success"
+                                                <footer className="modal-card-foot">
+                                                    <button className="button is-success"
                                                         onClick={() => {
                                                             this.props.createUser(this.state.user)
                                                             this.setState({
                                                                 userNotExists: false,
                                                                 user: this.state.user
-                                                            })
-
-
-                                                        }}
-                                                    >Create User</button>
-
-                                                    <Link to={"/"}
-                                                        onClick={() => {
-                                                            this.setState({
-                                                                userNotExists: false,
-                                                                user: ''
-                                                            })
-
-
-                                                        }}
-                                                    ><button class="button">Cancel</button></Link>
+                                                            })}}>Create User</button>
+                                                    <Link to={"/"} onClick={() => {this.setState({userNotExists: false,user: ''})}}><button className="button">Cancel</button></Link>
                                                 </footer>
                                             </div>
                                         </div >
@@ -269,14 +184,9 @@ class UserInfo extends Component {
                         </div>
                     </article>
                 </div>
-
             </div >
 
         )
-
-
-
-
     }
 }
 

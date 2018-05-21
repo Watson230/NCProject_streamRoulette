@@ -9,45 +9,31 @@ const API_URL = 'https://safe-brook-17817.herokuapp.com/api'
 class MostWatched extends Component {
 
     state = {
-        mostWatchedFilms: []
-    }
+        mostWatchedFilms: []}
 
 
     componentWillMount() {
 
-
-        // fetch(`https://api.themoviedb.org/3/discover/movie?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US&sort_by=popularity.desc&include_adult=false&release_date.lte=2017&include_video=false`)
-
         fetch(`${API_URL}/film/watched`)
             .then(res => {
-
                 return res.json();
             })
             .then(body => {
-
                 let films = body.map(film => film.film)
-                console.log('mostwatched', films)
                 this.setState({
-
                     mostWatchedFilms: films,
                     currentFilm: films[Math.floor(Math.random() * (this.state.mostWatchedFilms.length - 1))]
-
                 })
-
             })
             .catch(err => {
                 console.log(err)
             })
-
-
     }
 
 
 
     componentDidUpdate() {
-        setTimeout(() => {
-            this.mostPopularFilms()
-        }, 5000)
+        setTimeout(() => { this.mostPopularFilms()}, 5000)
     }
 
     getFilmURL = (filmName) => {
@@ -64,27 +50,21 @@ class MostWatched extends Component {
                 return res.json();
             })
             .then(body => {
-                console.log('fetch', body)
                 this.setState(Object.assign({}, this.state, {
-
                     watchedFilmUrl: body.results[0].locations
-                }
-                ))
+                }))
             })
             .catch(err => {
                 console.log(err)
-
-            })
+           })
     }
 
     mostPopularFilms = () => {
 
         let filmNum = Math.floor(Math.random() * (this.state.mostWatchedFilms.length - 1))
         this.setState({
-
             mostWatchedFilms: this.state.mostWatchedFilms,
             currentFilm: this.state.mostWatchedFilms[filmNum]
-
         })
     }
 
@@ -92,7 +72,6 @@ class MostWatched extends Component {
     watchNowButtonHandler = (arg) => {
 
         this.setState({
-
             mostPopularFilms: this.state.mostPopularFilms,
             watchFilm: arg,
             watchedFilmUrl: this.state.watchedFilmUrl,
@@ -104,51 +83,34 @@ class MostWatched extends Component {
 
     render() {
 
-
-
         return (
             <div  style={{ "width": "120%", "height": "100%", }} >
-
-
                 {this.state.currentFilm ?
-
                     <div >
-                        <div class="tile is-parent">
-                            <article class="tile is-child notification is-black">
-
+                        <div className="tile is-parent">
+                            <article className="tile is-child notification is-black">
                                 <div style={{ "text-align": "center", "margin-bottom": "10px" }} >
-                                    <p class="title">Most Watched</p>
+                                    <p className="title">Most Watched</p>
                                     </div>
                                     <div style={{"margin-bottom":"10px"}}>
-                                    <p class="subtitle">{`${this.state.currentFilm.title}`}</p>
+                                    <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                                 </div>
-                                <figure class="image is-4by5">
+                                <figure className="image is-4by5">
                                     <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
                                 </figure>
                             </article>
                         </div>
                         <div style={{"text-align": "center"}}>
                         <button
-                        
                         onClick={()=>{
                             this.watchNowButtonHandler(true)
-                            console.log(this.state.currentFilm)
                             this.getFilmURL(this.state.currentFilm.title)
-                        }}
-                        class = "button is-rounded"
-                        > Watch Here </button>
+                        }}className = "button is-rounded"> Watch Here </button>
                         </div>
-
                     </div>
-
-
-
-
-                    : <div class="tile is-parent">
-                        <article class="tile is-child notification is-black">
-                            <p class="title">loading.....</p>
-
-
+                    : <div className="tile is-parent">
+                        <article className="tile is-child notification is-black">
+                            <p className="title">loading.....</p>
                         </article>
                     </div>
                 }
@@ -156,52 +118,37 @@ class MostWatched extends Component {
                                 {
                     this.state.watchFilm ?
                         <div>
-                            <div class="modal is-active">
-                                <div class="modal-background"></div>
-                                <div class="modal-card">
-                                    <header class="modal-card-head">
-                                        <p class="modal-card-title">You can watch it again here</p>
-                                        <button class="delete" aria-label="close"></button>
+                            <div className="modal is-active">
+                                <div className="modal-background"></div>
+                                <div className="modal-card">
+                                    <header className="modal-card-head">
+                                        <p className="modal-card-title">You can watch it again here</p>
+                                        <button className="delete" aria-label="close"></button>
                                     </header>
-                                    <section class="modal-card-body">
+                                    <section className="modal-card-body">
                                         {this.state.watchedFilmUrl ?
                                             <ul style={{ "color": 'black' }}>
                                                 {
                                                     this.state.watchedFilmUrl.map(result => {
                                                         let Link;
                                                         if (result.url) {
-
                                                             Link = <Linkify>{result.url.split("//")[1]}</Linkify>
-
                                                             return <li>{`${result.name}:`}{Link}</li>
                                                         }
-
                                                     })
-
                                                 }
                                             </ul> :
                                             null
-
                                         }
-
                                     </section>
-                                    <footer class="modal-card-foot">
-
-                                        <button class="button"
-                                        onClick={()=>{
-                                            this.watchNowButtonHandler(false)
-                                            
-                                        }}
-                                        >Cancel</button>
+                                    <footer className="modal-card-foot">
+                                        <button className="button"
+                                        onClick={()=>{ this.watchNowButtonHandler(false)}}>Cancel</button>
                                     </footer>
                                 </div>
                             </div >
-
-
-                        </div> : <div></div>
+                        </div> : null
                 }
-
-
             </div>
         )
     }

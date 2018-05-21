@@ -12,7 +12,7 @@ class UserForm extends Component {
         searchFlag: 1,
 
         userInfo: [],
-        discoverTabClass: 'is-active',
+        discoverTabclass: 'is-active',
         selectSearchFlag: false,
         queries: {}
 
@@ -21,30 +21,21 @@ class UserForm extends Component {
     userInputHandler(key, value) {
 
         const newState = Object.assign({}, this.state)
-
         const newQueries = Object.assign({}, newState.queries)
-
         newQueries[key] = value;
         newState.queries = newQueries;
-
         this.setState(newState, () => console.log('state', this.state));
-
-
     }
 
     submitQueries = () => {
 
         if (!this.state.user) {
-
             this.setState(Object.assign({}, this.state, {
-
                 user: 'default'
             }), () => {
-                console.log(this.state)
                 this.saveQueries()
             })
         }
-
         else this.saveQueries()
 
 
@@ -58,13 +49,7 @@ class UserForm extends Component {
                 return acc
             }
             if (key === 'genre') acc = acc + `with_genres=${this.state.queries.genre.split(':')[1]}` + '&';
-
             if (key === 'search') acc = acc + `term=${this.state.search}`;
-
-
-
-
-
             return acc
         }, '')
 
@@ -73,11 +58,6 @@ class UserForm extends Component {
             submitFlag: 1,
             queriesString: queryString
         }))
-
-        console.log(queryString)
-        console.log(this.state)
-
-
     }
 
     searchTabHandler = (num, tab) => {
@@ -87,30 +67,20 @@ class UserForm extends Component {
                 searchFlag: num,
                 searchTabClass: 'is-active',
                 discoverTabClass: null
-
-
             }))
         }
-
-
         else {
-
             this.setState(Object.assign({}, this.state, {
                 searchFlag: num,
                 searchTabClass: null,
                 discoverTabClass: 'is-active'
-
-
             }))
-
         }
-
     }
 
     saveQueries = () => {
 
         fetch(`${API_URL}/search/${this.state.user}/queries`, {
-
             method: 'POST',
             body: JSON.stringify({
                 queries: this.state.queries,
@@ -122,20 +92,11 @@ class UserForm extends Component {
             type: 'cors'
         })
             .then(res => {
-                console.log(res)
                 return res.json();
             })
-            .then(body => {
-
-                console.log(body)
-            }
-
-            )
             .catch(err => {
                 console.log(err)
             })
-
-
     }
 
     userSelectSearchHandler = (arg) => {
@@ -148,15 +109,12 @@ class UserForm extends Component {
             selectSearchFlag: arg,
             queries: this.state.queries
         })
-
-
     }
 
 
     CreateUser = (user) => {
 
         fetch(`${API_URL}/user`, {
-
             method: 'POST',
             body: JSON.stringify({
                 userName: user
@@ -167,24 +125,16 @@ class UserForm extends Component {
             type: 'cors'
         })
             .then(res => {
-                console.log(res)
                 return res.json();
             })
             .then(body => {
-
                 this.setState({
-
                     userInfo: body,
                     user: user
-
                 })
-                console.log(this.state)
-            }
-
-            )
+            })
             .catch(err => {
                 console.log(err)
-
             })
 
 
@@ -204,15 +154,11 @@ class UserForm extends Component {
 
         fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=b714d4feb8707f01b7dd25f75051d8a6&language=en-US')
             .then(res => {
-                console.log(res)
                 return res.json();
             })
             .then(body => {
-
                 this.setState({
-
                     genres: body.genres
-
                 })
             })
             .catch(err => {
@@ -227,83 +173,56 @@ class UserForm extends Component {
     render() {
         return (
             <div >
-
-
                 <div >
                     <div  style={{"text-align":"center", "margin-bottom":"20px"}}>
-                    <button class="button is-black is-large is-rounded"
-                        onClick={() => {
-                            this.userSelectSearchHandler(true)
-                        }}
-
-                    >Search Here</button>
+                    <button className="button is-black is-large is-rounded"
+                        onClick={() => {this.userSelectSearchHandler(true)}}>Search Here</button>
                     </div>
-                    <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser} />
+                    <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser}/>
                 </div>
 
                 {this.state.selectSearchFlag ?
-                <div class="box">
-                    <div class="modal is-active"> 
-                        <div class="modal-background"></div>
-                        <div class="modal-card">
-                            <header class="modal-card-head">
-                                <p class="modal-card-title">Search</p>
-                                <button class="delete" aria-label="close"></button>
+                <div className="box">
+                    <div className="modal is-active"> 
+                        <div className="modal-background"></div>
+                        <div className="modal-card">
+                            <header className="modal-card-head">
+                                <p className="modal-card-title">Search</p>
+                                <button className="delete" aria-label="close"></button>
                             </header>
-                            <section class="modal-card-body">
+                            <section className="modal-card-body">
                                 <div  style={{ "width": "100%", "height": "100%", "margin": "0,auto" }}>
 
-                                    <h1 class="is title">Search for a film</h1>
+                                    <h1 className="is title">Search for a film</h1>
 
-                                    <div class="tabs is-centered is-boxed">
+                                    <div className="tabs is-centered is-boxed">
                                         <ul>
-                                            <li class={`${this.state.discoverTabClass}`}
-                                                onClick={() => {
-
-                                                    this.searchTabHandler(1, 'discover')
-                                                }}
-                                            ><a>Discover</a></li>
-                                            <li class={`${this.state.searchTabClass}`}
-                                                onClick={() => {
-
-                                                    this.searchTabHandler(0, 'search')
-                                                }}
-                                            ><a>Search</a></li>
+                                            <li className={`${this.state.discoverTabclassName}`}
+                                                onClick={() => {this.searchTabHandler(1, 'discover')}}><a>Discover</a></li>
+                                            <li className={`${this.state.searchTabclassName}`}
+                                                onClick={() => {this.searchTabHandler(0, 'search')}}><a>Search</a></li>
                                         </ul>
                                     </div>
 
                                     {this.state.searchFlag > 0 ?
-                                        <div class="discover">
-
-                                            <div class="field">
-                                                <label class="label">Keywords</label>
-                                                <div class="control">
-                                                    <input class="input" type="text" placeholder="keywords" value={this.state.queries.keywords}
-                                                        onChange={event => {
-                                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                                        }}
-                                                    />
+                                        <div className="discover">
+                                            <div className="field">
+                                                <label className="label">Keywords</label>
+                                                <div className="control">
+                                                    <input className="input" type="text" placeholder="keywords" value={this.state.queries.keywords}
+                                                        onChange={event => {this.userInputHandler(event.target.placeholder, event.target.value)}}/>
                                                 </div>
                                             </div>
-                                            <div class="field">
-                                                <label class="label">genre</label>
-                                                <div class="field has-addons">
-                                                    <div class="control is-expanded">
-                                                        <div class="select is-fullwidth">
+                                            <div className="field">
+                                                <label className="label">genre</label>
+                                                <div className="field has-addons">
+                                                    <div className="control is-expanded">
+                                                        <div className="select is-fullwidth">
                                                             <select id="genre"
-
-                                                                onChange={event => {
-                                                                    console.log(event.target)
-                                                                    this.userInputHandler('genre', event.target.value)
-
-
-                                                                }}>
+                                                                onChange={event => {this.userInputHandler('genre', event.target.value)}}>
                                                                 <option>Choose one</option>
                                                                 {this.state.genres.map(genre => {
-
                                                                     return <option>{`${genre.name} - id:${genre.id}`}</option>
-
                                                                 })}
                                                             </select>
                                                         </div>
@@ -311,157 +230,83 @@ class UserForm extends Component {
                                                 </div>
                                             </div>
 
-
-                                            {/* <div class="field">
-                                                <label class="label">Rating</label>
-                                                <div class="control">
-                                                    <input class="input" type="text" placeholder="rating" value={this.state.queries.rating}
-                                                        onChange={event => {
-
-                                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-
-                                                        }} />
+                                            <div className="field">
+                                                <label className="label">Release Date</label>
+                                                <div className="control">
+                                                    <input className="input" type="text" placeholder="year" value={this.state.queries.year}
+                                                        onChange={event => {this.userInputHandler(event.target.placeholder, event.target.value)}}/>
                                                 </div>
-                                            </div> */}
-
-                                            <div class="field">
-                                                <label class="label">Release Date</label>
-                                                <div class="control">
-                                                    <input class="input" type="text" placeholder="year" value={this.state.queries.year}
-                                                        onChange={event => {
-
-                                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-
-                                                        }}
-                                                    />
-                                                </div>
-
-
-                                                <div class="field">
-                                                    <input class="is-checkradio" id="exampleRadioInline1" type="radio" name="exampleRadioInline" checked="checked" />
+                                                <div className="field">
+                                                    <input className="is-checkradio" id="exampleRadioInline1" type="radio" name="exampleRadioInline" checked="checked" />
                                                     <label for="exampleRadioInline1">Before</label>
-                                                    <input class="is-checkradio" id="exampleRadioInline2" type="radio" name="exampleRadioInline" />
+                                                    <input className="is-checkradio" id="exampleRadioInline2" type="radio" name="exampleRadioInline" />
                                                     <label for="exampleRadioInline2">After</label>
-                                                    <input class="is-checkradio" id="exampleRadioInline3" type="radio" name="exampleRadioInline" />
+                                                    <input className="is-checkradio" id="exampleRadioInline3" type="radio" name="exampleRadioInline" />
                                                     <label for="exampleRadioInline2">Only</label>
                                                 </div>
                                             </div>
 
-                                            {/* <div class="field">
-                                                <label class="label">Starring</label>
-                                                <div class="control">
-                                                    <input class="input" type="text" placeholder="starring" value={this.state.queries.starring}
-                                                        onChange={event => {
-
-                                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-
-                                                        }} />
+                                            <div className="field is-grouped">
+                                                <div className="control">
+                                                    <button className="button is-link" onClick={() => {this.submitQueries()}}>Submit</button>
                                                 </div>
-                                            </div>
-
-                                            <div class="field">
-                                                <label class="label">Director</label>
-                                                <div class="control">
-                                                    <input class="input" type="text" placeholder="director" value={this.state.queries.director}
-                                                        onChange={event => {
-
-                                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                                        }} />
-                                                </div>
-                                            </div> */}
-
-                                            <div class="field is-grouped">
-                                                <div class="control">
-                                                    <button class="button is-link"
-                                                        onClick={() => {
-
-                                                            this.submitQueries()
-
-                                                        }}
-                                                    >Submit</button>
-                                                </div>
-                                                <div class="control">
-                                                    <button class="button is-text">Cancel</button>
+                                                <div className="control">
+                                                    <button className="button is-text">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
                                         :
-                                        <div class="search">
-
-                                            <div class="field">
-                                                <label class="label">Title</label>
-                                                <div class="control">
-                                                    <input class="input" type="text" placeholder="search" value={this.state.queries.search}
-                                                        onChange={event => {
-                                                            console.log(event.target)
-                                                            this.userInputHandler(event.target.placeholder, event.target.value)
-
-                                                        }}
-                                                    />
+                                        <div className="search">
+                                            <div className="field">
+                                                <label className="label">Title</label>
+                                                <div className="control">
+                                                    <input className="input" type="text" placeholder="search" value={this.state.queries.search}
+                                                        onChange={event => {this.userInputHandler(event.target.placeholder, event.target.value)}}/>
                                                 </div>
                                             </div>
-                                            <div class="field is-grouped">
-                                                <div class="control">
-                                                    <button class="button is-link"
-                                                        onClick={() => {
-
-                                                            this.submitQueries()
-
-                                                        }}
-                                                    >Submit</button>
+                                            <div className="field is-grouped">
+                                                <div className="control">
+                                                    <button className="button is-link" onClick={() => {this.submitQueries()}}>Submit</button>
                                                 </div>
-                                                <div class="control">
-                                                    <button class="button is-text">Cancel</button>
+                                                <div className="control">
+                                                    <button className="button is-text">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
                                     }
                                 </div>
-
                             </section>
-                            <footer class="modal-card-foot">
-
-                                <button class="button"
-                                    onClick={() => {
-                                        this.userSelectSearchHandler(false)
-                                    }}
-                                >Cancel</button>
+                            <footer className="modal-card-foot">
+                                <button className="button" onClick={() => {this.userSelectSearchHandler(false)}}>Cancel</button>
                             </footer>
                         </div>
                     </div>
                     </div>
-                    : <div></div>
+                    : null
                 }
 
                 {
                     this.state.submitFlag > 0 ? <div>
-                        <div class="modal is-active">
-                            <div class="modal-background"></div>
-                            <div class="modal-card">
-                                <header class="modal-card-head">
-                                    <p class="modal-card-title">Search</p>
-                                    <button class="delete" aria-label="close"></button>
+                        <div className="modal is-active">
+                            <div className="modal-background"></div>
+                            <div className="modal-card">
+                                <header className="modal-card-head">
+                                    <p className="modal-card-title">Search</p>
+                                    <button className="delete" aria-label="close"></button>
                                 </header>
-                                <section class="modal-card-body">
+                                <section className="modal-card-body">
                                     <p>Search complelete!</p>
                                 </section>
-                                <footer class="modal-card-foot">
-                                    <Link to={`/${this.state.user}/search/${this.state.queriesString}/results`}><button class="button is-success">See Results</button></Link>
-                                    <button class="button">Cancel</button>
+                                <footer className="modal-card-foot">
+                                    <Link to={`/${this.state.user}/search/${this.state.queriesString}/results`}><button className="button is-success">See Results</button></Link>
+                                    <button className="button">Cancel</button>
                                 </footer>
                             </div>
                         </div >
                     </div> : null
                 }
-
             </div>
-        )
-    }
-
+        )}
 }
 
 export default UserForm
