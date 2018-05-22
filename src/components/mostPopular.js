@@ -15,7 +15,7 @@ class MostLiked extends Component {
     }
 
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
       fetch(`${API_URL}/film/liked`)
         .then(res => {
@@ -31,8 +31,6 @@ class MostLiked extends Component {
         .catch(() => {
           this.props.history.push('/404');
         });
-
-
     }
 
     watchNowButtonHandler=(arg)=>{
@@ -100,7 +98,7 @@ class MostLiked extends Component {
                     <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                   </div>  
                   <figure className="image is-4by5">
-                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
+                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="" />
                   </figure>
                 </article>
               </div>
@@ -139,12 +137,13 @@ class MostLiked extends Component {
                               if (result.url) {
                                 Link = <Linkify>{result.url.split('//')[1]}</Linkify>;
                                 return <li>{`${result.name}:`}{Link}</li>;
-                              }})
+                              }
+                              return null;
+                            })
                           }
                         </ul> :
                         null
                       }
-
                     </section>
                     <footer className="modal-card-foot">
                       <button className="button" onClick={()=>{this.watchNowButtonHandler(false);}}>Cancel</button>

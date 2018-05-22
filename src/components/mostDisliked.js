@@ -11,7 +11,7 @@ class MostDisliked extends Component {
     }
 
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
       fetch(`${API_URL}/film/disliked`)
         .then(res => {
@@ -92,7 +92,7 @@ class MostDisliked extends Component {
                     <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                   </div>
                   <figure className="image is-4by5">
-                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
+                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="" />
                   </figure>
                 </article>
               </div>
@@ -133,6 +133,7 @@ class MostDisliked extends Component {
                                 Link = <Linkify>{result.url.split('//')[1]}</Linkify>;
                                 return <li>{`${result.name}:`}{Link}</li>;
                               }
+                              return null;
                             })
                           }
                         </ul> :

@@ -44,7 +44,7 @@ class UserForm extends Component {
 
         if (key === 'keywords') acc = acc + `with_keywords=${this.state.queries.keywords}` + '&';
         if (key === 'year') {
-          if(parseInt(this.state.queries.year)< 2018) acc = acc + `primary_release_year=${parseInt(this.state.queries.year)}` + '&';
+          if(parseInt(this.state.queries.year,10)< 2018) acc = acc + `primary_release_year=${parseInt(this.state.queries.year,10)}` + '&';
           return acc;
         }
         if (key === 'genre') acc = acc + `with_genres=${this.state.queries.genre.split(':')[1]}` + '&';
@@ -53,7 +53,6 @@ class UserForm extends Component {
       }, '');
 
       this.setState(Object.assign({}, this.state, {
-
         submitFlag: 1,
         queriesString: queryString
       }));

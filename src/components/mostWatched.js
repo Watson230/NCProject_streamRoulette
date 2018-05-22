@@ -10,7 +10,7 @@ class MostWatched extends Component {
       mostWatchedFilms: []}
 
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
 
       fetch(`${API_URL}/film/watched`)
         .then(res => {
@@ -94,7 +94,7 @@ class MostWatched extends Component {
                     <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                   </div>
                   <figure className="image is-4by5">
-                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="Image" />
+                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="" />
                   </figure>
                 </article>
               </div>
@@ -133,6 +133,7 @@ class MostWatched extends Component {
                                 Link = <Linkify>{result.url.split('//')[1]}</Linkify>;
                                 return <li>{`${result.name}:`}{Link}</li>;
                               }
+                              return null;
                             })
                           }
                         </ul> :
