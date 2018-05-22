@@ -5,6 +5,7 @@
   "dependencies": {
     "bulma": "^0.7.1",
     "bulma-scss": "^0.6.0",
+    "only": "0.0.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-linkify": "^0.2.2",
@@ -15,6 +16,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": " eslint ./"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint-plugin-fetch": "0.0.1",
+    "eslint-plugin-react": "^7.8.2"
   }
 }
