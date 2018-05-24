@@ -11,7 +11,7 @@ class MostLiked extends Component {
       mostPopularFilms: [],
       watchFilm: false,
       watchedFilmUrl:[],
-      currentFilm:[]
+      
     }
 
 
