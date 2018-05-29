@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom'
-import logo from './logo.svg';
-
-import HomeFeed from './components/homeFeed'
-import UserForm from './components/userForm'
-import SearchResults from './components/searchResults'
-
-
+import { BrowserRouter, Route, Switch,} from 'react-router-dom';
+import HomeFeed from './components/homeFeed';
+import SearchResults from './components/searchResults';
+import ErrorPage from './components/404';
 import './App.css';
 import './mystyles.scss';
 
-// const backgroundStyle = 
-
 class App extends Component {
-
-  state={
-
-
-  }
 
   render() {
     return (
@@ -25,9 +14,9 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path exact ="/" component={HomeFeed}/>
-            {/* <Route path exact ="/:user/search" component={UserForm}/> */}
             <Route path  ="/:user/search/:searchQueries/results" component={SearchResults}/>
-            {/* <Route path="/mostRecent" component={mostRecentFilms}/> */}
+            <Route path="/404" component={ErrorPage} />
+            <Route component={ErrorPage}/>
           </Switch>
         </BrowserRouter>
       </div>
@@ -36,4 +25,4 @@ class App extends Component {
 }
 
 
-export default App
+export default App;
