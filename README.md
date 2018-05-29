@@ -1,50 +1,50 @@
- Stream Roulette
+ ##Stream Roulette
 
-A MongoDB based back end / API for serving knitting patterns to the knittr ( https://github.com/Edwards80/Knittr ) front end web app.
+ An interactive way for the indecisive user to consume films that they cant decide if they want to watch. Stream Roulette does the choosing for you!
+
+ The FullStack application allows the user to search a movie database based on search queries such as genre and release year, the user then recieves an array of +20 films for them to vetting by click the yes or no buttons on screen. the user can then randomly pick on of there 'liked' films to watch by clicking on the pick film button.
+
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
+##Prerequisites
 
-    cors:       ^2.8.4,
-    dotenv:     ^5.0.1,
-    express:    ^4.16.3,
-    mongoose:   ^5.0.15,
-    nodemon:    ^1.17.3
+    Node.js - v9.2.0
+    ECMAScript 6
+
+## Dependencies
+
+    "bulma": "^0.7.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4"
+
     
 ### Installing
 
 Open your terminal
 
-Clone this repository ( https://github.com/Edwards80/Knittr-be )
+Clone this repository ( https://github.com/Watson230/stream-roulette)
 
 Install dependencies ( npm i )
 
-npm start
+run "npm start" in the terminal
 
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+## Deployed
+Link: https://stream-roulette.herokuapp.com
 
 ## Built With
 
-    Node.JS
-    Express
-    MongoDB/Mongoose
+Bulma - The css framework used
+React - Javascript UI Library
 
 ## Authors
 
-* **Scott Edwards** - *Initial work* - [Edwards80](https://github.com/Edwards80)
+* **David Watson** - *Initial work* - Watson230
 
-Other contributors: (https://github.com/Edwards80/Knittr/contributors)
+
