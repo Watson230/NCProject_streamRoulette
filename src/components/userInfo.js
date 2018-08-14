@@ -78,14 +78,18 @@ SearchUser = () => {
                <h1 className="title">User Info</h1>
                <div className="field">
                  <label className="label subtitle">User</label>
-                 <input className="input" type="text" placeholder="user" value={this.state.user}
+                 <input className="input" type="text" placeholder="Enter Username" value={this.state.user}
                    onChange={event => { this.userInfoInputHandler(event.target.value);
                    }}/>
                </div>
 
                <div className="field">
                  <p className="control">
-                   <button className="button is-white" onClick={() => {this.SearchUser();}}>Search for User</button>
+                   <button className="button is-white" onClick={() => {
+                     if(this.state.user !== '') this.SearchUser();
+                     else alert('please enter a user name');
+                     }}>Search for User</button>
+                     
                  </p>
                </div>
 

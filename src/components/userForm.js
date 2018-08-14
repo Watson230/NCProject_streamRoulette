@@ -13,7 +13,8 @@ class UserForm extends Component {
       searchFlag: 1,
 
       userInfo: [],
-      discoverTabclass: 'is-active',
+      discoverTab: 'is-active',
+      searchTabClass: null,
       selectSearchFlag: false,
       queries: {}
 
@@ -44,11 +45,12 @@ class UserForm extends Component {
 
         if (key === 'keywords') acc = acc + `with_keywords=${this.state.queries.keywords}` + '&';
         if (key === 'year') {
-          if(parseInt(this.state.queries.year,10)< 2018) acc = acc + `primary_release_year=${parseInt(this.state.queries.year,10)}` + '&';
+          if(parseInt(this.state.queries.year,10) < 2018 && parseInt(this.state.queries.year,10) > 1980) acc = acc + `primary_release_year=${parseInt(this.state.queries.year,10)}` + '&';
+          else  acc = acc + `primary_release_year=${'2018' + '&'}`;
           return acc;
         }
         if (key === 'genre') acc = acc + `with_genres=${this.state.queries.genre.split(':')[1]}` + '&';
-        if (key === 'search') acc = acc + `term=${this.state.search}`;
+        if (key === 'search') acc = acc + `term=${this.state.queries.search}`;
         return acc;
       }, '');
 
@@ -63,15 +65,15 @@ class UserForm extends Component {
       if (tab === 'search') {
         this.setState(Object.assign({}, this.state, {
           searchFlag: num,
-          searchTabClass: 'is-active',
-          discoverTabClass: null
+          searchTab: 'is-active',
+          discoverTab: null
         }));
       }
       else {
         this.setState(Object.assign({}, this.state, {
           searchFlag: num,
-          searchTabClass: null,
-          discoverTabClass: 'is-active'
+          searchTab: null,
+          discoverTab: 'is-active'
         }));
       }
     }
@@ -166,7 +168,7 @@ class UserForm extends Component {
       return (
         <div >
           <div >
-            <div  style={{'text-align':'center', 'margin-bottom':'20px'}}>
+            <div style={{'text-align':'center', 'margin-bottom':'20px'}}>
               <button className="button is-black is-large is-rounded"
                 onClick={() => {this.userSelectSearchHandler(true);}}>Search Here</button>
             </div>
@@ -179,34 +181,29 @@ class UserForm extends Component {
                 <div className="modal-background"></div>
                 <div className="modal-card">
                   <header className="modal-card-head">
-                    <p className="modal-card-title">Search</p>
-                    <button className="delete" aria-label="close"></button>
+                    <p className="modal-card-title">Search Options</p>
+                    <button className="delete" aria-label="close" onClick={() => {this.userSelectSearchHandler(false);}}></button>
                   </header>
                   <section className="modal-card-body">
                     <div  style={{ 'width': '100%', 'height': '100%', 'margin': '0,auto' }}>
-
-                      <h1 className="is title">Search for a film</h1>
-
+                      <div className="box"> 
+                        <h1 className="is subtitle"> 1) Enter your preferred genre and release year between 1980 - 2017 with the discover tab </h1>
+                        <h1 className="is subtitle"> 2) Search for a title with the search tab</h1>
+                      </div>
                       <div className="tabs is-centered is-boxed">
                         <ul>
-                          <li className={`${this.state.discoverTabclassName}`}
+                          <li className={`${this.state.discoverTab}`}
                             onClick={() => {this.searchTabHandler(1, 'discover');}}><a>Discover</a></li>
-                          <li className={`${this.state.searchTabclassName}`}
+                          <li className={`${this.state.searchTab}`}
                             onClick={() => {this.searchTabHandler(0, 'search');}}><a>Search</a></li>
                         </ul>
                       </div>
 
                       {this.state.searchFlag > 0 ?
                         <div className="discover">
+   
                           <div className="field">
-                            <label className="label">Keywords</label>
-                            <div className="control">
-                              <input className="input" type="text" placeholder="keywords" value={this.state.queries.keywords}
-                                onChange={event => {this.userInputHandler(event.target.placeholder, event.target.value);}}/>
-                            </div>
-                          </div>
-                          <div className="field">
-                            <label className="label">genre</label>
+                            <label className="label">Genre</label>
                             <div className="field has-addons">
                               <div className="control is-expanded">
                                 <div className="select is-fullwidth">
@@ -228,23 +225,14 @@ class UserForm extends Component {
                               <input className="input" type="text" placeholder="year" value={this.state.queries.year}
                                 onChange={event => {this.userInputHandler(event.target.placeholder, event.target.value);}}/>
                             </div>
-                            <div className="field">
-                              <input className="is-checkradio" id="exampleRadioInline1" type="radio" name="exampleRadioInline" checked="checked" />
-                              <label htmlFor="exampleRadioInline1">Before</label>
-                              <input className="is-checkradio" id="exampleRadioInline2" type="radio" name="exampleRadioInline" />
-                              <label htmlFor="exampleRadioInline2">After</label>
-                              <input className="is-checkradio" id="exampleRadioInline3" type="radio" name="exampleRadioInline" />
-                              <label htmlFor="exampleRadioInline2">Only</label>
-                            </div>
+                    
                           </div>
 
                           <div className="field is-grouped">
                             <div className="control">
                               <button className="button is-link" onClick={() => {this.submitQueries();}}>Submit</button>
                             </div>
-                            <div className="control">
-                              <button className="button is-text">Cancel</button>
-                            </div>
+                  
                           </div>
                         </div>
                         :
@@ -260,9 +248,7 @@ class UserForm extends Component {
                             <div className="control">
                               <button className="button is-link" onClick={() => {this.submitQueries();}}>Submit</button>
                             </div>
-                            <div className="control">
-                              <button className="button is-text">Cancel</button>
-                            </div>
+                        
                           </div>
                         </div>
                       }
@@ -283,11 +269,11 @@ class UserForm extends Component {
                 <div className="modal-background"></div>
                 <div className="modal-card">
                   <header className="modal-card-head">
-                    <p className="modal-card-title">Search</p>
+                    <p className="modal-card-title">Search Complete</p>
                     <button className="delete" aria-label="close"></button>
                   </header>
                   <section className="modal-card-body">
-                    <p>Search complelete!</p>
+                    <p>Search complelete! See your results by clicking see results..</p>
                   </section>
                   <footer className="modal-card-foot">
                     <Link to={`/${this.state.user}/search/${this.state.queriesString}/results`}><button className="button is-success">See Results</button></Link>

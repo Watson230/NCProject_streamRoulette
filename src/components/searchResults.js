@@ -32,6 +32,7 @@ class SearchResults extends Component {
           return res.json();
         })
         .then(body => {
+         
           this.setState({
             searchResults: body.results.slice(1),
             currentFilm: body.results[0],
@@ -42,6 +43,7 @@ class SearchResults extends Component {
             getFilmUrl: false
 
           });
+          
         })
         .catch(() => {
           this.props.history.push('/404');
@@ -75,7 +77,7 @@ class SearchResults extends Component {
         recentlyDisliked: this.state.recentlyDisliked,
         getFilmUrl: false,
         endOfSearchResults: false,
-      });
+      },);
     }
 
     secondChanceLikeFilmHandler =()=>{
@@ -113,13 +115,14 @@ class SearchResults extends Component {
     }
 
     findFilm = (film) => {
+     
       fetch(`${API_URL}/film/find/${film.id}`, {
         type: 'cors'
       })
         .then(res => {
           return res.json();
         })
-        .then(body => {      
+        .then(body => {     
           if (body.length < 1)  this.postNewFilm(film);
         })
         .catch(() => {
@@ -156,16 +159,14 @@ class SearchResults extends Component {
         }),
         type: 'cors'
       })
-        .then(res => {
-
-          return res.json();
-        })
         .catch(() => {
+          
           this.props.history.push('/404');
         });
     }
 
     likedFilmUserUpdate = () => {
+      
 
       fetch(`${API_URL}/search/results/liked/${this.state.user}`, {
 
@@ -178,9 +179,6 @@ class SearchResults extends Component {
         }),
         type: 'cors'
       })
-        .then(res => {
-          return res.json();
-        })
         .then(() => {
           this.updateFilmLikes(this.state.currentFilm);
         })
@@ -242,13 +240,10 @@ class SearchResults extends Component {
      }),
      type: 'cors'
    })
-     .then(res => {
-       return res.json();
-     })
      .then(() => {
        this.updateFilmDislikes(this.state.currentFilm);
      })
-     .catch(() => {
+     .catch(() => { 
        this.props.history.push('/404');
      });
  }
@@ -412,7 +407,7 @@ render() {
               <div className="modal-card">
                 <header className="modal-card-head">
                   <p className="modal-card-title">Selected Film</p>
-                  <button className="delete" aria-label="close"></button>
+                  <button className="delete" aria-label="close" ></button>
                 </header>
                 <section className="modal-card-body">
                   {
@@ -440,7 +435,6 @@ render() {
               <div className="modal-card">
                 <header className="modal-card-head">
                   <p className="modal-card-title">Watch it Here</p>
-                  <button className="delete" aria-label="close"></button>
                 </header>
                 <section className="modal-card-body">
                   {
@@ -450,7 +444,7 @@ render() {
                           let Link;
                           if (result.url) {
                             Link = <Linkify>{result.url.split('//')[1]}</Linkify>;
-                            return <li>{`${result.name}:`}{Link}</li>;
+                            return <li>{`${result.name}: `}{Link}</li>;
                           } else return <li>Sorry this link is not available</li>;})
                       }
                     </ul>
@@ -477,7 +471,7 @@ render() {
                 <div className="modal-card">
                   <header className="modal-card-head">
                     <p className="modal-card-title">Seen nothing you like?</p>
-                    <button className="delete" aria-label="close"></button>
+                    <Link to="/"> <button className="delete" aria-label="close" ></button></Link>
                   </header>
                   <section className="modal-card-body">
                     <p>End of Search results.....</p>
