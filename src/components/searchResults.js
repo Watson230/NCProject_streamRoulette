@@ -63,7 +63,8 @@ class SearchResults extends Component {
           selectedFilm: [],
           recentlyDisliked: this.state.recentlyDisliked,
           getFilmUrl: false,
-          endOfSearchResults: true
+          endOfSearchResults: true,
+          pickFilmError :false
         });
       }
 
@@ -77,6 +78,7 @@ class SearchResults extends Component {
         recentlyDisliked: this.state.recentlyDisliked,
         getFilmUrl: false,
         endOfSearchResults: false,
+        pickFilmError :false
       },);
     }
 
@@ -249,7 +251,11 @@ class SearchResults extends Component {
  }
 
 pickFilmhandler = () => {
-  this.setState({
+
+  if(this.state.likedFilms.length<1) {
+    this.setState({pickFilmError:true})
+  }
+  else this.setState({
     searchResults: this.state.searchResults,
     currentFilm: this.state.currentFilm,
     PickFilmflag: true,
@@ -310,24 +316,25 @@ render() {
 
   return (
     <div>
-      <div>
         <NavBar />
+      <div className="container">
         <div className="columns">
-          <div style={{ 'width': '30%', 'height': '100%', 'margin-right': '100px', 'margin-left': '20px', 'margin-top': '20px' }} className="column">
+          <div style={{ 'width': '40%', 'height': '100%', 'margin-right': '100px', 'margin-left': '20px', 'margin-top': '20px' }} className="column">
             <div className="box">
-              <h1 className="title is-2" >Film Info</h1>
+              <h1 className="title is-3" >Film Info</h1>
             </div>
             <div className="box" style={{'overflow-y': 'scroll', 'height':'400px',}}>
-              <h2 className="title is-2">{this.state.currentFilm.title}</h2>               
+              <h2 className="title is-4">{this.state.currentFilm.title}</h2>               
               <p>{this.state.currentFilm.overview}</p>                 
             </div>
 
             <div className="box" style={{ 'text-align': 'right' }}>
               <div style={{ 'text-align': 'left' }}>
-                <h1 className="title is-2">{`Liked Films:${this.state.likedFilms.length}`}</h1>
+                <h1 className="title is-3">{`Liked Films:${this.state.likedFilms.length}`}</h1>
               </div>
-              <div style={{ 'text-align': 'right' }}>
+              <div style={{ 'text-align': 'center' ,"marginTop":"10px"}}>
                 <button className="button is-link" onClick={() => {this.pickFilmhandler();}}> Pick a Film!</button>
+                {this.state.pickFilmError && <p style={{"color":"red"}}>You have not liked any films!</p>} 
               </div>
             </div>
           </div>
@@ -335,10 +342,10 @@ render() {
 
           <div style={{ 'width': '600px', 'height': '800px', 'margin': '0 auto', 'margin-top': '20px' }} className="column">
             <div>
-              <div className="box">
-                <h1 className="title is-2">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
+              <div className="box" style={{ 'width': '350px' }} >
+                <h1 className="title is-3">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
               </div>
-              <div className="box">
+              <div className="box " style={{ 'width': '350px' }}>
                 <div className="content">
                   <figure className="image is-4by5">
                     <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="" />
@@ -368,7 +375,7 @@ render() {
           {this.state.recentlyDisliked?
             <div style={{ 'margin-left': '100px', 'width': '400px', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
               <div className="box">
-                <h1 className="title is-2">2nd Chance</h1>
+                <h1 className="title is-3">2nd Chance</h1>
               </div>
               <div className="box">
                 <div className="content">
@@ -384,8 +391,8 @@ render() {
             </div>
             :
             <div style={{ 'margin-left': '100px', 'width': '400px', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
-              <div className="box">
-                <h1 className="title is-2">Recently Disliked</h1>
+              <div className="box" style={{ 'width': '350px' }}>
+                <h1 className="title is-4" >Recently Disliked</h1>
               </div>
               <div className="box">
 
@@ -439,13 +446,15 @@ render() {
                 <section className="modal-card-body">
                   {
                     <ul>
-                      {
+                      {this.state.selectedUrl.length>0?
                         this.state.selectedUrl.map(result => { 
                           let Link;
                           if (result.url) {
                             Link = <Linkify>{result.url.split('//')[1]}</Linkify>;
                             return <li>{`${result.name}: `}{Link}</li>;
-                          } else return <li>Sorry this link is not available</li>;})
+                          }})
+                          :
+                          <li>No results to show</li>
                       }
                     </ul>
                   }

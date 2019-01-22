@@ -86,9 +86,9 @@ class MostDisliked extends Component {
               <div className="tile is-parent">
                 <article className="tile is-child notification is-black">
                   <div  style={{ 'text-align': 'center', 'margin-bottom': '10px' }}>
-                    <p className="title" style={{'fomt-size':'1.5rem'}}>Most Disliked</p>
+                    <p className="title" >Most Disliked</p>
                   </div>
-                  <div style={{'margin-bottom':'10px'}}>
+                  <div style={{'margin-bottom':'10px',"minHeight":"50px"}}>
                     <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                   </div>
                   <figure className="image is-4by5">

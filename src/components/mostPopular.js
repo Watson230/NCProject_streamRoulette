@@ -94,7 +94,7 @@ class MostLiked extends Component {
                   <div style={{ 'text-align': 'center','font-size': '1.5rem', 'margin-bottom': '10px' }} >  
                     <p className="title">Most Liked</p>
                   </div>
-                  <div style={{'margin-bottom':'10px'}}>
+                  <div style={{'margin-bottom':'10px',"minHeight":"50px"}}>
                     <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                   </div>  
                   <figure className="image is-4by5">

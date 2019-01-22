@@ -82,7 +82,7 @@ class MostWatched extends Component {
     render() {
 
       return (
-        <div  style={{ 'width': '120%', 'height': '100%', }} >
+        <div  style={{ 'width': '120%', 'height': '1900px', }} >
           {this.state.currentFilm ?
             <div >
               <div className="tile is-parent">
@@ -90,7 +90,7 @@ class MostWatched extends Component {
                   <div style={{ 'text-align': 'center', 'margin-bottom': '10px' }} >
                     <p className="title">Most Watched</p>
                   </div>
-                  <div style={{'margin-bottom':'10px'}}>
+                  <div style={{'margin-bottom':'10px', "minHeight":"50px"}}>
                     <p className="subtitle">{`${this.state.currentFilm.title}`}</p>
                   </div>
                   <figure className="image is-4by5">

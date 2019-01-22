@@ -26,6 +26,7 @@ class UserForm extends Component {
       const newQueries = Object.assign({}, newState.queries);
       newQueries[key] = value;
       newState.queries = newQueries;
+      console.log(newState)
       this.setState(newState);
     }
 
@@ -246,7 +247,9 @@ class UserForm extends Component {
                           </div>
                           <div className="field is-grouped">
                             <div className="control">
-                              <button className="button is-link" onClick={() => {this.submitQueries();}}>Submit</button>
+                              <button className="button is-link" 
+                              disabled={Object.keys(this.state.queries).length <1?true:false}
+                              onClick={() => {this.submitQueries();}}>Submit</button>
                             </div>
                         
                           </div>
