@@ -319,11 +319,11 @@ render() {
         <NavBar />
       <div className="container">
         <div className="columns">
-          <div style={{ 'width': '40%', 'height': '100%', 'margin-right': '100px', 'margin-left': '20px', 'margin-top': '20px' }} className="column">
+          <div style={{ 'width': '20%', 'height': '100%', 'margin-right': '100px', 'margin-left': '20px', 'margin-top': '20px' }} className="column">
             <div className="box">
               <h1 className="title is-3" >Film Info</h1>
             </div>
-            <div className="box" style={{'overflow-y': 'scroll', 'height':'400px',}}>
+            <div className="box" style={{'overflow-y': 'scroll', 'height':'450px',}}>
               <h2 className="title is-4">{this.state.currentFilm.title}</h2>               
               <p>{this.state.currentFilm.overview}</p>                 
             </div>
@@ -340,18 +340,18 @@ render() {
           </div>
 
 
-          <div style={{ 'width': '600px', 'height': '800px', 'margin': '0 auto', 'margin-top': '20px' }} className="column">
+          <div style={{ 'width': '60%', 'height': '900px', 'margin-top': '20px' }} className="column">
             <div>
-              <div className="box" style={{ 'width': '350px' }} >
+              <div className="box" >
                 <h1 className="title is-3">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
               </div>
-              <div className="box " style={{ 'width': '350px' }}>
-                <div className="content">
-                  <figure className="image is-4by5">
+              <div className="box ">
+                <div className="content"  >
+                  <figure className="image is-10by16">
                     <img src={`http://image.tmdb.org/t/p/w185//${this.state.currentFilm.poster_path}`} alt="" />
                   </figure>
                 </div>
-                <nav className="level is-mobile">
+                <nav className="level is-mobile" style={{  'margin-top': '20px' ,'margin-bottom': '20px'}} >
                   <div className="level-right">
                     <button className="level-item" className="button is-success" aria-label="reply"
                       onClick={() => { this.LikeFilmHandler(); }}>Yes</button>
@@ -373,7 +373,7 @@ render() {
 
 
           {this.state.recentlyDisliked?
-            <div style={{ 'margin-left': '100px', 'width': '400px', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
+            <div style={{ 'margin-left': '100px', 'width': '80%', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
               <div className="box">
                 <h1 className="title is-3">2nd Chance</h1>
               </div>
@@ -387,17 +387,17 @@ render() {
                 <button className="button is-success"
                   onClick={() => { this.secondChanceLikeFilmHandler();}}
                 >Like</button>
-              </div> 
+              </div>
             </div>
             :
-            <div style={{ 'margin-left': '100px', 'width': '400px', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
-              <div className="box" style={{ 'width': '350px' }}>
+            <div style={{ 'margin-left': '100px', 'width': '40%', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
+              <div className="box">
                 <h1 className="title is-4" >Recently Disliked</h1>
               </div>
               <div className="box">
 
-                <div className="content">
-                  <div style={{'text-align':'center', 'margin-top':'30px','margin-bottom':'30px'}}>
+                <div className="content" style={{'text-align':'center', 'margin-top':'30px','margin-bottom':'30px',"height":"350px"}}>
+                  <div>
                     <figure className="image is-480x480">
                       <img src='https://vignette.wikia.nocookie.net/creation/images/7/7e/Red_x.png/revision/latest/scale-to-width-down/480?cb=20160323201834' alt="" />
                     </figure>
