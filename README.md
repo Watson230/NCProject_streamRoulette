@@ -1,4 +1,4 @@
- ##Stream Roulette
+ ## Stream Roulette
 
  An interactive way for the indecisive user to consume films that they cant decide if they want to watch. Stream Roulette does the choosing for you!
 
