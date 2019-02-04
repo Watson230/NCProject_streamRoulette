@@ -321,9 +321,9 @@ render() {
         <div className="columns">
           <div style={{ 'width': '20%', 'height': '100%', 'margin-right': '100px', 'margin-left': '20px', 'margin-top': '20px' }} className="column">
             <div className="box">
-              <h1 className="title is-3" >Film Info</h1>
+              <h1 className="title is-4" >Film Info</h1>
             </div>
-            <div className="box" style={{'overflow-y': 'scroll', 'height':'450px',}}>
+            <div className="box" style={{'overflow-y': 'scroll', 'height':'350px',}}>
               <h2 className="title is-4">{this.state.currentFilm.title}</h2>               
               <p>{this.state.currentFilm.overview}</p>                 
             </div>
@@ -343,7 +343,7 @@ render() {
           <div style={{ 'width': '60%', 'height': '900px', 'margin-top': '20px' }} className="column">
             <div>
               <div className="box" >
-                <h1 className="title is-3">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
+                <h1 className="title is-4">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
               </div>
               <div className="box ">
                 <div className="content"  >
@@ -375,7 +375,7 @@ render() {
           {this.state.recentlyDisliked?
             <div style={{ 'margin-left': '100px', 'width': '80%', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
               <div className="box">
-                <h1 className="title is-3">2nd Chance</h1>
+                <h1 className="title is-4">2nd Chance</h1>
               </div>
               <div className="box">
                 <div className="content">
@@ -396,7 +396,7 @@ render() {
               </div>
               <div className="box">
 
-                <div className="content" style={{'text-align':'center', 'margin-top':'30px','margin-bottom':'30px',"height":"350px"}}>
+                <div className="content" style={{'text-align':'center', 'margin-top':'30px','margin-bottom':'30px',"height":"270px"}}>
                   <div>
                     <figure className="image is-480x480">
                       <img src='https://vignette.wikia.nocookie.net/creation/images/7/7e/Red_x.png/revision/latest/scale-to-width-down/480?cb=20160323201834' alt="" />
