@@ -316,7 +316,7 @@ render() {
 
   return (
     <div>
-        <NavBar />
+      
       <div className="container">
         <div className="columns">
           <div style={{ 'width': '20%', 'height': '100%', 'margin-right': '100px', 'margin-left': '20px', 'margin-top': '20px' }} className="column">

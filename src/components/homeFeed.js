@@ -4,58 +4,49 @@ import MostPopular from './mostPopular';
 import MostDisliked from './mostDisliked';
 import MostWatched from './mostWatched';
 import UserForm from './userForm';
+import UserInfo from './userInfo'
+import Carousel from './carousel'
 
 
-class HomeFeed extends Component {
+const HomeFeed = (props) => {
+  console.log(props)
+  return (
+    <div className="container">
+      <NavBar />
+      <div className="row">
 
-  state = {
-    userName: 'random'
-  }
-
-  render() {
-
-    return (
-      <div>
-        <div style={{ 'width': '100%' }} >
-          <NavBar />
+        <div class="card" style={{"width":"75%", "marginTop":"5%", "marginLeft":"15%"}}>
+          <div class="card-body">
+          <h3>Welcome to Stream Routlette</h3>
+          <p> Step 1 - click the search button above and search for a film based off its release year and genre.</p>
+          <p>Step 2 -  Select a few that you like the look of my 'liking' the film</p>
+          <p>Step 3 - Let us do the Picking for you!</p>
+          <p>Step 4 -Follow the URL to your chosen film on any streaming platform</p>
+  </div>
         </div>
-        <div className="container is-fluid">
-          <div className="columns" style={{ 'margin-top': '50px' }}>
-
-            <div className="column">
-              {/* <div className="box" style={{ 'margin-top': '50px', 'width': '100%',"height":"10%" }}>
-                <h3 className="title is-5">Welcome to stream routlette! </h3>
-                <p>Start your search for a film by clicking below</p>
-              </div> */}
-
-              <div style={{ 'margin-top': '50px', 'width': '100%', }}>
-                <UserForm user={this.state.userName} />
-              </div>
 
 
-            </div>
-
-            <div className="column is-four-fifths" style={{ 'margin-bottom': '100px', }}>
-
-              <div className="columns">
-
-                <div className="column" style={{ 'margin-top': '50px', 'margin-left': '20px', 'margin-right': '20px', }}>
-                  <MostWatched />
-                </div>
-                <div className="column" style={{ 'margin-top': '50px', 'margin-left': '20px', 'margin-right': '20px' }}>
-                  <MostPopular />
-                </div>
-
-                <div className="column" style={{ 'margin-top': '50px', 'margin-left': '20px', 'margin-right': '20px' }}>
-                  <MostDisliked />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    );
-  }
+      <div className="row" style={{ "marginTop": "5%" }}>
+
+
+        <div className="col-sm-4">
+          <Carousel popularFilms={props.mostPopularFilms} title='Most Popular' />
+        </div>
+        <div className="col-sm-4">
+          <Carousel popularFilms={props.mostWatchdfilms} title='Most Watched' />
+        </div>
+        <div className="col-sm-4">
+          <Carousel popularFilms={props.mostDislikedFilms} title='Most Disliked' />
+          
+        </div>
+
+
+      </div>
+
+    </div>
+  );
 }
+
 
 export default HomeFeed;

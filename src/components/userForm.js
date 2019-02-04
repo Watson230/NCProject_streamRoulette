@@ -170,10 +170,10 @@ class UserForm extends Component {
         <div >
           <div >
             <div style={{'text-align':'center', 'margin-bottom':'20px'}}>
-              <button className="button is-black is-large is-rounded"
+              <button class="btn btn-outline-success my-2 my-sm-0" 
                 onClick={() => {this.userSelectSearchHandler(true);}}>Search Here</button>
             </div>
-            <UserInfo createUser={this.CreateUser} UpdateStateUser={this.UpdateStateUser}/>
+         
           </div>
 
           {this.state.selectSearchFlag ?
