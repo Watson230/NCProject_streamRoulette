@@ -323,19 +323,11 @@ class SearchResults extends Component {
           <div className="col-sm-4">
           <div className="searchResultPageItem">
             <div className="box">
-<<<<<<< HEAD
-              <h1 className="title is-4" >Film Info</h1>
-            </div>
-            <div className="box" style={{'overflow-y': 'scroll', 'height':'350px',}}>
-              <h2 className="title is-4">{this.state.currentFilm.title}</h2>               
-              <p>{this.state.currentFilm.overview}</p>                 
-=======
               <h1 className="title is-3 searchDisplayTitle" >Film Info</h1>
             </div>
             <div className="box" style={{ 'overflow-y': 'scroll', 'height': '450px', }}>
               <h2 className="title is-4">{this.state.currentFilm.title}</h2>
               <p>{this.state.currentFilm.overview}</p>
->>>>>>> refactored-UI
             </div>
 
             <div className="box" style={{ 'text-align': 'right' }}>
@@ -350,18 +342,10 @@ class SearchResults extends Component {
             </div>
           </div>
 
-<<<<<<< HEAD
-
-          <div style={{ 'width': '60%', 'height': '900px', 'margin-top': '20px' }} className="column">
-            <div>
-              <div className="box" >
-                <h1 className="title is-4">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
-=======
           <div className="col-sm-4">
             <div className="searchResultPageItem">
             <div className="box">
               <h1 className="title is-4 searchDisplayTitle">{`Search Results: ${this.state.searchResults.length + 1}`}</h1>
->>>>>>> refactored-UI
               </div>
               <div className="box " style={{ "textAlign": 'center', 'width': '100%', 'height': 'auto', 'margin-top': '20px' }}>
 
@@ -389,42 +373,6 @@ class SearchResults extends Component {
 
           </div>
 
-<<<<<<< HEAD
-          {this.state.recentlyDisliked?
-            <div style={{ 'margin-left': '100px', 'width': '80%', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
-              <div className="box">
-                <h1 className="title is-4">2nd Chance</h1>
-              </div>
-              <div className="box">
-                <div className="content">
-                  <figure className="image is-4by5">
-                    <img src={`http://image.tmdb.org/t/p/w185//${this.state.recentlyDisliked.poster_path}`} alt="" />
-                  </figure>
-
-                </div>
-                <button className="button is-success"
-                  onClick={() => { this.secondChanceLikeFilmHandler();}}
-                >Like</button>
-              </div>
-            </div>
-            :
-            <div style={{ 'margin-left': '100px', 'width': '40%', 'margin-right': '100px', 'margin-top': '20px', }} className="column" >
-              <div className="box">
-                <h1 className="title is-4" >Recently Disliked</h1>
-              </div>
-              <div className="box">
-
-                <div className="content" style={{'text-align':'center', 'margin-top':'30px','margin-bottom':'30px',"height":"270px"}}>
-                  <div>
-                    <figure className="image is-480x480">
-                      <img src='https://vignette.wikia.nocookie.net/creation/images/7/7e/Red_x.png/revision/latest/scale-to-width-down/480?cb=20160323201834' alt="" />
-                    </figure>
-                  </div>
-                </div>
-              </div> 
-            </div>
-          }
-=======
           {this.state.recentlyDisliked ?
                             <div className="col-sm-4"  >
                             <div className="searchResultPageItem">
@@ -465,7 +413,6 @@ class SearchResults extends Component {
                         }
 
    
->>>>>>> refactored-UI
         </div>
         {
           this.state.PickFilmflag ?
