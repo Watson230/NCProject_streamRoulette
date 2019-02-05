@@ -23,6 +23,8 @@ These instructions will get you a copy of the project up and running on your loc
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
+    "reactstrap": "^7.1.0",
+    "bootstrap": "^4.2.1",
 
     
 ### Installing

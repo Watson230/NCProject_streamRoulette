@@ -13,10 +13,10 @@ const HomeFeed = (props) => {
           <div class="card" >
             <div class="card-body">
               <h3 class="title is-5" >Welcome to Stream Routlette</h3>
-              <p> 1. - click the search button and search for a film based off its release year and genre.</p>
+              <p> 1. - Click the search button and search for a film based off its release year and  genre.</p>
               <p>2. -  Select a few that you like the look of my 'liking' the film</p>
               <p>3. - Let us do the Picking for you!</p>
-              <p>4. -Follow the URL to your chosen film on any streaming platform</p>
+              <p>4. - Follow the URL to your chosen film on any streaming platform</p>
             </div>
           </div>
         </div>
