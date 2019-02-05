@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import HomeFeed from '../components/homeFeed'
+import HomeFeed from '../Views/homeFeed'
 const API_URL = 'https://safe-brook-17817.herokuapp.com/api';
 
 class MainContainer extends Component {
@@ -108,7 +108,7 @@ class MainContainer extends Component {
     render() {
 
         return (
-            <div className="container-fluid">
+            <div className="container">
                 {this.state.loaded ?
                     <HomeFeed
                         mostWatchdfilms={this.state.mostWatchedFilms}

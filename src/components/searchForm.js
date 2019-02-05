@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import UserInfo from './userInfo';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { years } from '../helpers/helpers'
 
-
-const API_URL = 'https://safe-brook-17817.herokuapp.com/api';
 class UserForm extends Component {
 
   state = {
@@ -123,7 +120,7 @@ class UserForm extends Component {
       <div >
         <div >
           <div style={{ 'text-align': 'center', 'margin-bottom': '20px', 'margin-top': '20px' }}>
-            <button class="btn btn-outline-danger my-2 my-sm-0"
+            <button class="button  is-medium is-black is-rounded"
               onClick={() => { this.userSelectSearchHandler(true); }}>Search Here</button>
           </div>
 
@@ -217,7 +214,7 @@ class UserForm extends Component {
                     }
                   </div>
                 </section>
-                <footer className="modal-card-foot">
+                <footer className="modal-card-foot" >
                   <button className="button" onClick={() => { this.userSelectSearchHandler(false); }}>Cancel</button>
                 </footer>
               </div>

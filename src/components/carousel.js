@@ -3,8 +3,6 @@ import {
     Carousel,
     CarouselItem,
     CarouselControl,
-    CarouselIndicators,
-    CarouselCaption
 } from 'reactstrap';
 
 // const items = [
@@ -25,7 +23,7 @@ import {
 //   }
 // ];
 
-class Example extends Component {
+class CarouselDisplay extends Component {
 
     state = {
         activeIndex: 0,
@@ -117,4 +115,4 @@ class Example extends Component {
 }
 
 
-export default Example;
+export default CarouselDisplay;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch,} from 'react-router-dom';
-import HomeFeed from './components/homeFeed';
 import SearchResults from './components/searchResults';
 import ErrorPage from './components/404';
 import MainContainer from './Containers/mainContainers'
@@ -12,8 +11,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="main">
-          {/* <NavBar /> */}
+      <div className=" container-fluid main">
+          <NavBar />
         <BrowserRouter>
           <Switch>
             <Route path exact ="/" component={MainContainer}/>
