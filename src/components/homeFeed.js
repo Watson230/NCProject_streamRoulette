@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 import MostPopular from './mostPopular';
 import MostDisliked from './mostDisliked';
 import MostWatched from './mostWatched';
-import UserForm from './userForm';
+import UserForm from './searchForm';
 import UserInfo from './userInfo'
 import Carousel from './carousel'
 import UrlResults from './urlResults'

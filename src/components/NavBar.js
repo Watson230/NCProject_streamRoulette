@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserForm from './userForm';
+import UserForm from './searchForm';
 
 const NavBar = () => {
 
   return (
 
 
-    <nav class="navbar navbar-light bg-dark">
+    <nav class="navbar  bg-dark">
       <div className="navbar-brand" >
-        <Link to={'/'}> <a className="navbar-item" href="https://bulma.io">
+        <Link to={'/'}> <a className="navbar-item">
           <img src="https://image.flaticon.com/icons/svg/819/819577.svg" alt="stream roulette" width="80" height="80" />
           <div>
             <h1 style={{ 'color': 'white' }}>Stream Roulette</h1>
@@ -21,8 +21,6 @@ const NavBar = () => {
           Start your search here......
         </p>
       </div>
-
-
       <div style={{ "margin":"auto"}} >
         <UserForm />
       </div>
