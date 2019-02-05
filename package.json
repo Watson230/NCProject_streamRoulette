@@ -4,15 +4,17 @@
   "private": true,
   "dependencies": {
     "babel": "^6.23.0",
+    "bootstrap": "^4.2.1",
     "bulma": "^0.7.1",
     "bulma-scss": "^0.6.0",
     "only": "0.0.2",
     "react": "^16.7.0",
-    "react-dom": "^16.3.1",
+    "react-dom": "^16.7.0",
     "react-linkify": "^0.2.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "reactstrap": "^7.1.0",
     "webpack": "^3.11.0"
   },
   "scripts": {
@@ -24,6 +26,7 @@
     "lint": " eslint ./"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.1",
     "babel-eslint": "^8.2.3",
     "eslint-plugin-fetch": "0.0.1",
     "eslint-plugin-react": "^7.8.2"
