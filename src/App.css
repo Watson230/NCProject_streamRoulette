@@ -21,8 +21,9 @@ html {
 
 #pic {
 
-  width:250px;
-  height:250px;
+  width:70%;
+  height:auto;
+
   z-index:-1;
  ;
   margin-left:15%;
