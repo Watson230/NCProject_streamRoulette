@@ -6,6 +6,7 @@ import MostWatched from './mostWatched';
 import UserForm from './userForm';
 import UserInfo from './userInfo'
 import Carousel from './carousel'
+import UrlResults from './urlResults'
 
 
 const HomeFeed = (props) => {
@@ -31,18 +32,22 @@ const HomeFeed = (props) => {
 
 
         <div className="col-sm-4">
-          <Carousel popularFilms={props.mostPopularFilms} title='Most Popular' />
+          <Carousel popularFilms={props.mostPopularFilms} title='Most Popular'    watchedFilmUrl={props.watchedFilmUrl}
+                getFilmURL={props.getFilmURL}/>
         </div>
         <div className="col-sm-4">
-          <Carousel popularFilms={props.mostWatchdfilms} title='Most Watched' />
+          <Carousel popularFilms={props.mostWatchdfilms} title='Most Watched'   watchedFilmUrl={props.watchedFilmUrl}
+                getFilmURL={props.getFilmURL} />
         </div>
         <div className="col-sm-4">
-          <Carousel popularFilms={props.mostDislikedFilms} title='Most Disliked' />
+          <Carousel popularFilms={props.mostDislikedFilms} title='Most Disliked'   watchedFilmUrl={props.watchedFilmUrl}
+                getFilmURL={props.getFilmURL}/>
           
         </div>
 
 
       </div>
+      <UrlResults flag ={props.watchNowFlag} watchedFilmUrl={props.watchedFilmUrl} watchHereHandler={props.watchHereHandler}/>
 
     </div>
   );

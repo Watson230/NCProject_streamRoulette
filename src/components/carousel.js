@@ -87,6 +87,9 @@ class Example extends Component {
                     <div>
                         <img src={item.src} alt={item.altText} className="img-thumbnail" id="pic" />
                     </div>
+                    <div style={{"textAlign":"center","width":"71%", "margin":"auto", "borderTop":"0"}}>
+                    <button  class="btn btn-light btn-lg btn-block"
+                    onClick={()=>{this.props.getFilmURL(item.caption)}}>Watch Here</button></div>
 
                 </CarouselItem>
             );
@@ -94,7 +97,7 @@ class Example extends Component {
 
         return (
             <div>
-                <div style={{"textAlign":"center"}}>
+                <div className="displayTitle">
                 <h1>{this.props.title}</h1>
                 </div>
                 <Carousel
@@ -107,8 +110,7 @@ class Example extends Component {
                     <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
                     <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
                 </Carousel>
-                <div style={{"textAlign":"center","width":"71%", "margin":"auto", "borderTop":"0"}}>
-                    <button  class="btn btn-light btn-lg btn-block">Watch Here</button></div>
+    
             </div>
         );
     }
